@@ -59,7 +59,6 @@ function generateEas() {
   saveb.style.display = "inline-block";
   addStatus("EAS Generated! Samples: " + samples.length);
   addStatus("Generated header: " + create_header_string(originator, event, locations, l, time, par));
-  drawSamples();
 }
 function gen_header() {
   var par = parinput.value;
