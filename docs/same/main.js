@@ -12,8 +12,6 @@ var att = document.getElementById("att");
 var locdiv = document.getElementById("locs");
 var locinput = document.getElementById("loc");
 var extram = document.getElementById("em");
-var canvas = document.getElementById("waveform");
-var ctx = canvas.getContext("2d");
 saveb.addEventListener("click", saveToWav);
 var NWR = 1;
 var EBS = 0;
