@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>EAS Encoder</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css">
+  <script src="https://cdn.jsdelivr.net/npm/wavefile/dist/wavefile.js"></script>
+</head>
+
+<body>
+  <label for="events">Select EAS Event Type:</label>
+  <select id="events">
+    <!-- National Events -->
+    <optgroup label="National Events">
+      <option value="EAN">Emergency Action Notification</option>
+      <option value="NIC">National Information Center</option>
+      <option value="NPT">National Periodic Test</option>
+      <option value="RMT">Required Monthly Test</option>
+      <option value="RWT">Required Weekly Test</option>
+    </optgroup>
+    <!-- State Events -->
+    <optgroup label="State Events">
+      <option value="ADR">Administrative Message</option>
+      <option value="AVW">Avalanche Warning</option>
+      <option value="AVA">Avalanche Watch</option>
+      <option value="BZW">Blizzard Warning</option>
+      <option value="BLU">Blowing Dust Advisory</option>
+      <option value="CAE">Child Abduction Emergency</option>
+      <option value="CDW">Civil Danger Warning</option>
+      <option value="CEM">Civil Emergency Message</option>
+      <option value="CFW">Contaminated Water Warning</option>
+      <option value="CFA">Coastal Flood Watch</option>
+      <option value="DSW">Dust Storm Warning</option>
+      <option value="EQW">Earthquake Warning</option>
+      <option value="EVI">Evacuation Immediate</option>
+      <option value="EWW">Extreme Wind Warning</option>
+      <option value="FRW">Fire Warning</option>
+      <option value="FFW">Flash Flood Warning</option>
+      <option value="FFA">Flash Flood Watch</option>
+      <option value="FFS">Flash Flood Statement</option>
+      <option value="FLW">Flood Warning</option>
+      <option value="FLA">Flood Watch</option>
+      <option value="FLS">Flood Statement</option>
+      <option value="HMW">Hazardous Materials Warning</option>
+      <option value="HWW">High Wind Warning</option>
+      <option value="HWA">High Wind Watch</option>
+      <option value="HUW">Hurricane Warning</option>
+      <option value="HUA">Hurricane Watch</option>
+      <option value="HLS">Hurricane Statement</option>
+      <option value="LEW">Law Enforcement Warning</option>
+      <option value="LAE">Local Area Emergency</option>
+      <option value="NMN">Network Message Notification</option>
+      <option value="TOE">911 Telephone Outage Emergency</option>
+      <option value="NUW">Nuclear Power Plant Warning</option>
+      <option value="DMO">Practice/Demo Warning</option>
+      <option value="RHW">Radiological Hazard Warning</option>
+      <option value="SVR">Severe Thunderstorm Warning</option>
+      <option value="SVA">Severe Thunderstorm Watch</option>
+      <option value="SVS">Severe Weather Statement</option>
+      <option value="SPW">Shelter In Place Warning</option>
+      <option value="SMW">Special Marine Warning</option>
+      <option value="SPS">Special Weather Statement</option>
+      <option value="SSA">Storm Surge Watch</option>
+      <option value="SSW">Storm Surge Warning</option>
+      <option value="TOR">Tornado Warning</option>
+      <option value="TOA">Tornado Watch</option>
+      <option value="TRW">Tropical Storm Warning</option>
+      <option value="TRA">Tropical Storm Watch</option>
+      <option value="TSW">Tsunami Warning</option>
+      <option value="TSA">Tsunami Watch</option>
+      <option value="VOW">Volcano Warning</option>
+      <option value="WSW">Winter Storm Warning</option>
+      <option value="WSA">Winter Storm Watch</option>
+    </optgroup>
+  </select><br>
+  <label for="originators">Select Originator:</label>
+  <select id="originators">
+    <option value="EAS">Emergency Alert System</option>
+    <option value="CIV">Civil Authorities</option>
+    <option value="WXR">National Weather Service</option>
+    <option value="PEP">Primary Entry Point</option>
+  </select>
+  <br>Time the alert is effective for:<br>
+  <label for="hr">Hr:</label>
+  <select id="hr" class="small" value="00">
+    <option value="00">00</option>
+    <option value="01">01</option>
+    <option value="02">02</option>
+    <option value="03">03</option>
+    <option value="04">04</option>
+    <option value="05">05</option>
+    <option value="06">06</option>
+    <option value="07">07</option>
+    <option value="08">08</option>
+  </select>
+  <label for="min">Min:</label>
+  <select id="min">
+    <option>00</option>
+    <option selected>15</option>
+    <option>30</option>
+    <option>45</option>
+  </select><br>
+  <label for="time">Select Start Date and Time:</label>
+  <input type="datetime-local" id="time"><br>
+  <label for="par">Sender ID(8 characters long):</label>
+  <input id="par" minlength="8" value="senderid"><br>
+  <label for="rec">Enter SAME Code(can be found <a target="_blank"
+      href="https://www.weather.gov/nwr/counties">here</a>):</label>
+  <input id="loc"><button onclick="addLoc();">Add Location</button><button onclick="pop();">Remove Last</button>
+  <div id="locs"></div>Select Attention Tone: <select id="att">
+    <option value="1">NWR Attention Tone(1050hz)</option>
+    <option value="0">EBS Attention Tones</option>
+  </select><br>Generate Extra Marks(for SAGE encooders):<input type="checkbox" id="em"><br><br>
+  <div class="control-panel">
+    <button onclick="generateEas();">Generate</button><button id="play">Play
+      Samples</button><button id="save" style="display:none;">Save as wav file</button><button onclick="resetStatus();"
+      id="clr" style="display:none;">Clear Logs</button>
+  </div>
+  <p id="status"></p><br>
+  <canvas id="waveform" width="5000" height="500"></canvas>
+  <script src="audio.js"></script>
+  <script src="utils.js"></script>
+  <script src="alert.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
