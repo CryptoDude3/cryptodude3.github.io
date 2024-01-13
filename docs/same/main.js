@@ -109,27 +109,3 @@ function count(bits) {
 }
 function addLoc() { if (locations.indexOf(parseInt(locinput.value)) < 0) { locations.push(parseInt(locinput.value)); updateLoc(); } else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
-function drawSamples() {
-  var scale = 0.01;
-  const canvasWidth = canvas.width;
-  const canvasHeight = canvas.height;
-
-  // Clear the canvas
-  ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-  // Draw a line connecting the sample points
-  ctx.beginPath();
-  ctx.moveTo(0, canvasHeight / 2);
-  samples.forEach((sample, index) => {
-    const x = (index / (samples.length - 1)) * canvasWidth * 1000;
-    const y = (sample * canvasHeight * 0.25) + canvasHeight / 2;
-    ctx.lineTo(x, y);
-  });
-
-  ctx.lineTo(canvasWidth, canvasHeight / 2);
-
-  // Style and draw the line
-  ctx.strokeStyle = 'blue';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-}
