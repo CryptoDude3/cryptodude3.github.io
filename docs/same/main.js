@@ -8,6 +8,7 @@ var statuselem = document.getElementById("status");
 var splay = document.getElementById("play");
 var saveb = document.getElementById("save");
 var clr = document.getElementById("clr");
+var tl = document.getElementById("tlen");
 var att = document.getElementById("att");
 var locdiv = document.getElementById("locs");
 var locinput = document.getElementById("loc");
@@ -25,6 +26,7 @@ var par = "SENDERID";
 var play;
 var em = false;
 var tone = NWR;
+var tlen = 10;
 updateLoc();
 function stime(){timeselect.value = getLocalDT(new Date());}
 stime();
@@ -51,6 +53,7 @@ function generateEas() {
   var originator = originators.value;
   var event = events.value;
   var min = parseInt(minselect.value);
+  tlen = parseInt(tl.value);
   var l = zero_pad_int(hr.toString() + min.toString(), 4);
   tone = parseInt(att.value);
   em = extram.checked;
