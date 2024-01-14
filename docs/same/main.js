@@ -26,7 +26,8 @@ var play;
 var em = false;
 var tone = NWR;
 updateLoc();
-timeselect.value = getLocalDT(time);
+function stime(){timeselect.value = getLocalDT(new Date());}
+stime();
 hrselect.addEventListener("change", function() {
   hr = parseInt(hrselect.value);
   minselect.innerHTML = "";
