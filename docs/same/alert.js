@@ -39,10 +39,10 @@ function create_header_string(origin, event, locations, length, date, par) {
   return h;
 }
 function create_wat() {
-  generate_dual_tone(WAT_FREQ_1, WAT_FREQ_2, SAMPLE_RATE * 10);
+  generate_dual_tone(WAT_FREQ_1, WAT_FREQ_2, SAMPLE_RATE*tlen);
 }
 function create_nwr_tone() {
-  generate_tone(1050,SAMPLE_RATE*10);
+  generate_tone(1050,SAMPLE_RATE*tlen);
 }
 function create_alert(origin, event, locations, length, date, par) {
   var h = create_header_string(origin, event, locations, length, date, par);
