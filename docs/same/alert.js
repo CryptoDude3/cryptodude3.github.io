@@ -13,6 +13,7 @@ function create_header_tones(header) {
     if (em) { extramarks(); }
     generate_afsk(he);
     if (em) { extramarks(); }
+    if (es){extraspace();}
     generate_silence(SAMPLE_RATE);
   }
 }
