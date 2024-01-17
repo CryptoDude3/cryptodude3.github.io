@@ -20,6 +20,7 @@ function genPreamble() {
   byteArray.fill(PREAMBLE);
   return byteArray;
 }
+function extraspace() { generate_afsk(Array(26).fill(0,0,26)); }
 function preamble() {
   return bytetobits(genPreamble());
 }
