@@ -62,7 +62,7 @@ function generateEas() {
   cl=clip.checked;
   create_alert(originator, event, locations, l, time, par);
   saveb.style.display = "inline-block";
-  if(cl){clipSignal(0.855);}
+  if(cl){clipSignal(0.863);}
   addStatus("EAS Generated! Samples: " + samples.length);
   addStatus("Generated header: " + create_header_string(originator, event, locations, l, time, par));
 }
