@@ -14,6 +14,7 @@ var locdiv = document.getElementById("locs");
 var locinput = document.getElementById("loc");
 var extram = document.getElementById("em");
 var clip = document.getElementById("clip");
+var spaces = document.getElementById("spaces");
 saveb.addEventListener("click", saveToWav);
 var NWR = 1;
 var EBS = 0;
@@ -25,6 +26,7 @@ var min = 15;
 var locations = [36071];
 var par = "SENDERID";
 var play;
+var es = false;
 var em = false;
 var cl = false;
 var tone = NWR;
@@ -60,6 +62,7 @@ function generateEas() {
   tone = parseInt(att.value);
   em = extram.checked;
   cl=clip.checked;
+  es=spaces.checked;
   create_alert(originator, event, locations, l, time, par);
   saveb.style.display = "inline-block";
   if(cl){clipSignal(0.79);}
