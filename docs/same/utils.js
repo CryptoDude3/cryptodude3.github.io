@@ -67,7 +67,7 @@ function rawGen(str) {
   }
   return byteData;
 }
-function clipSignal(t){samples=samples.map(e=>{if(e>t){e=t;}return e;});}
+function clipSignal(t){samples=samples.map(e=>{if(Math.abs(e)>t){e=(e>0)?t:-t;}return e;});}
 function getMinNodes() {
   var m = [0, 15, 30, 45]; if (hr > 0) {
     var m = [0, 30];
