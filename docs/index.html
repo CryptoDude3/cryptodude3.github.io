@@ -7,7 +7,7 @@
     var gameInstance = UnityLoader.instantiate("gameContainer", "Build/slope.json", {onProgress: UnityProgress, Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
     var pass = "benismart", pass2 = "cciscute", ind = 0, ind2 = 0, hacks = false;
     document.addEventListener("keydown", function (e) {if (e.key === pass[ind]) {ind++;} else {ind = 0;} if (e.key === pass2[ind2]) {ind2++;} else {ind2 = 0;} if (ind === pass.length || ind2 === pass2.length) {if (!hacks) {alert("Hacks Enabled"); enableHacks(); hacks = true;} } });
-    function enableHacks() {var view = new Uint32Array(gameInstance.Module.wasmMemory.buffer); document.addEventListener("keypress", function (e) {if(e.key==="i"){kp=true;}if(e.key==="Enter" && kp){kp=false;}if(kp){if(parseInt(e.key)!=NaN){
+    function enableHacks() {var view = new Uint32Array(gameInstance.Module.wasmMemory.buffer); document.addEventListener("keypress", function (e) {if(e.key==="i"){kp=true;view[7674510]=0;}if(e.key==="Enter" && kp){kp=false;}if(kp){if(parseInt(e.key)!=NaN){
 view[7674510] = parseInt(view[7674510].toString()+e.key);}}if(hacks && !kp){switch (e.key) {case "5": view[7674510]*=2;break;case ";":hacks=false;break;case "j": view[7674510]--; break; case "k": view[7674510]++; break; case "2": view[7674510] += 2; break; case "3": view[7674510] = 2147483620; break; case "0": view[7674510] = 0; break}}})}
   </script>
 </head>
