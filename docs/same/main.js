@@ -120,7 +120,7 @@ function count(bits) {
   return result;
 }
 function addLoc() {var t = parseInt(stateselect.value.toString() + countyselect.value.toString()); if (t) < 0) {
-  locations.push(t);
+  locations.push(t);updateTable();
 } else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
 function updateTable(){
