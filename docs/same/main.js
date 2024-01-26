@@ -119,8 +119,8 @@ function count(bits) {
 
   return result;
 }
-function addLoc() { if (locations.indexOf(parseInt(locinput.value)) < 0) {
-  locations.push(parseInt(stateselect.value.toString() + countyselect.value.toString()));
+function addLoc() {var t = parseInt(stateselect.value.toString() + countyselect.value.toString()); if (t) < 0) {
+  locations.push(t);
 } else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
 function updateTable(){
@@ -142,3 +142,7 @@ fcont.appendChild(tr);
 }
 }
 updateTable();
+//very poorly formatted code below, beware!
+stateselect.innerHTML = "";stateselect.addEventListener("change",function(){
+    updateCounties(stateselect.value);
+});Object.keys(state).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = state[e];option.setAttribute("value",e);stateselect.appendChild(option);});function updateCounties(state){countyselect.innerHTML = "";Object.keys(county[state]).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = county[state][e];option.setAttribute("value",e);countyselect.appendChild(option);});}updateCounties("01");
