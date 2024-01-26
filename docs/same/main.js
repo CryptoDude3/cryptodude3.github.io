@@ -17,6 +17,7 @@ var clip = document.getElementById("clip");
 var stateselect = document.getElementById("stateselect");
 var countyselect = document.getElementById("countyselect");
 var spaces = document.getElementById("spaces");
+var regionselect = document.getElementById("rgselect");
 saveb.addEventListener("click", saveToWav);
 var NWR = 1;
 var EBS = 0;
