@@ -35,3 +35,53 @@ function afskdemod(signal, samplingFreq) {
 
     return y;
 }
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  border: 2px solid black;
+  font-size: 1.1em;
+}
+table td {
+  border: 2px solid black;
+}
+.title {
+font-weight: bold;
+}
+.entry {
+cursor: pointer;
+user-select: none;
+}
+</style>
+</head>
+<body>
+<table id="fips">
+<tbody>
+<tr class="title"><td>Location</td><td>FIPS Code</td></tr>
+</tbody>
+<tbody id="container"></tbody>
+</table>
+<script>
+var locations = [22121,22123,25125];
+function updateTable(){
+var fcont = document.getElementById("container");
+var fipstable = document.getElementById("fips");
+fcont.innerHTML = "";
+for (var i = 0;i<locations.length;i++){
+var tr = document.createElement("tr");
+var c = document.createElement("td");
+var l = document.createElement("td");
+c.innerText = locations[i];l.innerText="Parsed";tr.appendChild(l);tr.appendChild(c);
+tr.setAttribute("class","entry");
+tr.setAttribute("data-val",i.toString());
+tr.addEventListener("click",function(e){locations.splice(parseInt(e.srcElement.parentElement.getAttribute("data-val")),1);updateTable();});
+fcont.appendChild(tr);
+}
+}
+updateTable();
+</script>
+</body>
+</html>
+
