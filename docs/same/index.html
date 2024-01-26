@@ -42,7 +42,7 @@
     <option value="SSA">Storm Surge Watch</option>
     <option value="SSW">Storm Surge Warning</option>
     <option value="TOA">Tornado Watch</option>
-    <option value="TOR">Tornado Warning</option>
+    <option value="TOR" selected>Tornado Warning</option>
     <option value="TRA">Tropical Storm Watch</option>
     <option value="TRW">Tropical Storm Warning</option>
     <option value="TSA">Tsunami Watch</option>
@@ -81,7 +81,7 @@
     <option value="EAS">Emergency Alert System</option>
     <option value="EAN">Emergency Action Notification Network</option>
     <option value="CIV">Civil Authorities</option>
-    <option value="WXR">National Weather Service</option>
+    <option value="WXR" selected>National Weather Service</option>
     <option value="PEP">Primary Entry Point</option>
   </select>
   <br>Time the alert is effective for:<br>
@@ -100,9 +100,9 @@
   <label for="min">Min:</label>
   <select id="min">
     <option>00</option>
-    <option selected>15</option>
+    <option>15</option>
     <option>30</option>
-    <option>45</option>
+    <option selected>45</option>
   </select><br>
   <label for="time">Select Start Date and Time:</label>
   <input type="datetime-local" id="time"><button onclick="stime();">Now</button><br>
@@ -117,7 +117,7 @@
 <tbody id="container"></tbody>
 </table>
   <div id="locs"></div>Select Attention Tone: <select id="att">
-    <option value="1">NWR Attention Tone(1050hz)</option>
+    <option value="1" selected>NWR Attention Tone(1050hz)</option>
     <option value="0">EBS Attention Tones</option>
   </select><br>Attention tone time(8-25sec): <input type="number" id="tlen" min="8" max="25" value="10"><br>Generate Extra Marks(for SAGE encooders):<input type="checkbox" id="em"><br>Generate Extra Spaces(for NWR encoding):<input type="checkbox" id="spaces" checked><br>Clip Signal(for authenticity):<input type="checkbox" id="clip" checked><br><br>
   <div class="control-panel">
