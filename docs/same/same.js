@@ -1,3 +1,15 @@
+var rgn = {
+    '0': 'None',
+    '1': 'Northwest',
+    '2': 'North Central',
+    '3': 'Northeast',
+    '4': 'West Central',
+    '5': 'Central',
+    '6': 'East Central',
+    '7': 'Southwest',
+    '8': 'South Central',
+    '9': 'Southeast',
+}
 var state={
   "10": "DE",
   "11": "DC",
