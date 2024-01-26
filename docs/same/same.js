@@ -70,7 +70,7 @@ var state={
   "08": "CO",
   "09": "CT"
 };var county = {
-  "00": {"000":"The Whole United States"}
+  "00": {"000":"The Whole United States"},
   "10": {
     "001": "Kent County",
     "003": "New Castle County",
