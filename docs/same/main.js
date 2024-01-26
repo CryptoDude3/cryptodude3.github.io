@@ -119,7 +119,6 @@ function count(bits) {
 }
 function addLoc() { if (locations.indexOf(parseInt(locinput.value)) < 0) { locations.push(parseInt(locinput.value)); updateLoc(); } else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
-var locations = [22121,22123,25125];
 function updateTable(){
 var fcont = document.getElementById("container");
 var fipstable = document.getElementById("fips");
@@ -127,8 +126,11 @@ fcont.innerHTML = "";
 for (var i = 0;i<locations.length;i++){
 var tr = document.createElement("tr");
 var c = document.createElement("td");
+var s = document.createElement("td");
 var l = document.createElement("td");
-c.innerText = locations[i];l.innerText="Parsed";tr.appendChild(l);tr.appendChild(c);
+var st = locations[i].toString().slice(0,2);
+var co = locations[i].toString().slice(3,5)
+c.innerText = locations[i];l.innerText=county[st][co];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(c);
 tr.setAttribute("class","entry");
 tr.setAttribute("data-val",i.toString());
 tr.addEventListener("click",function(e){locations.splice(parseInt(e.srcElement.parentElement.getAttribute("data-val")),1);updateTable();});
