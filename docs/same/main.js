@@ -130,11 +130,11 @@ var s = document.createElement("td");
 var l = document.createElement("td");
 var st = locations[i].toString().slice(0,2);
 var co = locations[i].toString().slice(2,5);
-c.innerText = locations[i];l.innerText=county[st][co];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(c);
+c.innerText = zero_pad_int(locations[i].toString(), 6);l.innerText=county[st][co];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(c);
 tr.setAttribute("class","entry");
 tr.setAttribute("data-val",i.toString());
 tr.addEventListener("click",function(e){locations.splice(parseInt(e.srcElement.parentElement.getAttribute("data-val")),1);updateTable();});
 fcont.appendChild(tr);
 }
 }
-//updateTable();
+updateTable();
