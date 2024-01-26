@@ -1,19 +1,9 @@
 <head>
   <meta name="google-site-verification" content="M12m2cUucjtuM5XZ3orcBdB66c4hVLGc8eo0nbqF3ew" />
-  <link rel="stylesheet" href="TemplateData/style.css">
-  <script src="TemplateData/UnityProgress.js"></script>
-  <script src="TemplateData/unityloader41.js"></script>
-  <script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/slope.json", {onProgress: UnityProgress, Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
-    var pass = "benismart", pass2 = "cciscute", ind = 0, ind2 = 0, hacks = false;
-    document.addEventListener("keydown", function (e) {if (e.key === pass[ind]) {ind++;} else {ind = 0;} if (e.key === pass2[ind2]) {ind2++;} else {ind2 = 0;} if (ind === pass.length || ind2 === pass2.length) {if (!hacks) {alert("Hacks Enabled"); enableHacks(); hacks = true;} } });
-    function enableHacks() {kp=false;var view = new Uint32Array(gameInstance.Module.wasmMemory.buffer); document.addEventListener("keypress", function (e) {if(e.key==="i"){kp=true;view[7674510]=0;}if(e.key==="Enter" && kp){kp=false;}if(kp){if(parseInt(e.key)!=NaN){
-view[7674510] = parseInt(view[7674510].toString()+e.key);}}if(hacks && !kp){switch (e.key) {case "5": view[7674510]*=2;break;case ";":hacks=false;break;case "j": view[7674510]--; break; case "k": view[7674510]++; break; case "2": view[7674510] += 2; break; case "3": view[7674510] = 2147483620; break; case "0": view[7674510] = 0; break}}})}
-  </script>
 </head>
-
 <body style="margin: 0; overflow: hidden;">
-  <div class="webgl-content">
-    <div id="gameContainer" style="width: 100%; height: 100%; margin: 0;"></div>
-  </div>
+<h1>Links n stuff</h1><br>
+<a href="slope.html">Slope</a><br>
+<a href="./same">SAME Encoder</a><br>
+<a href="./web">sm64</a>
 </body>
