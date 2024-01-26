@@ -129,7 +129,7 @@ var c = document.createElement("td");
 var s = document.createElement("td");
 var l = document.createElement("td");
 var st = locations[i].toString().slice(0,2);
-var co = locations[i].toString().slice(3,5)
+var co = locations[i].toString().slice(2,5);
 c.innerText = locations[i];l.innerText=county[st][co];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(c);
 tr.setAttribute("class","entry");
 tr.setAttribute("data-val",i.toString());
