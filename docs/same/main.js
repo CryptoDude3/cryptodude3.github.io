@@ -27,6 +27,7 @@ var originator = "EAS";
 var hr = 0;
 var min = 15;
 var locations = ["036071"];
+if(localStorage["locs"]){locations=localStorage["locs"];} else {localStorage["locs"]=locations;}
 var par = "SENDERID";
 var play;
 var es = false;
@@ -121,7 +122,7 @@ function count(bits) {
   return result;
 }
 function addLoc() {var t = regionselect.value.toString() + stateselect.value.toString() + countyselect.value.toString(); if (locations.indexOf(t) < 0) {
-  locations.push(t);updateTable();
+  locations.push(t);localStorage["locs"] = locations;updateTable();
 } else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
 function updateTable(){
