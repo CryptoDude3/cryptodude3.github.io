@@ -14,6 +14,8 @@ var locdiv = document.getElementById("locs");
 var locinput = document.getElementById("loc");
 var extram = document.getElementById("em");
 var clip = document.getElementById("clip");
+var stateselect = document.getElementById("stateselect");
+var countyselect = document.getElementById("countyselect");
 var spaces = document.getElementById("spaces");
 saveb.addEventListener("click", saveToWav);
 var NWR = 1;
@@ -117,7 +119,9 @@ function count(bits) {
 
   return result;
 }
-function addLoc() { if (locations.indexOf(parseInt(locinput.value)) < 0) { locations.push(parseInt(locinput.value)); updateLoc(); } else { addStatus("You can't add the same location code twice!"); } }
+function addLoc() { if (locations.indexOf(parseInt(locinput.value)) < 0) {
+  locations.push(parseInt(stateselect.value.toString() + countyselect.value.toString()));
+} else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
 function updateTable(){
 var fcont = document.getElementById("container");
