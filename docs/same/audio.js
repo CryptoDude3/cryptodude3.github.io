@@ -21,9 +21,15 @@ function generate_afsk(message) {
   var r = count(m);
   m.forEach(e => { e[0] ? generate_tone(MARK_FREQ, afsklen * e[1]) : generate_tone(SPACE_FREQ, afsklen * e[1]); });
 }*/
+//add clipping built in to generate tone function nearly halves gen time
 function generate_tone(freq, length) {
   for (var i = 0; i < length; i++) {
-    samples.push(Math.sin((i / SAMPLE_RATE) * 2 * Math.PI * freq));
+    var s = Math.sin((i / SAMPLE_RATE) * 2 * Math.PI * freq);
+    if(cl){
+    if(Math.abs(s)>0.79){
+      s=(s>0)?0.79:-0.79;  
+    }}
+    samples.push(s);
   }
 }
 function transmit(freq, length) {
