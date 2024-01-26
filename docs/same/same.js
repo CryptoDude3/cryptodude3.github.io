@@ -11,6 +11,7 @@ var rgn = {
     '9': 'Southeast',
 }
 var state={
+  "00": "US",
   "10": "DE",
   "11": "DC",
   "12": "FL",
@@ -69,6 +70,7 @@ var state={
   "08": "CO",
   "09": "CT"
 };var county = {
+  "00": {"000":"The Whole United States"}
   "10": {
     "001": "Kent County",
     "003": "New Castle County",
