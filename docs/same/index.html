@@ -108,9 +108,12 @@
   <input type="datetime-local" id="time"><button onclick="stime();">Now</button><br>
   <label for="par">Sender ID(8 characters long):</label>
   <input id="par" minlength="8" value="senderid"><br>
-  <label for="rec">Enter SAME Code(can be found <a target="_blank"
-      href="https://www.weather.gov/nwr/counties">here</a>):</label>
-  <input id="loc"><button onclick="addLoc();">Add Location</button><button onclick="pop();">Remove Last</button>
+  <table id="fips">
+<tbody>
+<tr class="title"><td>County</td><td>State</td><td>FIPS Code</td></tr>
+</tbody>
+<tbody id="container"></tbody>
+</table>
   <div id="locs"></div>Select Attention Tone: <select id="att">
     <option value="1">NWR Attention Tone(1050hz)</option>
     <option value="0">EBS Attention Tones</option>
