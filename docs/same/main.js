@@ -25,7 +25,7 @@ var event = "EAN";
 var originator = "EAS";
 var hr = 0;
 var min = 15;
-var locations = [36071];
+var locations = ["036071"];
 var par = "SENDERID";
 var play;
 var es = false;
@@ -92,14 +92,14 @@ function resetStatus() {
   statuselem.innerHTML = "";
   clr.style.display = "none";
 }
-function updateLoc() {
+/*function updateLoc() {
   var i = "Locations: ";
   for (var j = 0; j < locations.length; j++) {
     i += zero_pad_int(locations[j].toString(), 6);
     if (!(j === locations.length - 1)) { i += ","; }
   }
   locs.innerHTML = i;
-}
+}*/
 function count(bits) {
   let result = [];
   let currentBit = bits[0];
@@ -119,7 +119,7 @@ function count(bits) {
 
   return result;
 }
-function addLoc() {var t = parseInt(stateselect.value.toString() + countyselect.value.toString()); if (locations.indexOf(t) < 0) {
+function addLoc() {var t = stateselect.value.toString() + countyselect.value.toString(); if (locations.indexOf(t) < 0) {
   locations.push(t);updateTable();
 } else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
@@ -132,9 +132,9 @@ var tr = document.createElement("tr");
 var c = document.createElement("td");
 var s = document.createElement("td");
 var l = document.createElement("td");
-var st = locations[i].toString().slice(0,2);
-var co = locations[i].toString().slice(2,5);
-c.innerText = zero_pad_int(locations[i].toString(), 6);l.innerText=county[st][co];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(c);
+var st = locations[i].slice(1,3);
+var co = locations[i].slice(3,6);
+c.innerText = locations[i];l.innerText=county[st][co];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(c);
 tr.setAttribute("class","entry");
 tr.setAttribute("data-val",i.toString());
 tr.addEventListener("click",function(e){locations.splice(parseInt(e.srcElement.parentElement.getAttribute("data-val")),1);updateTable();});
