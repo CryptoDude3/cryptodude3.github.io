@@ -137,7 +137,7 @@ var r = document.createElement("td");
 var st = locations[i].slice(1,3);
 var co = locations[i].slice(3,6);
 var re = locations[i].charAt(0);
-c.innerText = locations[i];l.innerText=county[st][co];r.innerText="re";s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(r);tr.appendChild(c);
+c.innerText = locations[i];l.innerText=county[st][co];r.innerText=rgs[re];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(r);tr.appendChild(c);
 tr.setAttribute("class","entry");
 tr.setAttribute("data-val",i.toString());
 tr.addEventListener("click",function(e){locations.splice(parseInt(e.srcElement.parentElement.getAttribute("data-val")),1);updateTable();});
