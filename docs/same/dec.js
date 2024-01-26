@@ -35,6 +35,15 @@ function afskdemod(signal, samplingFreq) {
 
     return y;
 }
+var s = [];
+var last;
+for(var i = 0;i<samples.length;++i){
+    var sa = samples[i];
+    if(sa!=last){
+        s.push(i);
+    }
+    last = sa;
+}
 <!DOCTYPE html>
 <html>
 <head>
