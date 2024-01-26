@@ -84,4 +84,8 @@ updateTable();
 </script>
 </body>
 </html>
+    
+<br>State: <select id="stateselect"></select> County: <select id="countyselect"></select>
+  <button onclick="addLoc();">Add</button>
 
+stateselect.innerHTML = "";stateselect.addEventListener("change",function(e){});Object.keys(state).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = state[e];option.setAttribute("value",e);stateselect.appendChild(option);})
