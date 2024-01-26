@@ -39,7 +39,12 @@ function transmit(freq, length) {
 }
 function generate_dual_tone(freq1, freq2, length) {
   for (var i = 0; i < length; i++) {
-    samples.push(0.5 * Math.sin((i * 2 * Math.PI * freq1) / SAMPLE_RATE) + 0.5 * Math.sin((i * 2 * Math.PI * freq2) / SAMPLE_RATE));
+    var s = 0.5 * Math.sin((i * 2 * Math.PI * freq1) / SAMPLE_RATE) + 0.5 * Math.sin((i * 2 * Math.PI * freq2) / SAMPLE_RATE);
+          if(cl){
+    if(Math.abs(s)>0.79){
+      s=(s>0)?0.79:-0.79;  
+    }}
+    samples.push(s);
   }
 }
 function generate_silence(length) { generate_tone(0, length); }
