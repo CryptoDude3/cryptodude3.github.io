@@ -33,7 +33,7 @@ var em = false;
 var cl = false;
 var tone = NWR;
 var tlen = 10;
-updateLoc();
+//updateLoc();
 function stime(){timeselect.value = getLocalDT(new Date());}
 stime();
 hrselect.addEventListener("change", function() {
