@@ -11,7 +11,7 @@ var WAT_FREQ_1 = 853;
 var WAT_FREQ_2 = 960;
 var EOM = "NNNN";
 var HEADER = "ZCZC";
-var PREAMBLE = 0xD5;
+var PREAMBLE = 0xD5;//0xab read from lsb to msb
 var samples = [];
 var afsklen = SAMPLE_RATE * 0.00192;
 function generate_afsk(message) {
