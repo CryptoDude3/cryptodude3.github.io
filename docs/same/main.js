@@ -120,7 +120,7 @@ function count(bits) {
 
   return result;
 }
-function addLoc() {var t = stateselect.value.toString() + countyselect.value.toString(); if (locations.indexOf(t) < 0) {
+function addLoc() {var t = regionselect.value.toString() + stateselect.value.toString() + countyselect.value.toString(); if (locations.indexOf(t) < 0) {
   locations.push(t);updateTable();
 } else { addStatus("You can't add the same location code twice!"); } }
 function pop() { locations.pop(); updateLoc(); }
@@ -133,9 +133,11 @@ var tr = document.createElement("tr");
 var c = document.createElement("td");
 var s = document.createElement("td");
 var l = document.createElement("td");
+var r = document.createElement("td");
 var st = locations[i].slice(1,3);
 var co = locations[i].slice(3,6);
-c.innerText = locations[i];l.innerText=county[st][co];s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(c);
+var re = locations[i].charAt(0);
+c.innerText = locations[i];l.innerText=county[st][co];r.innerText="re";s.innerText=state[st];tr.appendChild(l);tr.appendChild(s);tr.appendChild(r);tr.appendChild(c);
 tr.setAttribute("class","entry");
 tr.setAttribute("data-val",i.toString());
 tr.addEventListener("click",function(e){locations.splice(parseInt(e.srcElement.parentElement.getAttribute("data-val")),1);updateTable();});
@@ -147,3 +149,4 @@ updateTable();
 stateselect.innerHTML = "";stateselect.addEventListener("change",function(){
     updateCounties(stateselect.value);
 });Object.keys(state).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = state[e];option.setAttribute("value",e);stateselect.appendChild(option);});function updateCounties(state){countyselect.innerHTML = "";Object.keys(county[state]).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = county[state][e];option.setAttribute("value",e);countyselect.appendChild(option);});}updateCounties("01");
+regionselect.innerHTML = "";Object.keys(rgn).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = rgn[e];option.setAttribute("value",e);regionselect.appendChild(option);});
