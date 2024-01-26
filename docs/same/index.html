@@ -109,7 +109,7 @@
   <label for="par">Sender ID(8 characters long):</label>
   <input id="par" minlength="8" value="senderid">
   <br>State: <select id="stateselect"></select> County: <select id="countyselect"></select>
-  <button onclick="addLoc();">Add</button>
+  <button onclick="addLoc();">Add</button>(Click to remove)
   <table id="fips">
 <tbody>
 <tr class="title"><td>County</td><td>State</td><td>FIPS Code</td></tr>
@@ -125,7 +125,7 @@
       Samples</button><button id="save" style="display:none;">Save as wav file</button><button onclick="resetStatus();"
       id="clr" style="display:none;">Clear Logs</button>
   </div>
-  <p id="status"></p><br><div>Credit goes to: <a href="https://github.com/nicksmadscience/eas-same-encoder">nicksmadscience same encoder python</a> and  <a href="https://github.com/Mab879/eas_encoder">Mab879 C++ same encoder</a></div>
+  <p id="status"></p><br><div>Credit goes to: <a href="https://github.com/nicksmadscience/eas-same-encoder">nicksmadscience same encoder python</a> and  <a href="https://github.com/Mab879/eas_encoder">Mab879 C++ same encoder</a> and <a href="https://anon64.bitkit.us/eas-gen/">Anon64(?) EAS Header Generator(for click to remove idea)</a></div>
   <script src="same.js"></script>
   <script src="audio.js"></script>
   <script src="utils.js"></script>
