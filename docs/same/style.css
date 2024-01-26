@@ -10,3 +10,18 @@ html {
 .control-panel button {
   display: inline-block;
 }
+table {
+  border-collapse: collapse;
+  border: 2px solid black;
+  font-size: 1.1em;
+}
+table td {
+  border: 2px solid black;
+}
+.title {
+font-weight: bold;
+}
+.entry {
+cursor: pointer;
+user-select: none;
+}
