@@ -3,73 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-    }
-
-    h1, h2 {
-        color: #333;
-    }
-
-    #originalSoundboard,
-    #newSoundboard {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .button {
-        margin: 10px;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        cursor: pointer;
-        border: none;
-        border-radius: 5px;
-    }
-
-    .button:hover {
-        background-color: #45a049;
-    }
-</style>
-
     <title>Combined Soundboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            margin: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        .playing {
+            background-color: #ff0000;
+        }
+    </style>
 </head>
 <body>
-    <h1>Soundboard</h1>
+    <h1>Combined Soundboard</h1>
+
+    <h2>Notification Sounds</h2>
+    <div id="notificationSounds" class="section">
+        <!-- Notification Sounds buttons will be added here dynamically using JavaScript -->
+    </div>
 
     <h2>Ringtones</h2>
-    <div id="originalSoundboard">
-        <!-- Original sound buttons will be added here dynamically using JavaScript -->
+    <div id="ringtones" class="section">
+        <!-- Ringtones buttons will be added here dynamically using JavaScript -->
     </div>
 
-    <h2>Phone Sounds</h2>
-    <div id="newSoundboard">
-        <!-- New sound buttons will be added here dynamically using JavaScript -->
+    <h2>General Sounds</h2>
+    <div id="generalSounds" class="section">
+        <!-- General Sounds buttons will be added here dynamically using JavaScript -->
     </div>
 
-    <script src="soundboard.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const originalSoundFiles = [
-                'Aurora.mp3',
-                'Bamboo.mp3',
-                'Chord.mp3',
-                'Circles.mp3',
-                'Complete.mp3',
-                'Hello.mp3',
-                'Input.mp3',
-                'Keys.mp3',
-                'Note.mp3',
-                'Popcorn.mp3',
-                'Pulse.mp3',
-                'Synth.mp3'
+            const notificationSoundFiles = [
+                'Alarm.mp3',
+                'Beacon.mp3',
+                'Bulletin.mp3',
+                'Constellation.mp3',
+                'Digital.mp3',
+                'Hillside.mp3',
+                'Night Owl.mp3',
+                'Piano Riff.mp3',
+                'Radar.mp3',
+                'Sci-Fi.mp3',
+                'Slow Rise.mp3',
+                'Summit.mp3',
+                'Twinkle.mp3'
             ];
 
-            const newSoundFiles = [
+            const ringtoneFiles = [
+                'Apex.mp3',
+                'Bell Tower.mp3',
+                'By The Seaside.mp3',
+                'Cosmic.mp3',
+                'Doorbell.mp3',
+                'Illuminate.mp3',
+                'Old Car Horn.mp3',
+                'Pinball.mp3',
+                'Radiate.mp3',
+                'Sencha.mp3',
+                'Sonar.mp3',
+                'Timba.mp3',
+                'Uplift.mp3',
+                'Ascending.mp3',
+                'Blues.mp3',
+                'Chimes.mp3',
+                'Crickets.mp3',
+                'Duck.mp3',
+                'Marimba.mp3',
+                'Old Phone.mp3',
+                'Playtime.mp3',
+                'Ripples.mp3',
+                'Signal.mp3',
+                'Stargaze.mp3',
+                'Time Passing.mp3',
+                'Waves.mp3',
+                'Bark.mp3',
+                'Boing.mp3',
+                'Circuit.mp3',
+                'Crystals.mp3',
+                'Harp.mp3',
+                'Motorcycle.mp3',
+                'Opening.mp3',
+                'Presto.mp3',
+                'Robot.mp3',
+                'Silk.mp3',
+                'Strum.mp3',
+                'Trill.mp3',
+                'Xylophone.mp3'
+            ];
+
+            const generalSoundFiles = [
                 './general/3rd_party_critical.mp3',
                 './general/connect_power.mp3',
                 './general/focus_change_keyboard.mp3',
@@ -137,33 +186,55 @@
                 './general/Swish.mp3'
             ];
 
-            const originalSoundboard = document.getElementById('originalSoundboard');
-            const newSoundboard = document.getElementById('newSoundboard');
+            const notificationSoundsSection = document.getElementById('notificationSounds');
+            const ringtonesSection = document.getElementById('ringtones');
+            const generalSoundsSection = document.getElementById('generalSounds');
 
-            originalSoundFiles.forEach(soundFile => {
+            const audioElements = [];
+
+            function createButton(parentElement, soundFile, category) {
                 const button = document.createElement('button');
                 button.classList.add('button');
                 button.innerText = soundFile.replace('.mp3', '');
                 button.addEventListener('click', function () {
-                    playSound(`./original/${soundFile}`);
+                    toggleSound(soundFile, button, category);
                 });
-                originalSoundboard.appendChild(button);
-            });
-
-            newSoundFiles.forEach(soundFile => {
-                const button = document.createElement('button');
-                button.classList.add('button');
-                button.innerText = soundFile.split('/').pop().replace('.mp3', '');
-                button.addEventListener('click', function () {
-                    playSound(soundFile);
-                });
-                newSoundboard.appendChild(button);
-            });
-
-            function playSound(filename) {
-                const audio = new Audio(filename);
-                audio.play();
+                parentElement.appendChild(button);
             }
+
+            function toggleSound(filename, button, category) {
+                const audio = new Audio(filename);
+
+                if (!audioElements.includes(audio)) {
+                    audioElements.push(audio);
+                    audio.addEventListener('ended', function () {
+                        button.innerText = filename.replace('.mp3', '');
+                        button.classList.remove('playing');
+                    });
+                    audio.play();
+                    button.innerText = 'Stop';
+                    button.classList.add('playing');
+                } else {
+                    const index = audioElements.indexOf(audio);
+                    audioElements.splice(index, 1);
+                    audio.pause();
+                    audio.currentTime = 0;
+                    button.innerText = filename.replace('.mp3', '');
+                    button.classList.remove('playing');
+                }
+            }
+
+            notificationSoundFiles.sort().forEach(soundFile => {
+                createButton(notificationSoundsSection, soundFile, 'notificationSounds');
+            });
+
+            ringtoneFiles.sort().forEach(soundFile => {
+                createButton(ringtonesSection, soundFile, 'ringtones');
+            });
+
+            generalSoundFiles.sort().forEach(soundFile => {
+                createButton(generalSoundsSection, soundFile, 'generalSounds');
+            });
         });
     </script>
 </body>
