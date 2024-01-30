@@ -3,7 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+    }
+
+    h1, h2 {
+        color: #333;
+    }
+
+    #originalSoundboard,
+    #newSoundboard {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .button {
+        margin: 10px;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+</style>
     <title>Combined Soundboard</title>
 </head>
 <body>
@@ -11,8 +42,6 @@
     <div id="soundboard">
         <!-- Sound buttons will be added here dynamically using JavaScript -->
     </div>
-
-    <script src="soundboard.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const soundFiles = [
