@@ -43,14 +43,9 @@
 <body>
     <h1>Combined Soundboard</h1>
 
-    <h2>Notification Sounds</h2>
-    <div id="notificationSounds" class="section">
-        <!-- Notification Sounds buttons will be added here dynamically using JavaScript -->
-    </div>
-
     <h2>Ringtones</h2>
-    <div id="ringtones" class="section">
-        <!-- Ringtones buttons will be added here dynamically using JavaScript -->
+    <div id="alerts" class="section">
+        <!-- Alerts buttons will be added here dynamically using JavaScript -->
     </div>
 
     <h2>General Sounds</h2>
@@ -60,7 +55,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const notificationSoundFiles = [
+            const alertSoundFiles = [
                 'Alarm.mp3',
                 'Beacon.mp3',
                 'Bulletin.mp3',
@@ -73,10 +68,7 @@
                 'Sci-Fi.mp3',
                 'Slow Rise.mp3',
                 'Summit.mp3',
-                'Twinkle.mp3'
-            ];
-
-            const ringtoneFiles = [
+                'Twinkle.mp3',
                 'Apex.mp3',
                 'Bell Tower.mp3',
                 'By The Seaside.mp3',
@@ -119,75 +111,74 @@
             ];
 
             const generalSoundFiles = [
-                './general/3rd_party_critical.mp3',
-                './general/connect_power.mp3',
-                './general/focus_change_keyboard.mp3',
-                './general/jbl_confirm.mp3',
-                './general/lock.mp3',
-                './general/new-mail.mp3',
-                './general/shake.mp3',
-                './general/SIMToolkitSMS.mp3',
-                './general/Tink.mp3',
-                './general/access_scan_complete.mp3',
-                './general/ct-busy.mp3',
-                './general/focus_change_large.mp3',
-                './general/jbl_no_match.mp3',
-                './general/long_low_short_high.mp3',
-                './general/nfc_scan_complete.mp3',
-                './general/short_double_high.mp3',
-                './general/sms-received1.mp3',
-                './general/Tock.mp3',
-                './general/acknowledgment_received.mp3',
-                './general/ct-congestion.mp3',
-                './general/focus_change_small.mp3',
-                './general/keyboard_press_clear.mp3',
-                './general/low_power.mp3',
-                './general/payment_failure.mp3',
-                './general/short_double_low.mp3',
-                './general/sms-received2.mp3',
-                './general/tweet_sent.mp3',
-                './general/acknowledgment_sent.mp3',
-                './general/ct-error.mp3',
-                './general/go_to_sleep_alert.mp3',
-                './general/keyboard_press_delete.mp3',
-                './general/mail-sent.mp3',
-                './general/payment_success.mp3',
-                './general/short_low_high.mp3',
-                './general/sms-received3.mp3',
-                './general/ussd.mp3',
-                './general/alarm.mp3',
-                './general/ct-keytone2.mp3',
-                './general/health_notification.mp3',
-                './general/keyboard_press_normal.mp3',
-                './general/middle_9_short_double_low.mp3',
-                './general/photoShutter.mp3',
-                './general/SIMToolkitCallDropped.mp3',
-                './general/sms-received4.mp3',
-                './general/warsaw.mp3',
-                './general/begin_record.mp3',
-                './general/ct-path-ack.mp3',
-                './general/jbl_ambiguous.mp3',
-                './general/key_press_click.mp3',
-                './general/multiway_invitation.mp3',
-                './general/ReceivedMessage.mp3',
-                './general/SIMToolkitGeneralBeep.mp3',
-                './general/sms-received5.mp3',
-                './general/wheels_of_time.mp3',
-                './general/camera_timer_countdown.mp3',
-                './general/end_record.mp3',
-                './general/jbl_begin.mp3',
-                './general/key_press_delete.mp3',
-                './general/navigation_pop.mp3',
-                './general/RingerChanged.mp3',
-                './general/SIMToolkitNegativeACK.mp3',
-                './general/sms-received6.mp3',
-                './general/SentMessage.mp3',
-                './general/SIMToolkitPositiveACK.mp3',
-                './general/Swish.mp3'
+                { name: 'Critical Alert', file: '3rd_party_critical.mp3' },
+                { name: 'Connect Power', file: 'connect_power.mp3' },
+                { name: 'Focus Change (Keyboard)', file: 'focus_change_keyboard.mp3' },
+                { name: 'JBL Confirm', file: 'jbl_confirm.mp3' },
+                { name: 'Lock', file: 'lock.mp3' },
+                { name: 'New Mail', file: 'new-mail.mp3' },
+                { name: 'Shake', file: 'shake.mp3' },
+                { name: 'SIM Toolkit SMS', file: 'SIMToolkitSMS.mp3' },
+                { name: 'Tink', file: 'Tink.mp3' },
+                { name: 'Access Scan Complete', file: 'access_scan_complete.mp3' },
+                { name: 'Busy', file: 'ct-busy.mp3' },
+                { name: 'Focus Change (Large)', file: 'focus_change_large.mp3' },
+                { name: 'JBL No Match', file: 'jbl_no_match.mp3' },
+                { name: 'Long Low Short High', file: 'long_low_short_high.mp3' },
+                { name: 'NFC Scan Complete', file: 'nfc_scan_complete.mp3' },
+                { name: 'Short Double High', file: 'short_double_high.mp3' },
+                { name: 'SMS Received 1', file: 'sms-received1.mp3' },
+                { name: 'Tock', file: 'Tock.mp3' },
+                { name: 'Acknowledgment Received', file: 'acknowledgment_received.mp3' },
+                { name: 'Congestion', file: 'ct-congestion.mp3' },
+                { name: 'Focus Change (Small)', file: 'focus_change_small.mp3' },
+                { name: 'Keyboard Press Clear', file: 'keyboard_press_clear.mp3' },
+                { name: 'Low Power', file: 'low_power.mp3' },
+                { name: 'Payment Failure', file: 'payment_failure.mp3' },
+                { name: 'Short Double Low', file: 'short_double_low.mp3' },
+                { name: 'SMS Received 2', file: 'sms-received2.mp3' },
+                { name: 'Tweet Sent', file: 'tweet_sent.mp3' },
+                { name: 'Acknowledgment Sent', file: 'acknowledgment_sent.mp3' },
+                { name: 'Error', file: 'ct-error.mp3' },
+                { name: 'Go to Sleep Alert', file: 'go_to_sleep_alert.mp3' },
+                { name: 'Keyboard Press Delete', file: 'keyboard_press_delete.mp3' },
+                { name: 'Mail Sent', file: 'mail-sent.mp3' },
+                { name: 'Payment Success', file: 'payment_success.mp3' },
+                { name: 'Short Low High', file: 'short_low_high.mp3' },
+                { name: 'SMS Received 3', file: 'sms-received3.mp3' },
+                { name: 'USSD', file: 'ussd.mp3' },
+                { name: 'Alarm', file: 'alarm.mp3' },
+                { name: 'Keytone 2', file: 'ct-keytone2.mp3' },
+                { name: 'Health Notification', file: 'health_notification.mp3' },
+                { name: 'Keyboard Press Normal', file: 'keyboard_press_normal.mp3' },
+                { name: '9 Short Double Low', file: 'middle_9_short_double_low.mp3' },
+                { name: 'Photo Shutter', file: 'photoShutter.mp3' },
+                { name: 'SIM Toolkit Call Dropped', file: 'SIMToolkitCallDropped.mp3' },
+                { name: 'SMS Received 4', file: 'sms-received4.mp3' },
+                { name: 'Warsaw', file: 'warsaw.mp3' },
+                { name: 'Begin Record', file: 'begin_record.mp3' },
+                { name: 'Path Acknowledge', file: 'ct-path-ack.mp3' },
+                { name: 'JBL Ambiguous', file: 'jbl_ambiguous.mp3' },
+                { name: 'Key Press Click', file: 'key_press_click.mp3' },
+                { name: 'Multiway Invitation', file: 'multiway_invitation.mp3' },
+                { name: 'Received Message', file: 'ReceivedMessage.mp3' },
+                { name: 'SIM Toolkit General Beep', file: 'SIMToolkitGeneralBeep.mp3' },
+                { name: 'SMS Received 5', file: 'sms-received5.mp3' },
+                { name: 'Wheels of Time', file: 'wheels_of_time.mp3' },
+                { name: 'Camera Timer Countdown', file: 'camera_timer_countdown.mp3' },
+                { name: 'End Record', file: 'end_record.mp3' },
+                { name: 'JBL Begin', file: 'jbl_begin.mp3' },
+                { name: 'Key Press Delete', file: 'key_press_delete.mp3' },
+                { name: 'Navigation Pop', file: 'navigation_pop.mp3' },
+                { name: 'Ringer Changed', file: 'RingerChanged.mp3' },
+                { name: 'SIM Toolkit Negative ACK', file: 'SIMToolkitNegativeACK.mp3' },
+                { name: 'SMS Received 6', file: 'sms-received6.mp3' },
+                { name: 'Sent Message', file: 'SentMessage.mp3' },
+                { name: 'SIM Toolkit Positive ACK', file: 'SIMToolkitPositiveACK.mp3' },
+                { name: 'Swish', file: 'Swish.mp3' }
             ];
 
-            const notificationSoundsSection = document.getElementById('notificationSounds');
-            const ringtonesSection = document.getElementById('ringtones');
+            const alertsSection = document.getElementById('alerts');
             const generalSoundsSection = document.getElementById('generalSounds');
 
             const audioElements = [];
@@ -195,9 +186,9 @@
             function createButton(parentElement, soundFile, category) {
                 const button = document.createElement('button');
                 button.classList.add('button');
-                button.innerText = soundFile.replace('.mp3', '');
+                button.innerText = soundFile.name || soundFile.replace('.mp3', '');
                 button.addEventListener('click', function () {
-                    toggleSound(soundFile, button, category);
+                    toggleSound(soundFile.file || soundFile, button, category);
                 });
                 parentElement.appendChild(button);
             }
@@ -219,20 +210,16 @@
                     audioElements.splice(index, 1);
                     audio.pause();
                     audio.currentTime = 0;
-                    button.innerText = filename.replace('.mp3', '');
+                    button.innerText = filename.name || filename.replace('.mp3', '');
                     button.classList.remove('playing');
                 }
             }
 
-            notificationSoundFiles.sort().forEach(soundFile => {
-                createButton(notificationSoundsSection, soundFile, 'notificationSounds');
+            alertSoundFiles.sort().forEach(soundFile => {
+                createButton(alertsSection, soundFile, 'alerts');
             });
 
-            ringtoneFiles.sort().forEach(soundFile => {
-                createButton(ringtonesSection, soundFile, 'ringtones');
-            });
-
-            generalSoundFiles.sort().forEach(soundFile => {
+            generalSoundFiles.sort((a, b) => a.name.localeCompare(b.name)).forEach(soundFile => {
                 createButton(generalSoundsSection, soundFile, 'generalSounds');
             });
         });
