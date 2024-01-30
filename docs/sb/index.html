@@ -1,1 +1,105 @@
-Apple default ringtone: <audio src="Opening.m4r"></audio>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Combined Soundboard</title>
+</head>
+<body>
+    <h1>Combined Soundboard</h1>
+    <div id="soundboard">
+        <!-- Sound buttons will be added here dynamically using JavaScript -->
+    </div>
+
+    <script src="soundboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const soundFiles = [
+                './general/3rd_party_critical.mp3',
+                './general/connect_power.mp3',
+                './general/focus_change_keyboard.mp3',
+                './general/jbl_confirm.mp3',
+                './general/lock.mp3',
+                './general/new-mail.mp3',
+                './general/shake.mp3',
+                './general/SIMToolkitSMS.mp3',
+                './general/Tink.mp3',
+                './general/access_scan_complete.mp3',
+                './general/ct-busy.mp3',
+                './general/focus_change_large.mp3',
+                './general/jbl_no_match.mp3',
+                './general/long_low_short_high.mp3',
+                './general/nfc_scan_complete.mp3',
+                './general/short_double_high.mp3',
+                './general/sms-received1.mp3',
+                './general/Tock.mp3',
+                './general/acknowledgment_received.mp3',
+                './general/ct-congestion.mp3',
+                './general/focus_change_small.mp3',
+                './general/keyboard_press_clear.mp3',
+                './general/low_power.mp3',
+                './general/payment_failure.mp3',
+                './general/short_double_low.mp3',
+                './general/sms-received2.mp3',
+                './general/tweet_sent.mp3',
+                './general/acknowledgment_sent.mp3',
+                './general/ct-error.mp3',
+                './general/go_to_sleep_alert.mp3',
+                './general/keyboard_press_delete.mp3',
+                './general/mail-sent.mp3',
+                './general/payment_success.mp3',
+                './general/short_low_high.mp3',
+                './general/sms-received3.mp3',
+                './general/ussd.mp3',
+                './general/alarm.mp3',
+                './general/ct-keytone2.mp3',
+                './general/health_notification.mp3',
+                './general/keyboard_press_normal.mp3',
+                './general/middle_9_short_double_low.mp3',
+                './general/photoShutter.mp3',
+                './general/SIMToolkitCallDropped.mp3',
+                './general/sms-received4.mp3',
+                './general/warsaw.mp3',
+                './general/begin_record.mp3',
+                './general/ct-path-ack.mp3',
+                './general/jbl_ambiguous.mp3',
+                './general/key_press_click.mp3',
+                './general/multiway_invitation.mp3',
+                './general/ReceivedMessage.mp3',
+                './general/SIMToolkitGeneralBeep.mp3',
+                './general/sms-received5.mp3',
+                './general/wheels_of_time.mp3',
+                './general/camera_timer_countdown.mp3',
+                './general/end_record.mp3',
+                './general/jbl_begin.mp3',
+                './general/key_press_delete.mp3',
+                './general/navigation_pop.mp3',
+                './general/RingerChanged.mp3',
+                './general/SIMToolkitNegativeACK.mp3',
+                './general/sms-received6.mp3',
+                './general/SentMessage.mp3',
+                './general/SIMToolkitPositiveACK.mp3',
+                './general/Swish.mp3'
+            ];
+
+            const soundboard = document.getElementById('soundboard');
+
+            soundFiles.forEach(soundFile => {
+                const button = document.createElement('button');
+                button.classList.add('button');
+                button.innerText = soundFile.split('/').pop().replace('.mp3', '');
+                button.addEventListener('click', function () {
+                    playSound(soundFile);
+                });
+                soundboard.appendChild(button);
+            });
+
+            function playSound(filename) {
+                const audio = new Audio(filename);
+                audio.play();
+            }
+        });
+    </script>
+</body>
+</html>
