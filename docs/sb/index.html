@@ -35,16 +35,41 @@
         background-color: #45a049;
     }
 </style>
+
     <title>Combined Soundboard</title>
 </head>
 <body>
-    <h1>Combined Soundboard</h1>
-    <div id="soundboard">
-        <!-- Sound buttons will be added here dynamically using JavaScript -->
+    <h1>Soundboard</h1>
+
+    <h2>Ringtones</h2>
+    <div id="originalSoundboard">
+        <!-- Original sound buttons will be added here dynamically using JavaScript -->
     </div>
+
+    <h2>Phone Sounds</h2>
+    <div id="newSoundboard">
+        <!-- New sound buttons will be added here dynamically using JavaScript -->
+    </div>
+
+    <script src="soundboard.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const soundFiles = [
+            const originalSoundFiles = [
+                'Aurora.mp3',
+                'Bamboo.mp3',
+                'Chord.mp3',
+                'Circles.mp3',
+                'Complete.mp3',
+                'Hello.mp3',
+                'Input.mp3',
+                'Keys.mp3',
+                'Note.mp3',
+                'Popcorn.mp3',
+                'Pulse.mp3',
+                'Synth.mp3'
+            ];
+
+            const newSoundFiles = [
                 './general/3rd_party_critical.mp3',
                 './general/connect_power.mp3',
                 './general/focus_change_keyboard.mp3',
@@ -112,16 +137,27 @@
                 './general/Swish.mp3'
             ];
 
-            const soundboard = document.getElementById('soundboard');
+            const originalSoundboard = document.getElementById('originalSoundboard');
+            const newSoundboard = document.getElementById('newSoundboard');
 
-            soundFiles.forEach(soundFile => {
+            originalSoundFiles.forEach(soundFile => {
+                const button = document.createElement('button');
+                button.classList.add('button');
+                button.innerText = soundFile.replace('.mp3', '');
+                button.addEventListener('click', function () {
+                    playSound(`./original/${soundFile}`);
+                });
+                originalSoundboard.appendChild(button);
+            });
+
+            newSoundFiles.forEach(soundFile => {
                 const button = document.createElement('button');
                 button.classList.add('button');
                 button.innerText = soundFile.split('/').pop().replace('.mp3', '');
                 button.addEventListener('click', function () {
                     playSound(soundFile);
                 });
-                soundboard.appendChild(button);
+                newSoundboard.appendChild(button);
             });
 
             function playSound(filename) {
