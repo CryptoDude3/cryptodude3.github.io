@@ -43,7 +43,7 @@
 <body>
     <h1>Combined Soundboard</h1>
 
-    <h2>Ringtones</h2>
+    <h2>Alerts</h2>
     <div id="alerts" class="section">
         <!-- Alerts buttons will be added here dynamically using JavaScript -->
     </div>
@@ -111,71 +111,71 @@
             ];
 
             const generalSoundFiles = [
-                { name: 'Critical Alert', file: '3rd_party_critical.mp3' },
-                { name: 'Connect Power', file: 'connect_power.mp3' },
-                { name: 'Focus Change (Keyboard)', file: 'focus_change_keyboard.mp3' },
-                { name: 'JBL Confirm', file: 'jbl_confirm.mp3' },
-                { name: 'Lock', file: 'lock.mp3' },
-                { name: 'New Mail', file: 'new-mail.mp3' },
-                { name: 'Shake', file: 'shake.mp3' },
-                { name: 'SIM Toolkit SMS', file: 'SIMToolkitSMS.mp3' },
-                { name: 'Tink', file: 'Tink.mp3' },
-                { name: 'Access Scan Complete', file: 'access_scan_complete.mp3' },
-                { name: 'Busy', file: 'ct-busy.mp3' },
-                { name: 'Focus Change (Large)', file: 'focus_change_large.mp3' },
-                { name: 'JBL No Match', file: 'jbl_no_match.mp3' },
-                { name: 'Long Low Short High', file: 'long_low_short_high.mp3' },
-                { name: 'NFC Scan Complete', file: 'nfc_scan_complete.mp3' },
-                { name: 'Short Double High', file: 'short_double_high.mp3' },
-                { name: 'SMS Received 1', file: 'sms-received1.mp3' },
-                { name: 'Tock', file: 'Tock.mp3' },
-                { name: 'Acknowledgment Received', file: 'acknowledgment_received.mp3' },
-                { name: 'Congestion', file: 'ct-congestion.mp3' },
-                { name: 'Focus Change (Small)', file: 'focus_change_small.mp3' },
-                { name: 'Keyboard Press Clear', file: 'keyboard_press_clear.mp3' },
-                { name: 'Low Power', file: 'low_power.mp3' },
-                { name: 'Payment Failure', file: 'payment_failure.mp3' },
-                { name: 'Short Double Low', file: 'short_double_low.mp3' },
-                { name: 'SMS Received 2', file: 'sms-received2.mp3' },
-                { name: 'Tweet Sent', file: 'tweet_sent.mp3' },
-                { name: 'Acknowledgment Sent', file: 'acknowledgment_sent.mp3' },
-                { name: 'Error', file: 'ct-error.mp3' },
-                { name: 'Go to Sleep Alert', file: 'go_to_sleep_alert.mp3' },
-                { name: 'Keyboard Press Delete', file: 'keyboard_press_delete.mp3' },
-                { name: 'Mail Sent', file: 'mail-sent.mp3' },
-                { name: 'Payment Success', file: 'payment_success.mp3' },
-                { name: 'Short Low High', file: 'short_low_high.mp3' },
-                { name: 'SMS Received 3', file: 'sms-received3.mp3' },
-                { name: 'USSD', file: 'ussd.mp3' },
-                { name: 'Alarm', file: 'alarm.mp3' },
-                { name: 'Keytone 2', file: 'ct-keytone2.mp3' },
-                { name: 'Health Notification', file: 'health_notification.mp3' },
-                { name: 'Keyboard Press Normal', file: 'keyboard_press_normal.mp3' },
-                { name: '9 Short Double Low', file: 'middle_9_short_double_low.mp3' },
-                { name: 'Photo Shutter', file: 'photoShutter.mp3' },
-                { name: 'SIM Toolkit Call Dropped', file: 'SIMToolkitCallDropped.mp3' },
-                { name: 'SMS Received 4', file: 'sms-received4.mp3' },
-                { name: 'Warsaw', file: 'warsaw.mp3' },
-                { name: 'Begin Record', file: 'begin_record.mp3' },
-                { name: 'Path Acknowledge', file: 'ct-path-ack.mp3' },
-                { name: 'JBL Ambiguous', file: 'jbl_ambiguous.mp3' },
-                { name: 'Key Press Click', file: 'key_press_click.mp3' },
-                { name: 'Multiway Invitation', file: 'multiway_invitation.mp3' },
-                { name: 'Received Message', file: 'ReceivedMessage.mp3' },
-                { name: 'SIM Toolkit General Beep', file: 'SIMToolkitGeneralBeep.mp3' },
-                { name: 'SMS Received 5', file: 'sms-received5.mp3' },
-                { name: 'Wheels of Time', file: 'wheels_of_time.mp3' },
-                { name: 'Camera Timer Countdown', file: 'camera_timer_countdown.mp3' },
-                { name: 'End Record', file: 'end_record.mp3' },
-                { name: 'JBL Begin', file: 'jbl_begin.mp3' },
-                { name: 'Key Press Delete', file: 'key_press_delete.mp3' },
-                { name: 'Navigation Pop', file: 'navigation_pop.mp3' },
-                { name: 'Ringer Changed', file: 'RingerChanged.mp3' },
-                { name: 'SIM Toolkit Negative ACK', file: 'SIMToolkitNegativeACK.mp3' },
-                { name: 'SMS Received 6', file: 'sms-received6.mp3' },
-                { name: 'Sent Message', file: 'SentMessage.mp3' },
-                { name: 'SIM Toolkit Positive ACK', file: 'SIMToolkitPositiveACK.mp3' },
-                { name: 'Swish', file: 'Swish.mp3' }
+                { name: 'Critical Alert', file: './general/3rd_party_critical.mp3' },
+                { name: 'Connect Power', file: './general/connect_power.mp3' },
+                { name: 'Focus Change (Keyboard)', file: './general/focus_change_keyboard.mp3' },
+                { name: 'JBL Confirm', file: './general/jbl_confirm.mp3' },
+                { name: 'Lock', file: './general/lock.mp3' },
+                { name: 'New Mail', file: './general/new-mail.mp3' },
+                { name: 'Shake', file: './general/shake.mp3' },
+                { name: 'SIM Toolkit SMS', file: './general/SIMToolkitSMS.mp3' },
+                { name: 'Tink', file: './general/Tink.mp3' },
+                { name: 'Access Scan Complete', file: './general/access_scan_complete.mp3' },
+                { name: 'Busy', file: './general/ct-busy.mp3' },
+                { name: 'Focus Change (Large)', file: './general/focus_change_large.mp3' },
+                { name: 'JBL No Match', file: './general/jbl_no_match.mp3' },
+                { name: 'Long Low Short High', file: './general/long_low_short_high.mp3' },
+                { name: 'NFC Scan Complete', file: './general/nfc_scan_complete.mp3' },
+                { name: 'Short Double High', file: './general/short_double_high.mp3' },
+                { name: 'SMS Received 1', file: './general/sms-received1.mp3' },
+                { name: 'Tock', file: './general/Tock.mp3' },
+                { name: 'Acknowledgment Received', file: './general/acknowledgment_received.mp3' },
+                { name: 'Congestion', file: './general/ct-congestion.mp3' },
+                { name: 'Focus Change (Small)', file: './general/focus_change_small.mp3' },
+                { name: 'Keyboard Press Clear', file: './general/keyboard_press_clear.mp3' },
+                { name: 'Low Power', file: './general/low_power.mp3' },
+                { name: 'Payment Failure', file: './general/payment_failure.mp3' },
+                { name: 'Short Double Low', file: './general/short_double_low.mp3' },
+                { name: 'SMS Received 2', file: './general/sms-received2.mp3' },
+                { name: 'Tweet Sent', file: './general/tweet_sent.mp3' },
+                { name: 'Acknowledgment Sent', file: './general/acknowledgment_sent.mp3' },
+                { name: 'Error', file: './general/ct-error.mp3' },
+                { name: 'Go to Sleep Alert', file: './general/go_to_sleep_alert.mp3' },
+                { name: 'Keyboard Press Delete', file: './general/keyboard_press_delete.mp3' },
+                { name: 'Mail Sent', file: './general/mail-sent.mp3' },
+                { name: 'Payment Success', file: './general/payment_success.mp3' },
+                { name: 'Short Low High', file: './general/short_low_high.mp3' },
+                { name: 'SMS Received 3', file: './general/sms-received3.mp3' },
+                { name: 'USSD', file: './general/ussd.mp3' },
+                { name: 'Alarm', file: './general/alarm.mp3' },
+                { name: 'Keytone 2', file: './general/ct-keytone2.mp3' },
+                { name: 'Health Notification', file: './general/health_notification.mp3' },
+                { name: 'Keyboard Press Normal', file: './general/keyboard_press_normal.mp3' },
+                { name: '9 Short Double Low', file: './general/middle_9_short_double_low.mp3' },
+                { name: 'Photo Shutter', file: './general/photoShutter.mp3' },
+                { name: 'SIM Toolkit Call Dropped', file: './general/SIMToolkitCallDropped.mp3' },
+                { name: 'SMS Received 4', file: './general/sms-received4.mp3' },
+                { name: 'Warsaw', file: './general/warsaw.mp3' },
+                { name: 'Begin Record', file: './general/begin_record.mp3' },
+                { name: 'Path Acknowledge', file: './general/ct-path-ack.mp3' },
+                { name: 'JBL Ambiguous', file: './general/jbl_ambiguous.mp3' },
+                { name: 'Key Press Click', file: './general/key_press_click.mp3' },
+                { name: 'Multiway Invitation', file: './general/multiway_invitation.mp3' },
+                { name: 'Received Message', file: './general/ReceivedMessage.mp3' },
+                { name: 'SIM Toolkit General Beep', file: './general/SIMToolkitGeneralBeep.mp3' },
+                { name: 'SMS Received 5', file: './general/sms-received5.mp3' },
+                { name: 'Wheels of Time', file: './general/wheels_of_time.mp3' },
+                { name: 'Camera Timer Countdown', file: './general/camera_timer_countdown.mp3' },
+                { name: 'End Record', file: './general/end_record.mp3' },
+                { name: 'JBL Begin', file: './general/jbl_begin.mp3' },
+                { name: 'Key Press Delete', file: './general/key_press_delete.mp3' },
+                { name: 'Navigation Pop', file: './general/navigation_pop.mp3' },
+                { name: 'Ringer Changed', file: './general/RingerChanged.mp3' },
+                { name: 'SIM Toolkit Negative ACK', file: './general/SIMToolkitNegativeACK.mp3' },
+                { name: 'SMS Received 6', file: './general/sms-received6.mp3' },
+                { name: 'Sent Message', file: './general/SentMessage.mp3' },
+                { name: 'SIM Toolkit Positive ACK', file: './general/SIMToolkitPositiveACK.mp3' },
+                { name: 'Swish', file: './general/Swish.mp3' }
             ];
 
             const alertsSection = document.getElementById('alerts');
@@ -199,7 +199,7 @@
                 if (!audioElements.includes(audio)) {
                     audioElements.push(audio);
                     audio.addEventListener('ended', function () {
-                        button.innerText = filename.replace('.mp3', '');
+                        button.innerText = soundFile.name || filename.replace('.mp3', '');
                         button.classList.remove('playing');
                     });
                     audio.play();
@@ -210,7 +210,7 @@
                     audioElements.splice(index, 1);
                     audio.pause();
                     audio.currentTime = 0;
-                    button.innerText = filename.name || filename.replace('.mp3', '');
+                    button.innerText = soundFile.name || filename.replace('.mp3', '');
                     button.classList.remove('playing');
                 }
             }
