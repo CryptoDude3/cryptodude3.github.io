@@ -193,11 +193,12 @@
             }
 
             function createAudioElement(filename) {
-                const audio = new Audio(filename);
+                const audio = new Audio(filename)
+                audio.id=filename;
                 audioContainer.appendChild(audio);
                 return audio;
             }
-
+function fa(filename){return document.getElementById(filename);}
             function toggleSound(filename, button, category) {
                 const audio = createAudioElement(filename);
 
@@ -225,6 +226,7 @@
 
             generalSoundFiles.sort((a, b) => a.name.localeCompare(b.name)).forEach(soundFile => {
                 createButton(generalSoundsSection, soundFile, 'generalSounds');
+                createAudioElement(soundFile);
             });
         });
     </script>
