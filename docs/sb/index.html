@@ -220,6 +220,7 @@
 
             alertSoundFiles.sort().forEach(soundFile => {
                 createButton(alertsSection, soundFile, 'alerts');
+                createAudioElement(soundFile);
             });
 
             generalSoundFiles.sort((a, b) => a.name.localeCompare(b.name)).forEach(soundFile => {
