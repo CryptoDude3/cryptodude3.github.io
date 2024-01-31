@@ -216,6 +216,7 @@
             function createAudioElement(filename) {
                 if(filename.name){filename=filename.file;}
                 const audio = new Audio(filename);
+                audio.setAttribute("preload","none");
                 audio.setAttribute("id",filename);
                 audioContainer.appendChild(audio);
                 return audio;
