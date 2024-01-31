@@ -193,16 +193,15 @@
             }
 
             function createAudioElement(filename) {
-                if(filename.name){fn=filename.name;filename=filename.file;}else{fn=filename;}
+                if(filename.name){filename=filename.file;}
                 const audio = new Audio(filename);
-                audio.setAttribute("id",fn);
+                audio.setAttribute("id",filename);
                 audioContainer.appendChild(audio);
                 return audio;
             }
 function fa(filename){return document.getElementById(filename);}
             function toggleSound(filename, button, category) {
-                if(filename.name){fn=filename.name;filename=filename.file;} else{fn=filename;}
-                const audio = fa(fn);
+                const audio = fa(filename);
                 if (!audio.paused) {
                     audio.pause();
                     audio.currentTime = 0;
