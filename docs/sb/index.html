@@ -193,7 +193,7 @@
             }
 
             function createAudioElement(filename) {
-                if(filename.name){fn=filename.name;filename=filename.url;}else{fn=filename;}
+                if(filename.name){fn=filename.name;filename=filename.file;}else{fn=filename;}
                 const audio = new Audio(filename);
                 audio.setAttribute("id",fn);
                 audioContainer.appendChild(audio);
