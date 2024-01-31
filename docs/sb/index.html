@@ -193,18 +193,20 @@
             }
 
             function createAudioElement(filename) {
-                const audio = new Audio(filename)
-                audio.setAttribute("id",filename);
+                if(filename.name){filename=filename.url;fn=filename.name;}else{fn=filename;}
+                const audio = new Audio(filename);
+                audio.setAttribute("id",fn);
                 audioContainer.appendChild(audio);
                 return audio;
             }
 function fa(filename){return document.getElementById(filename);}
             function toggleSound(filename, button, category) {
-                const audio = fa(filename);
+                if(filename.name){filename=filename.file;fn=filename.name;} else{fn=filename;}
+                const audio = fa(fn);
                 if (!audio.paused) {
                     audio.pause();
                     audio.currentTime = 0;
-                    button.innerText = filename.name || filename.replace('.mp3', '');
+                    button.innerText = fn.replace('.mp3', '');
                     button.classList.remove('playing');
                 } else {
                     audio.play();
@@ -213,7 +215,7 @@ function fa(filename){return document.getElementById(filename);}
                 }
 
                 audio.addEventListener('ended', function () {
-                    button.innerText = file || filename.replace('.mp3', '');
+                    button.innerText = fn.replace('.mp3', '');
                     button.classList.remove('playing');
                 });
             }
