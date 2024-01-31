@@ -43,13 +43,18 @@
 <body>
     <h1>Combined Soundboard</h1>
 
-    <h2>Alerts</h2>
+    <h2>Ringtones</h2>
     <div id="alerts" class="section">
         <!-- Alerts buttons will be added here dynamically using JavaScript -->
     </div>
 
     <h2>General Sounds</h2>
     <div id="generalSounds" class="section">
+        <!-- General Sounds buttons will be added here dynamically using JavaScript -->
+    </div>
+
+        <h2>Notification Sounds</h2>
+    <div id="notContainer" class="section">
         <!-- General Sounds buttons will be added here dynamically using JavaScript -->
     </div>
 <div id="audioContainer" style="display:none;"></div>
@@ -177,10 +182,25 @@
                 { name: 'SIM Toolkit Positive ACK', file: './general/SIMToolkitPositiveACK.mp3' },
                 { name: 'Swish', file: './general/Swish.mp3' }
             ];
+            const notificationSoundFiles = [
+    { name: 'Aurora', file: './alerts/Aurora.mp3' },
+    { name: 'Bamboo', file: './alerts/Bamboo.mp3' },
+    { name: 'Chord', file: './alerts/Chord.mp3' },
+    { name: 'Circles', file: './alerts/Circles.mp3' },
+    { name: 'Complete', file: './alerts/Complete.mp3' },
+    { name: 'Hello', file: './alerts/Hello.mp3' },
+    { name: 'Input', file: './alerts/Input.mp3' },
+    { name: 'Keys', file: './alerts/Keys.mp3' },
+    { name: 'Note', file: './alerts/Note.mp3' },
+    { name: 'Popcorn', file: './alerts/Popcorn.mp3' },
+    { name: 'Pulse', file: './alerts/Pulse.mp3' },
+    { name: 'Synth', file: './alerts/Synth.mp3' }
+];
 
             const alertsSection = document.getElementById('alerts');
             const generalSoundsSection = document.getElementById('generalSounds');
             const audioContainer = document.getElementById('audioContainer');
+            const notContainer = document.getElementById('notContainer');
 
             function createButton(parentElement, soundFile, category) {
                 const button = document.createElement('button');
@@ -227,6 +247,11 @@ function fa(filename){return document.getElementById(filename);}
 
             generalSoundFiles.sort((a, b) => a.name.localeCompare(b.name)).forEach(soundFile => {
                 createButton(generalSoundsSection, soundFile, 'generalSounds');
+                createAudioElement(soundFile);
+            });
+        });
+        notificationSoundFiles.sort((a, b) => a.name.localeCompare(b.name)).forEach(soundFile => {
+                createButton(notContainer, soundFile, 'generalSounds');
                 createAudioElement(soundFile);
             });
         });
