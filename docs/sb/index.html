@@ -249,8 +249,7 @@ function fa(filename){return document.getElementById(filename);}
                 createButton(generalSoundsSection, soundFile, 'generalSounds');
                 createAudioElement(soundFile);
             });
-        });
-        notificationSoundFiles.sort((a, b) => a.name.localeCompare(b.name)).forEach(soundFile => {
+                    notificationSoundFiles.sort((a, b) => a.name.localeCompare(b.name)).forEach(soundFile => {
                 createButton(notContainer, soundFile, 'generalSounds');
                 createAudioElement(soundFile);
             });
