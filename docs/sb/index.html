@@ -200,7 +200,7 @@
             }
 function fa(filename){return document.getElementById(filename);}
             function toggleSound(filename, button, category) {
-                const audio = createAudioElement(filename);
+                const audio = fa(filename);
 
                 if (!audio.paused) {
                     audio.pause();
