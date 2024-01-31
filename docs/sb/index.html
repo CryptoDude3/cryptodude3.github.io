@@ -236,7 +236,7 @@ function fa(filename){return document.getElementById(filename);}
                     button.classList.add('playing');
                 }
                 audio.addEventListener('ended', function () {
-                    button.innerText=button.getAttribute("name").replace("mp3","");
+                    button.innerText=button.getAttribute("name").replace(".mp3","");
                     button.classList.remove('playing');
                 });
             }
