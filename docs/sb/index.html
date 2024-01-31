@@ -204,7 +204,7 @@ function fa(filename){return document.getElementById(filename);}
                 if (!audio.paused) {
                     audio.pause();
                     audio.currentTime = 0;
-                    button.innerText = filename || filename.replace('.mp3', '');
+                    button.innerText = filename.name || filename.replace('.mp3', '');
                     button.classList.remove('playing');
                 } else {
                     audio.play();
