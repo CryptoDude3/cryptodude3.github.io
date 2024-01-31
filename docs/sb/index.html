@@ -180,8 +180,7 @@
 
             const alertsSection = document.getElementById('alerts');
             const generalSoundsSection = document.getElementById('generalSounds');
-
-            const audioElements = [];
+            const audioContainer = document.getElementById('audioContainer');
 
             function createButton(parentElement, soundFile, category) {
                 const button = document.createElement('button');
@@ -193,26 +192,30 @@
                 parentElement.appendChild(button);
             }
 
-            function toggleSound(filename, button, category) {
+            function createAudioElement(filename) {
                 const audio = new Audio(filename);
+                audioContainer.appendChild(audio);
+                return audio;
+            }
 
-                if (!audioElements.includes(audio)) {
-                    audioElements.push(audio);
-                    audio.addEventListener('ended', function () {
-                        button.innerText = soundFile.name || filename.replace('.mp3', '');
-                        button.classList.remove('playing');
-                    });
-                    audio.play();
-                    button.innerText = 'Stop';
-                    button.classList.add('playing');
-                } else {
-                    const index = audioElements.indexOf(audio);
-                    audioElements.splice(index, 1);
+            function toggleSound(filename, button, category) {
+                const audio = createAudioElement(filename);
+
+                if (!audio.paused) {
                     audio.pause();
                     audio.currentTime = 0;
                     button.innerText = soundFile.name || filename.replace('.mp3', '');
                     button.classList.remove('playing');
+                } else {
+                    audio.play();
+                    button.innerText = 'Stop';
+                    button.classList.add('playing');
                 }
+
+                audio.addEventListener('ended', function () {
+                    button.innerText = soundFile.name || filename.replace('.mp3', '');
+                    button.classList.remove('playing');
+                });
             }
 
             alertSoundFiles.sort().forEach(soundFile => {
