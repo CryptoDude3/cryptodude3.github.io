@@ -185,6 +185,7 @@
             function createButton(parentElement, soundFile, category) {
                 const button = document.createElement('button');
                 button.classList.add('button');
+                if(soundFile.name){button.setAttribute("name",soundFile.name);}
                 button.innerText = soundFile.name || soundFile.replace('.mp3', '');
                 button.addEventListener('click', function () {
                     toggleSound(soundFile.file || soundFile, button, category);
@@ -212,9 +213,9 @@ function fa(filename){return document.getElementById(filename);}
                     button.innerText = 'Stop';
                     button.classList.add('playing');
                 }
-
                 audio.addEventListener('ended', function () {
-                    button.innerText = fn.replace('.mp3', '');
+                    if(button.getAttribute("name")){button.innerText=button.getAttribute("name");}else{
+                    button.innerText = fn.replace('.mp3', '');}
                     button.classList.remove('playing');
                 });
             }
