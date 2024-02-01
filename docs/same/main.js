@@ -18,6 +18,8 @@ var stateselect = document.getElementById("stateselect");
 var countyselect = document.getElementById("countyselect");
 var spaces = document.getElementById("spaces");
 var regionselect = document.getElementById("rgselect");
+var samediv = document.getElementById("samediv");
+var rawinput = document.getElementById("cheader");
 saveb.addEventListener("click", saveToWav);
 var NWR = 1;
 var EBS = 0;
@@ -35,9 +37,14 @@ var em = false;
 var cl = false;
 var tone = NWR;
 var tlen = 10;
+var usecustom = false;
 //updateLoc();
 function stime(){timeselect.value = getLocalDT(new Date());}
 stime();
+function updateCustom(t){
+    samediv.style.display=t?"block":"none";
+    usecustom=t;
+}
 hrselect.addEventListener("change", function() {
   hr = parseInt(hrselect.value);
   minselect.innerHTML = "";
@@ -67,7 +74,7 @@ function generateEas() {
   em = extram.checked;
   cl=clip.checked;
   es=spaces.checked;
-  create_alert(originator, event, locations, l, time, par);
+  if(usecustom){create_raw_alert(rawinput.value);}else{create_alert(originator, event, locations, l, time, par);}
   saveb.style.display = "inline-block";
   addStatus("EAS Generated! Samples: " + samples.length);
   addStatus("Generated header: " + create_header_string(originator, event, locations, l, time, par));
