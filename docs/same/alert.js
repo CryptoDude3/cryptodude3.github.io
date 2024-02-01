@@ -52,3 +52,9 @@ function create_alert(origin, event, locations, length, date, par) {
   generate_silence(SAMPLE_RATE);
   create_eom_tones();
 }
+function create_raw_alert(h) {
+  create_header_tones(h);
+  if(tone){create_nwr_tone();}else{create_wat();}
+  generate_silence(SAMPLE_RATE);
+  create_eom_tones();
+}
