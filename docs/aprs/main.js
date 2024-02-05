@@ -29,7 +29,7 @@ function toBit(t) {
 function generateEas() {
   samples = [];
   //generate_afsk(bytetobits(encodeFrame()));
-  generate_afsk(aprsEncode(toBit("000000000000000000000000000000000000000000000000000").concat(bytetobits(encodeFrame())).concat(toBit("111111111111111111111111111111111111111111111111111"))));
+  generate_afsk(aprsEncode(toBit("000000000000000000000000000000000000000000000000000").concat(bytetobits(encodeFrame()))));
   addStatus("APRS Generated! Samples: " + samples.length);
   drawSamples();
 }
