@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css">
+  <script src="https://cdn.jsdelivr.net/npm/wavefile/dist/wavefile.js"></script>
+</head>
+
+<body>
+  <form id="ax25-form">
+    <label for="ax25-msgType">Message Type:</label>
+    <select id="ax25-msgType">
+      <option value=true>Command</option>
+      <option value=false>Response</option>
+    </select>
+
+    <label for="ax25-src">Source:</label>
+    <input type="text" id="ax25-src" placeholder="Enter Source" value="N7DRZ">
+
+    <label for="ax25-srcSSID">Source SSID:</label>
+    <input type="number" id="ax25-srcSSID" placeholder="Enter Source SSID" value="0">
+
+    <label for="ax25-dst">Destination:</label>
+    <input type="text" id="ax25-dst" value="K5DZF" placeholder="Enter Destination">
+
+    <label for="ax25-dstSSID">Destination SSID:</label>
+    <input type="number" id="ax25-dstSSID" placeholder="Enter Destination SSID">
+
+    <label for="ax25-control">Control:</label>
+    <input type="text" id="ax25-control" placeholder="Enter Control" value="0x03">
+
+    <label for="ax25-pid">PID:</label>
+    <input type="text" id="ax25-pid" placeholder="Enter PID" value="0xF0">
+
+    <label for="ax25-payload">Payload:</label>
+    <textarea id="ax25-payload" placeholder="Enter Payload" cols="10"
+      rows="4">W6SDM-2>APU25N,TCPIP*,qAC,T2SOCAL:=3252.46NI11208.28W&Hidden Valley/Maricopa I-Gate/Digi {UIV32N}</textarea>
+  </form>
+  <div class="control-panel">
+    <button onclick="generateEas();">Generate</button><button id="play">Play
+      Samples</button><button id="save" style="display:none;">Save as wav file</button><button onclick="resetStatus();"
+      id="clr" style="display:none;">Clear Logs</button>
+  </div>
+  <p id="status"></p><br>
+  <canvas id="waveform" width="5000" height="500"></canvas>
+  <script src="phase.js"></script>
+  <script src="utils.js"></script>
+  <script src="alert.js"></script>
+  <script src="main.js"></script>
+  <script src="ax25.js"></script>
+</body>
+
+</html>
