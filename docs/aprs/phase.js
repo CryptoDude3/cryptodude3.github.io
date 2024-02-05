@@ -29,12 +29,11 @@ function generate_afsk(bitstream) {
     const index = Math.ceil(i / steps);
     const indexPrev = Math.ceil((i - 1) / steps);
 
-    // Integration of the bitstream with trapezoidal rule
-    m += (bitstream[indexPrev] + bitstream[index]) / 2;
-
+    if(Number.isNaN(m)){console.log(bitstream[index]);}else{
     // "FM" Modulation
+    m += (bitstream[indexPrev] + bitstream[index]) / 2;
     samples.push(Math.cos(2 * Math.PI * i * (fCenter / samplingFreq) - 2 * Math.PI * m * (fDelta / samplingFreq)));
-  }
+  }}
   samples = emphasis(samples);
 }
 function emphasis(signal) {
