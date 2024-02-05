@@ -1,0 +1,5 @@
+<h1>Bookmark:</h1>
+<textarea>
+javascript:var url="https://youtube.com/",useP=0;document.body.innerHTML="";function encode(n){return n?encodeURIComponent(n.toString().split("").map(((n,o)=>o%2?String.fromCharCode(2^n.charCodeAt()):n)).join("")):n}var iframe = document.createElement("iframe");iframe.style="outline: none; border: none; width: 100vw; height: 100vh; position: fixed; inset: 0px;";if(useP){iframe.src="https://artclass.site/service/"+encode(url);}else{iframe.src=url;}document.body.appendChild(iframe);
+</textarea>
+options: url(url of site), useP(use proxy, 1 uses proxy 0 doesnt use proxy for connection(proxy only really works on google and not complex sites but can access almost any site))
