@@ -1,0 +1,20 @@
+<textarea>javascript:(()=>{let i = document.createElement('iframe');
+        document.body.append(i);
+        window.prompt = i.contentWindow.prompt.bind(window);
+        i.remove();
+        let { stateNode } = Object.values((function react(r = document.querySelector("body>div")) { return Object.values(r)[1]?.children?.[0]?._owner.stateNode ? r : react(r.querySelector(":scope>div")) })())[1].children[0]._owner;
+        
+        stateNode.props.liveGameController.getDatabaseVal("c", function (val) {
+            const players = Object.entries(e || {}).reduce((a, [name, c]) => (a.push({ name, blook: c.b, doubloons: c.d || 0 }), a), []);
+            if (players.length === 0) {
+                stateNode.questionsToAnswer = 1;
+                return void stateNode.randomQ();
+            }
+            var heist = prompt("Who would you like to heist? (Defaults to top player if no one found)")
+            const { name, blook, doubloons } = players.find(x => x.name == heist) || players.sort((a, b) => b.doubloons - a.doubloons)[0];
+            stateNode.setState({
+                stage: "heist",
+                heistInfo: { name, blook },
+                prizeAmount: Math.max(1000, doubloons)
+            });
+});})();</textarea>
