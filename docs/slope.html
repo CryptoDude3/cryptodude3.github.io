@@ -3,7 +3,7 @@
   <script src="TemplateData/UnityProgress.js"></script>
   <script src="TemplateData/unityloader41.js"></script>
   <script>
-    function progFunc(gameInstance,progress){if(gameInstance.Module){enableHacks();}UnityProgress(gameInstance,progress);}
+    function progFunc(gameInstance,progress){if(progress == 1){enableHacks();alert("Hacks Loaded!");}UnityProgress(gameInstance,progress);}
     var gameInstance = UnityLoader.instantiate("gameContainer", "Build/slope.json", {onProgress: progFunc, Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
     /*var pass = "benismart", pass2 = "ccisfine", ind = 0, ind2 = 0, hacks = false;
     document.addEventListener("keydown", function (e) {if (e.key === pass[ind]) {ind++;} else {ind = 0;} if (e.key === pass2[ind2]) {ind2++;} else {ind2 = 0;} if (ind === pass.length || ind2 === pass2.length) {if (!hacks) {alert("Hacks Enabled"); enableHacks(); hacks = true;} } });*/
