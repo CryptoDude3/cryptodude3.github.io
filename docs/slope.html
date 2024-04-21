@@ -9,7 +9,7 @@
     //cc if you're reading this i want to know i rate you a 9/10 easy
     enableHacks();window.hacks = true;
     function enableHacks() {kp=false;var view = new Uint32Array(gameInstance.Module.wasmMemory.buffer); document.addEventListener("keypress", function (e) {if(e.key==="i"){kp=true;view[7674510]=0;}if(e.key==="Enter" && kp){kp=false;}if(kp){if(parseInt(e.key)!=NaN){
-view[7674510] = parseInt(view[7674510].toString()+e.key);}}if(hacks && !kp){switch (e.key) {case "5": view[7674510]*=2;break;case ";":hacks=false;break;case "j": view[7674510]--; break; case "k": view[7674510]++; break; case "2": view[7674510] += 2; break; case "3": view[7674510] = 2147483620; break; case "0": view[7674510] = 0; break}}})}
+view[7674510] = parseInt(view[7674510].toString()+e.key);}}if(!kp){switch (e.key) {case "5": view[7674510]*=2;break;case ";":hacks=false;break;case "j": view[7674510]--; break; case "k": view[7674510]++; break; case "2": view[7674510] += 2; break; case "3": view[7674510] = 2147483620; break; case "0": view[7674510] = 0; break}}})}
   </script>
 </head>
 
