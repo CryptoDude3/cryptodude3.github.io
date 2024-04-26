@@ -118,6 +118,7 @@
             let gmlengths = Array(selectedCodes.length).fill(7);
 
             let sets = document.querySelector('input[name="sets"]').value.split(",");
+            sets.forEach(e=>{if(e.length!=24){alert("Sets must be exactly 24 characters long each!");throw "Sets must be 24 chars long!";}});
             let startTimer = parseInt(document.querySelector('input[name="startTimer"]').value);
             let hostNowTimer = parseInt(document.querySelector('input[name="hostNowTimer"]').value);
             let gameStartTimer = parseInt(document.querySelector('input[name="gameStartTimer"]').value);
