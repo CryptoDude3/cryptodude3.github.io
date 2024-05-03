@@ -1,7 +1,69 @@
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
+        <script>
+        function generateConfig() {
+            let gamemodeNames = [
+                "Pirate's Voyage", 'Gold Quest', 'Crypto Hack', 'Fishing Frenzy', 
+                'Tower Defense 2', 'Monster Brawl', 'Deceptive Dinos', 'Battle Royale', 
+                'Tower Defense', 'Café', 'Factory', 'Racing', 'Blook Rush', 'Classic'
+            ];
+            
+            let gamemodeCodes = {
+                "Pirate's Voyage": 'Pirate', 'Gold Quest': 'Gold', 'Crypto Hack': 'Hack', 
+                'Fishing Frenzy': 'Fish', 'Tower Defense 2': 'Defense2', 'Monster Brawl': 'Brawl', 
+                'Deceptive Dinos': 'Dino', 'Battle Royale': 'Royale', 'Tower Defense': 'Defense', 
+                'Café': 'Cafe', 'Factory': 'Factory', 'Racing': 'Racing', 'Blook Rush': 'Rush', 
+                'Classic': 'Classic'
+            };
+
+            let selectedNames = Array.from(document.querySelectorAll('input[name="gamemode"]:checked'))
+                                     .map(checkbox => checkbox.value);
+            
+            console.log("Selected Names:", selectedNames);
+            
+            let selectedCodes = selectedNames.map(name => {
+                if (gamemodeCodes.hasOwnProperty(name)) {
+                    return gamemodeCodes[name];
+                } else {
+                    console.log("Gamemode not found:", name);
+                    return null;
+                }
+            });
+            
+            console.log("Selected Codes:", selectedCodes);
+            
+            let sets = document.querySelector('input[name="sets"]').value.split(",");
+            sets.forEach(e=>{if(e.length!=24){alert("Sets must be exactly 24 characters long each!");throw "Sets must be 24 chars long!";}});
+            let startTimer = parseInt(document.querySelector('input[name="startTimer"]').value);
+            let hostNowTimer = parseInt(document.querySelector('input[name="hostNowTimer"]').value);
+            let gameStartTimer = parseInt(document.querySelector('input[name="gameStartTimer"]').value);
+            let showFps = document.querySelector('input[name="showFps"]').checked;
+            let skip = document.querySelector('input[name="skip"]').checked;
+            let customLength = parseInt(document.querySelector('input[name="customLength"]').value);
+let gmlengths = Array(selectedCodes.length).fill(customLength);
+
+
+            let config = `
+var gamemodes = ${JSON.stringify(selectedCodes)};
+var gmlengths = ${JSON.stringify(gmlengths)};
+var sets = ${JSON.stringify(sets)};
+var startTimer = ${startTimer};
+var hostNowTimer = ${hostNowTimer};
+var gameStartTimer = ${gameStartTimer};
+var showFps = ${showFps};
+var skip = ${skip};`;
+
+            navigator.clipboard.writeText(config).then(() => {
+                alert('Config copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy config: ', err);
+            });
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blooket Auto-host Config Generator</title>
@@ -60,10 +122,10 @@
         <label><input type="checkbox" name="gamemode" value="Pirate's Voyage" checked> Pirate's Voyage</label>
         <label><input type="checkbox" name="gamemode" value="Gold Quest"> Gold Quest</label>
         <label><input type="checkbox" name="gamemode" value="Crypto Hack" checked> Crypto Hack</label>
-        <label><input type="checkbox" name="gamemode" value="Fishing Frenzy"> Fishing Frenzy</label>
+        <label><input type="checkbox" name="gamemode" value="Fishing Frenzy" checked> Fishing Frenzy</label>
         <label><input type="checkbox" name="gamemode" value="Tower Defense 2"> Tower Defense 2</label>
         <label><input type="checkbox" name="gamemode" value="Monster Brawl"> Monster Brawl</label>
-        <label><input type="checkbox" name="gamemode" value="Deceptive Dinos"> Deceptive Dinos</label>
+        <label><input type="checkbox" name="gamemode" value="Deceptive Dinos" checked> Deceptive Dinos</label>
         <label><input type="checkbox" name="gamemode" value="Battle Royale"> Battle Royale</label>
         <label><input type="checkbox" name="gamemode" value="Tower Defense"> Tower Defense</label>
         <label><input type="checkbox" name="gamemode" value="Café" checked> Café</label>
@@ -78,70 +140,13 @@
         <label>Game Start Timer (seconds) <input type="number" name="gameStartTimer" value="55"></label>
         <label><input type="checkbox" name="showFps" checked> Show FPS</label>
         <label><input type="checkbox" name="skip" checked> Skip Instructions</label>
+        <label>Custom Gamemode Length: <input type="number" name="customLength" value="7"></label>
 
         <button onclick="generateConfig()">Get config</button>
 
     </div>
 
-    <script>
-        function generateConfig() {
-            let gamemodeNames = [
-                "Pirate's Voyage", 'Gold Quest', 'Crypto Hack', 'Fishing Frenzy', 
-                'Tower Defense 2', 'Monster Brawl', 'Deceptive Dinos', 'Battle Royale', 
-                'Tower Defense', 'Café', 'Factory', 'Racing', 'Blook Rush', 'Classic'
-            ];
-            
-            let gamemodeCodes = {
-                "Pirate's Voyage": 'Pirate', 'Gold Quest': 'Gold', 'Crypto Hack': 'Hack', 
-                'Fishing Frenzy': 'Fish', 'Tower Defense 2': 'Defense2', 'Monster Brawl': 'Brawl', 
-                'Deceptive Dinos': 'Dino', 'Battle Royale': 'Royale', 'Tower Defense': 'Defense', 
-                'Café': 'Cafe', 'Factory': 'Factory', 'Racing': 'Racing', 'Blook Rush': 'Rush', 
-                'Classic': 'Classic'
-            };
 
-            let selectedNames = Array.from(document.querySelectorAll('input[name="gamemode"]:checked'))
-                                     .map(checkbox => checkbox.value);
-            
-            console.log("Selected Names:", selectedNames);
-            
-            let selectedCodes = selectedNames.map(name => {
-                if (gamemodeCodes.hasOwnProperty(name)) {
-                    return gamemodeCodes[name];
-                } else {
-                    console.log("Gamemode not found:", name);
-                    return null;
-                }
-            });
-            
-            console.log("Selected Codes:", selectedCodes);
-            
-            let gmlengths = Array(selectedCodes.length).fill(7);
-
-            let sets = document.querySelector('input[name="sets"]').value.split(",");
-            sets.forEach(e=>{if(e.length!=24){alert("Sets must be exactly 24 characters long each!");throw "Sets must be 24 chars long!";}});
-            let startTimer = parseInt(document.querySelector('input[name="startTimer"]').value);
-            let hostNowTimer = parseInt(document.querySelector('input[name="hostNowTimer"]').value);
-            let gameStartTimer = parseInt(document.querySelector('input[name="gameStartTimer"]').value);
-            let showFps = document.querySelector('input[name="showFps"]').checked;
-            let skip = document.querySelector('input[name="skip"]').checked;
-
-            let config = `
-var gamemodes = ${JSON.stringify(selectedCodes)};
-var gmlengths = ${JSON.stringify(gmlengths)};
-var sets = ${JSON.stringify(sets)};
-var startTimer = ${startTimer};
-var hostNowTimer = ${hostNowTimer};
-var gameStartTimer = ${gameStartTimer};
-var showFps = ${showFps};
-var skip = ${skip};`;
-
-            navigator.clipboard.writeText(config).then(() => {
-                alert('Config copied to clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy config: ', err);
-            });
-        }
-    </script>
 
 </body>
 </html>
