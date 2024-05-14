@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <canvas width="500" height="4" id="data"></canvas><br>Pixel Size(smaller means more data):<input type="number"
+    id="psize" min="0" max="4" value="4"><br>Input Text:<br>
+  <textarea id="input" placeholder="Input Text Here..." rows="10" width="10"></textarea><br><button
+    onclick="gen();">Encode Data</button><button onclick="save();">Save as Image</button><br>Upload encoded image:
+  <input type="file" id="image"><br><button onclick="dec();">Decode Data</button><br>
+  Read from image script(replace https://your/url/here):<br>
+  <textarea>var image=new Image,canvas=document.createElement("canvas"),ctx=canvas.getContext("2d",{willReadFrequently:!0});function decodeText(e,a){for(var t="",r=0;r<e;r++){var n=Array.from(ctx.getImageData(r%a,Math.floor(r/a),1,1).data);t+=(255!=n[0]?String.fromCharCode(n[0]):"")+(255!=n[1]?String.fromCharCode(n[1]):"")+(255!=n[2]?String.fromCharCode(n[2]):""),255!=n[0]&&255!=n[1]&&255!=n[2]||(r=e+1)}return t}image.src="https://your/url/here",image.crossOrigin="annonymous",image.onload=function(){canvas.width=image.width,canvas.height=image.height;var e=image.width*image.height,a=image.width;ctx.drawImage(image,0,0),console.log(decodeText(e,a))};</textarea>
+  <script src="script.js"></script>
+</body>
+
+</html>
