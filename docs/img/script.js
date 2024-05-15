@@ -42,6 +42,11 @@ function gen(){
   setHeight(calcHeight(tinput.value.length));
   genPixels(tinput.value);
 }
+function generateText(text){
+  setPixelSize(pinput.value);
+  setHeight(calcHeight(text.length));
+  genPixels(text);
+}
 function dec(){
   tinput.value = decodeText();
 }
