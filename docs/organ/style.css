@@ -1,0 +1,32 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+.drawbarsCanvas {
+  border: 1px solid #000;
+}
+
+.drwb-container {
+  display: flex;
+  position: unset;
+  margin-top: 10mm;
+  margin-left: -60px;
+  margin-bottom: 3mm;
+  margin-right: unset;
+}
+
+#drwb {
+  position: relative;
+  margin: 0.4rem;
+  width: 10px;
+}
+
+#drwb input {
+  width: unset;
+  /* Left to right, top to bottom */
+  height: 100%;
+  transform: rotate(90deg);
+  /* Rotate the thumb 180 degrees */
+  /* Set the rotation origin to the bottom */
+}

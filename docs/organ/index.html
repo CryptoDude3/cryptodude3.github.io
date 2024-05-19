@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="range.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div id="keyboard"></div>
+  Octave: <div id="oct"><input type="range" min="-2" max="2" step="1" id="octave"></div>
+  Volume: <div id="gain"><input type="range" min="0" max="200" step="1" id="volume"></div>Drwb Settings: <select
+    id="drwbset">
+    <option value="888888888">Full Drwb(rockin)</option>
+    <option value="888800000">Green Onions</option>
+    <option value="888800003">Percussive</option>
+    <option value="808000008">Drwb Imbalance</option>
+    <option value="876786883">Rock hammond</option>
+    <option value="888888002">Fuller Percussive</option>
+    <option value="876786883">Rock hammond</option>
+  </select><br>Available Midi Devices: <select id="midi"></select><button id="s">Refresh</button><br><br>
+  <canvas id="drawbarsCanvas" width="350" height="200"></canvas>
+  <script src="midi.js"></script>
+  <script src="organ.js"></script>
+  <script src="qwerty.js"></script>
+  <script src="script.js"></script>
+  <script src="drawbars.js"></script>
+</body>
+
+</html>
