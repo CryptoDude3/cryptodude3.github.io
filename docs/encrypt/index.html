@@ -1,0 +1,77 @@
+<!-- no effort was put in the following html -->
+
+
+<textarea rows="10" cols="10" id="text"></textarea>
+<br>
+<label for="password">Password:</label><input id="pass" name="password">
+<br>
+<label for="slvl">Security level:</label><select id="slvl" name="slvl"></select>
+<br>
+<button onclick="encryptText();">Encrypt Text</button><button onclick="decryptText();">Decrypt Text</button>
+<p style="color:red;" id="error"></p>
+<script>
+const soptions = {"Low":65536,"Medium":262144,"High":1048576,"MAXIMUM":16777216};
+const svals = Object.values(soptions);
+const textElem = document.querySelector("#text");
+const passElem = document.querySelector("#pass");
+const errorElem = document.querySelector("#error");
+const secElem = document.querySelector("#slvl");
+let j = 0;
+for(let i in soptions){
+    const option = document.createElement("option");
+    option.innerText = i;
+    option.value = j;
+    secElem.appendChild(option);
+    j++;
+}
+async function deriveKey(pass,iterations){
+const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+return await crypto.subtle.deriveKey({name: "PBKDF2", hash: "SHA-256", salt: new TextEncoder().encode("benskidwart"), iterations}, baseKey, {name:"AES-CBC",length:256}, true,["encrypt","decrypt"]);
+}
+
+async function encryptData(text,key){
+const plaintext = new TextEncoder().encode(text);
+const iv = crypto.getRandomValues(new Uint8Array(16));
+const data = await crypto.subtle.encrypt({name:"AES-CBC",iv},key,plaintext);
+return {data,iv};
+}
+
+async function encrypt(pass,text,sc=0){
+const dvkey = await deriveKey(pass,svals[sc]);
+const enc = await encryptData(text,dvkey);
+return btoa(`${String.fromCharCode(sc)}${buftostr(enc.iv)}${buftostr(enc.data)}`);
+}
+async function decrypt(pass,text){
+const buf = b64tobuf(text);
+const dvkey = await deriveKey(pass,svals[buf[0]]);
+const iv = buf.subarray(1,17);
+const ciphertext = buf.subarray(17,buf.length);
+const data = await crypto.subtle.decrypt({name:"AES-CBC",iv},dvkey,ciphertext);
+return buftostr(data);
+}
+async function encryptText(){
+try{
+renderError("");
+textElem.value = await encrypt(passElem.value,textElem.value,secElem.value);
+}catch(e){renderError(`Error: ${e}`);}
+}
+async function decryptText(){
+try{
+renderError("");
+textElem.value = await decrypt(passElem.value,textElem.value);
+}catch(e){renderError(`Error: ${e}`);}
+}
+function bufto64(input){
+return btoa(buftostr(input));
+}
+function renderError(e){
+errorElem.innerText = e;
+}
+function buftostr(input){
+return String.fromCharCode(...new Uint8Array(input));
+}
+function b64tobuf(input){
+return new Uint8Array(atob(input).split("").map(e=>e.charCodeAt()));
+}
+Object.entries(soptions).forEach(e=>{});
+</script>
