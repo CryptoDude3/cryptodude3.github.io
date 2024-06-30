@@ -100,7 +100,7 @@
             <option value="2">High</option>
             <option value="3">MAXIMUM</option>
         </select>
-	<p id="loading"></p>
+	<p id="loading">Loading...</p>
         <button onclick="encryptText();">Encrypt Text</button>
         <button onclick="decryptText();">Decrypt Text</button>
         <p id="error" class="error"></p>
@@ -191,6 +191,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
         function b64tobuf(input){
 	  return new Uint8Array(atob(input).split("").map(e=>e.charCodeAt()));
         }
+	setLoading("Ready");
     </script><br><br>
 </body>
 </html>
