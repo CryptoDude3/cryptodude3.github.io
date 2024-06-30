@@ -3,104 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Encryptonator</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
-            color: #ccc;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            position: relative; 
-        }
-        h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            color: #4CAF50;
-        }
-        p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: #ccc;
-        }
-        label {
-            display: block;
-            margin-bottom: 15px;
-            color: #ccc;
-        }
-        input[type="number"],
-        input[type="text"],
-        input[type="password"],
-        select,
-        textarea {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #333;
-            border-radius: 5px;
-            font-size: 1rem;
-            background-color: #333;
-            color: #ccc;
-            resize: none;
-            box-sizing: border-box; 
-        }
-        textarea {
-            height: 150px; 
-            overflow-y: auto; 
-        }
-        button {
-            padding: 12px 24px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-        #loading {
-            display: none;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #007BFF;
-        }
-        #status {
-            margin-top: 1rem;
-            font-weight: bold;
-            color: #007BFF;
-        }
-        .icon {
-            width: 20px;
-            height: auto;
-            margin-right: 5px;
-            vertical-align: middle;
-        }
-    </style>
+    <title>Encryptonator</title>
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #1a1a1a;
+        color: #ccc;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+    .container {
+        max-width: 600px;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        position: relative; 
+    }
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+        color: #4CAF50;
+    }
+    p {
+        font-size: 1.2em;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        color: #ccc;
+    }
+    label {
+        display: block;
+        margin-bottom: 15px;
+        color: #ccc;
+    }
+    input[type="number"],
+    input[type="text"],
+    input[type="password"],
+    select,
+    textarea {
+        width: calc(100% - 22px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #333;
+        border-radius: 5px;
+        font-size: 1rem;
+        background-color: #333;
+        color: #ccc;
+        resize: none;
+        box-sizing: border-box; 
+    }
+    textarea {
+        height: 150px; 
+        overflow-y: auto; 
+    }
+    button {
+        padding: 12px 24px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 20px;
+        border-radius: 5px;
+    }
+
+    #emoji-container {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+</style>
+
 </head>
 <body>
     <div class="container">
-        <h1>The Encryptonator</h1>
-        <textarea id="text" placeholder="Enter your text here..."></textarea>
+        <h1>Encryption Tool</h1>
+        <textarea id="text" placeholder="Enter text here..."></textarea>
         <label for="pass">Password:</label>
         <input type="password" id="pass" name="password" placeholder="Enter your password">
         <label for="slvl">Security level:</label>
@@ -110,12 +93,12 @@
             <option value="2">High</option>
             <option value="3">MAXIMUM</option>
         </select>
-        <p id="loading">Processing your request...</p>
+        <p id="loading">Loading...</p>
         <button onclick="encryptText();">Encrypt Text</button>
         <button onclick="decryptText();">Decrypt Text</button>
         <p id="error" class="error"></p>
         <p id="status"></p>
-        <p">Made by ducklife3141, css by generic</p>
+        <p">Made by Ducklife3141, CSS by generic</p>
 
     </div>
 
@@ -132,7 +115,7 @@
         async function deriveKey(pass, iterations) {
             updateStatus(`Deriving key: ${iterations} iterations`);
             const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
-            return await crypto.subtle.deriveKey({name: "PBKDF2", hash: "SHA-256", salt: new TextEncoder().encode("discord token"), iterations}, baseKey, {name: "AES-CBC", length: 256}, true, ["encrypt", "decrypt"]);
+            return await crypto.subtle.deriveKey({name: "PBKDF2", hash: "SHA-256", salt: new TextEncoder().encode("ben is a skid lmfao"), iterations}, baseKey, {name: "AES-CBC", length: 256}, true, ["encrypt", "decrypt"]);
         }
 
         async function encryptData(text, key) {
@@ -161,10 +144,6 @@
             try {
                 renderError("");
                 setLoading(true, "Encrypting...");
-                const plaintext = textElem.value.toLowerCase(); 
-                if (plaintext.includes("discord")) {
-                    alert("is that a discord token?");
-                }
                 textElem.value = await encrypt(passElem.value, textElem.value, secElem.value);
                 setLoading(false);
                 updateStatus("Encryption complete");
@@ -208,12 +187,9 @@
             return String.fromCharCode.apply(null, new Uint8Array(buf));
         }
 
-        function b64tobuf(base64) {
-            const binstr = atob(base64);
-            const buf = new Uint8Array(binstr.length);
-            Array.prototype.forEach.call(binstr, (ch, i) => { buf[i] = ch.charCodeAt(0); });
-            return buf;
+        function b64tobuf(input){
+	  return new Uint8Array(atob(input).split("").map(e=>e.charCodeAt()));
         }
-    </script>
+    </script><br><br>
 </body>
 </html>
