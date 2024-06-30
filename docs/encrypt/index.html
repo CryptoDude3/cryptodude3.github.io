@@ -181,15 +181,15 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
         }
 
         function setLoading(message = "") {
-                loadingElem.textContent = message;
+            loadingElem.textContent = message;
         }
 
-        function buftostr(buf) {
-            return String.fromCharCode.apply(null, new Uint8Array(buf));
-        }
+	function buftostr(buf){
+   	    return new Uint8Array(buf).reduce((data, byte) => data + String.fromCharCode(byte), ''); 
+	}
 
         function b64tobuf(input){
-	  return new Uint8Array(atob(input).split("").map(e=>e.charCodeAt()));
+	    return new Uint8Array(atob(input).split("").map(e=>e.charCodeAt()));
         }
 	setLoading("Ready");
     </script><br><br>
