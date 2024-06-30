@@ -19,7 +19,7 @@
     }
     .container {
         max-width: 600px;
-        padding: 20px;
+        padding: 45px;
         background-color: rgba(0, 0, 0, 0.8);
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
@@ -77,6 +77,9 @@
         bottom: 20px;
         right: 20px;
     }
+    .ptoggle {
+    color: #aaa;
+}
 </style>
 
 </head>
@@ -84,7 +87,7 @@
     <div class="container">
         <h1>The Encryptonator</h1>
         <textarea id="text" placeholder="Enter your text here..."></textarea>
-        <label for="pass">Password:</label>
+        <label for="pass">Password(<a href="javascript:void(0)" onclick="togglePass();" class="ptoggle">show</a>):</label>
         <input type="password" id="pass" name="password" placeholder="Enter your password">
         <label for="slvl">Security level:</label>
         <select id="slvl" name="slvl">
