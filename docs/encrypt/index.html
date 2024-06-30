@@ -25,6 +25,9 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         position: relative; 
     }
+    .error {
+    color: red;
+    }
     h1 {
         font-size: 3em;
         margin-bottom: 20px;
@@ -175,6 +178,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
         }
 
         function renderError(message) {
+	    renderStatus("");
             errorElem.textContent = message;
         }
 
