@@ -104,7 +104,6 @@
         <button onclick="encryptText();">Encrypt Text</button>
         <button onclick="decryptText();">Decrypt Text</button>
         <p id="error" class="error"></p>
-        <p id="status"></p>
         <p">Made by Ducklife3141, CSS by generic</p>
 
     </div>
@@ -117,7 +116,6 @@
         const errorElem = document.querySelector("#error");
         const secElem = document.querySelector("#slvl");
         const loadingElem = document.querySelector("#loading");
-        const statusElem = document.querySelector("#status");
 	function togglePass(){
 const passinp = document.querySelector("#pass");
 const toggle = document.querySelector(".ptoggle");
@@ -178,7 +176,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
         }
 
         function renderError(message) {
-	    renderStatus("");
+	    updateStatus("");
             errorElem.textContent = message;
         }
 
@@ -189,10 +187,6 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
             } else {
                 loadingElem.style.display = "none";
             }
-        }
-
-        function updateStatus(message) {
-            statusElem.textContent = message;
         }
 
         function buftostr(buf) {
