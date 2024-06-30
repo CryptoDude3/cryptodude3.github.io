@@ -128,6 +128,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
         }
 
         async function encryptData(text, key) {
+	    setLoading("Encrypting...");
             const plaintext = new TextEncoder().encode(text);
             const iv = crypto.getRandomValues(new Uint8Array(16));
             const data = await crypto.subtle.encrypt({name: "AES-CBC", iv}, key, plaintext);
@@ -145,6 +146,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
             const dvkey = await deriveKey(pass, svals[buf[0]]);
             const iv = buf.subarray(1, 17);
             const ciphertext = buf.subarray(17, buf.length);
+	    setLoading("Decrypting...");
             const data = await crypto.subtle.decrypt({name: "AES-CBC", iv}, dvkey, ciphertext);
             return buftostr(data);
         }
