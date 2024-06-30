@@ -168,7 +168,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
                 setLoading("Decrypting...");
                 textElem.value = await decrypt(passElem.value, textElem.value);
                 setLoading("");
-                updateStatus("Decryption complete");
+                setLoading("Decryption complete");
             } catch (e) {
                 setLoading("");
                 renderError(`Error: ${e}`);
@@ -176,7 +176,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
         }
 
         function renderError(message) {
-	    updateStatus("");
+	    setLoading("");
             errorElem.textContent = message;
         }
 
