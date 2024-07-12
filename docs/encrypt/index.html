@@ -168,6 +168,7 @@ if(passinp.type==="password"){passinp.type="";toggle.innerText="hide";}else{pass
             try {
                 renderError("");
                 setLoading("Decrypting...");
+		if(textElem.value.length < 1){throw "Data input cannot be empty!";}
                 textElem.value = await decrypt(passElem.value, textElem.value);
                 setLoading("");
                 setLoading("Decryption complete");
