@@ -3,7 +3,7 @@
 "productName": "Slope 3",
 "productVersion": "0.1",
 "dataUrl": "Slope3.data.unityweb",
-"wasmCodeUrl": "Slope3.wasm.code.unityweb",
+"wasmCodeUrl": "slope3patch.wasm.unityweb",
 "wasmFrameworkUrl": "Slope3.wasm.framework.js",
 "graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
