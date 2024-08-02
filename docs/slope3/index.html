@@ -4,6 +4,33 @@
   <script src="UnityLoader.js"></script>
   <script>
     var gameInstance = UnityLoader.instantiate("gameContainer", "slope3.json", {Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
+    		function UnityCallJs() {
+		console.log("unity call!");
+		}
+		function UnityCallEndgameJs (){
+			console.log("end game");
+			ShowInfo();
+			ChangeAds1(adsindex);
+			//ChangeAds2(adsindex2);
+		}
+		function UnityCallPlayJs (){
+		console.log("untiy call Play game");
+		}
+		function UnityCallLeaderboardJs (){
+			console.log("untiy call On Leaderboard");
+		}
+		function UnityCallAgainJs (){
+		console.log("unity call Again");
+		}
+		function UnityCallBackHomeJs (){
+		console.log("untiy call backHome");
+		}
+		function UnityCallChangeDayLeaderboardJs(){
+		console.log("untiy call change day leaderboard");
+		}
+		function UnityCallCloseLeaderboardJs(){
+		 console.log("untiy call close leaderboard");
+		}
   </script>
 </head>
 
