@@ -3,7 +3,7 @@
   <script src="/TemplateData/UnityProgress.js"></script>
   <script src="UnityLoader.js"></script>
   <script>
-    var gameInstance = UnityLoader.instantiate("gameContainer", "slope3.json", {Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
+    var gameInstance = UnityLoader.instantiate("gameContainer", window.location.search.includes("hack")?"slope3n.json":"slope3.json", {Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
     		function UnityCallJs() {
 		console.log("unity call!");
 		}
