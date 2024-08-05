@@ -66,6 +66,13 @@ document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowUp"){return;}setFloat
 document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowDown"){return;}setFloat32(zForce,readFloat32(zForce)-mag)});
 document.addEventListener("keydown",(e)=>{if(e.key!=="f"){return;}set8(camAllowed,!read8(camAllowed))});
 
+function addCheat(key,text){var cheat = document.createElement("div");
+cheat.className = "toggle";
+cheat.id=key;
+cheat.setValue = function(value){value?this.setAttribute("enabled",""):this.removeAttribute("enabled");}
+cheat.innerHTML = `[${key}] ${text}`;
+keybinds.appendChild(cheat);
+return cheat;}
 
 //dropdown handler code
 document.querySelectorAll(".dropdown-container").forEach(dropdown=>{
