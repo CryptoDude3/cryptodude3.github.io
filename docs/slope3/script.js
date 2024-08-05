@@ -60,11 +60,14 @@ var leaderboardStartTime = leaderboardControl + 0x90;//float
 var bestText = read32(leaderboardControl + 0x80);//Text
 //-----------------------------------
 
+var mag = 100;
+document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowUp"){return;}setFloat32(zForce,readFloat32(zForce)+mag)});
+document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowDown"){return;}setFloat32(zForce,readFloat32(zForce)-mag)});
+document.addEventListener("keydown",(e)=>{if(e.key!=="f"){return;}set8(camAllowed,!read8(camAllowed))});
 
 
-
-
-var dropdown = document.querySelector(".dropdown-container");
+//dropdown handler code
+document.querySelectorAll(".dropdown-container").forEach(dropdown=>{
 dropdown.children[0].addEventListener("click",()=>{
 if(dropdown.children[1].style.display=="none" || dropdown.children[1].style.display==""){
 dropdown.children[0].innerHTML = "\u25bc";
@@ -74,7 +77,4 @@ dropdown.children[0].innerHTML = "\u25ba";
 dropdown.children[1].style.display = "none";
 }
 });
-var mag = 100;
-document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowUp"){return;}setFloat32(zForce,readFloat32(zForce)+mag)});
-document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowDown"){return;}setFloat32(zForce,readFloat32(zForce)-mag)});
-document.addEventListener("keydown",(e)=>{if(e.key!=="f"){return;}set8(camAllowed,!read8(camAllowed))});
+});
