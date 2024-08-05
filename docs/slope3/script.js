@@ -19,6 +19,7 @@ function setVec3(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefine
 function readQuat(ptr){return {x:readFloat32(ptr),y:readFloat32(ptr+0x4),z:readFloat32(ptr+0x8),w:readFloat32(ptr+0xC)};}
 function setQuat(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefined||vec.w==undefined){throw "Quaternion must have an x, y, z, and w!";}setFloat32(ptr,vec.x);setFloat32(ptr+0x4,vec.y);setFloat32(ptr+0x8,vec.z);setFloat32(ptr+0xC,vec.w);}
 window.addrs = {};
+window.hacksLoaded = false;
 function loadHacks(){
 addrs.gamemanager = 0x0114ae00;
 addrs.score = addrs.gamemanager + 0x30;//int
@@ -61,6 +62,8 @@ addrs.leaderboardControl = read32(addrs.gameUi + 0x14);//LeaderBoardControl
 addrs.leaderboardStartTime = addrs.leaderboardControl + 0x90;//float
 addrs.bestText = read32(addrs.leaderboardControl + 0x80);//Text
 //-----------------------------------
+if(!hacksLoaded){document.querySelector(".cheat-container").appendChild(toggles);}
+window.hacksLoaded=!0;
 }
 var mag = 100;
 
@@ -116,4 +119,3 @@ content.style.display = "none";
 ddcontainer.appendChild(content);
 return ddcontainer;
 }
-document.querySelector(".cheat-container").appendChild(toggles);
