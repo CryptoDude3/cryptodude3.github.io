@@ -20,6 +20,7 @@ function readQuat(ptr){return {x:readFloat32(ptr),y:readFloat32(ptr+0x4),z:readF
 function setQuat(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefined||vec.w==undefined){throw "Quaternion must have an x, y, z, and w!";}setFloat32(ptr,vec.x);setFloat32(ptr+0x4,vec.y);setFloat32(ptr+0x8,vec.z);setFloat32(ptr+0xC,vec.w);}
 window.addrs = {};
 window.hacksLoaded = false;
+window.hacksEnabled = true;
 function loadHacks(){
 addrs.gamemanager = 0x0114ae00;
 addrs.score = addrs.gamemanager + 0x30;//int
@@ -77,7 +78,7 @@ case "bool":
 var cheatElem = createCheat(cheat.key,cheat.text);
 toggles.addCheat(cheatElem);
 cheat.html = cheatElem;
-document.addEventListener("keydown",(e)=>{if(e.key!==cheat.key.toLowerCase()){return;}console.log("called");const value = read8(addrs[cheat.addrValue]);set8(addrs[cheat.addrValue],value?0:1);cheatElem.setValue(cheat.invert?value:!value);});
+document.addEventListener("keydown",(e)=>{if(!hacksEnabled){return;}if(e.key!==cheat.key.toLowerCase()){return;}console.log("called");const value = read8(addrs[cheat.addrValue]);set8(addrs[cheat.addrValue],value?0:1);cheatElem.setValue(cheat.invert?value:!value);});
 break;
 }
 });
