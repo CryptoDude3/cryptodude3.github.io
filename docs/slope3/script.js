@@ -21,45 +21,45 @@ function setQuat(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefine
 window.addrs = {};
 function loadHacks(){
 addrs.gamemanager = 0x0114ae00;
-addrs.score = gamemanager+0x30;//int
+addrs.score = addrs.gamemanager + 0x30;//int
 //-----------------------------------
-addrs.camControl = read32(gamemanager + 0x10);//CameraController
-addrs.cam = read32(camControl + 0x18);//camera
-addrs.camDied = camControl+0x30;//bool
-addrs.camAllowed = camControl + 0x1c;//bool
-addrs.camStartPos = read32(camControl + 0x10);//Transform
+addrs.camControl = read32(addrs.gamemanager + 0x10);//CameraController
+addrs.cam = read32(addrs.camControl + 0x18);//camera
+addrs.camDied = addrs.camControl + 0x30;//bool
+addrs.camAllowed = addrs.camControl + 0x1c;//bool
+addrs.camStartPos = read32(addrs.camControl + 0x10);//Transform
 //-----------------------------------
-addrs.ballControl = read32(gamemanager + 0xC);//BallMovementControl
-addrs.speedUp = ballControl + 0x34;//bool
-addrs.floatSpeedUpTime = ballControl + 0x3C;//float
-addrs.floatPushTime = ballControl + 0x38;//float
-addrs.firstTouchGround = ballControl+ 0x40;//bool
-addrs.ballDied = ballControl + 0x48;//bool
+addrs.ballControl = read32(addrs.gamemanager + 0xC);//BallMovementControl
+addrs.speedUp = addrs.ballControl + 0x34;//bool
+addrs.floatSpeedUpTime = addrs.ballControl + 0x3C;//float
+addrs.floatPushTime = addrs.ballControl + 0x38;//float
+addrs.firstTouchGround = addrs.ballControl + 0x40;//bool
+addrs.ballDied = addrs.ballControl + 0x48;//bool
 //-----------------------------------
-addrs.buildingSpawner = read32(gamemanager + 0x24);//BuildingSpawnControl
+addrs.buildingSpawner = read32(addrs.gamemanager + 0x24);//BuildingSpawnControl
 //-----------------------------------
-addrs.movementForceControl = read32(ballControl + 0xC);//BallMovementForceControl
-addrs.yForce = movementForceControl + 0xC;//float
-addrs.zForce = movementForceControl + 0x10;//float
-addrs.spawnPosition = movementForceControl + 0x4C;
+addrs.movementForceControl = read32(addrs.ballControl + 0xC);//BallMovementForceControl
+addrs.yForce = addrs.movementForceControl + 0xC;//float
+addrs.zForce = addrs.movementForceControl + 0x10;//float
+addrs.spawnPosition = addrs.movementForceControl + 0x4C;
 //-----------------------------------
-addrs.mapLoader = read32(gamemanager+0x28);
+addrs.mapLoader = read32(addrs.gamemanager + 0x28);
 //-----------------------------------
-addrs.gameUi = read32(gamemanager+0x2c);//GameUIControl
+addrs.gameUi = read32(addrs.gamemanager + 0x2c);//GameUIControl
 //-----------------------------------
-addrs.playerHUD = read32(gameUi+0xC);//PlayerHUDControl
-addrs.hudtimer = playerHUD + 0x1c;//float
-addrs.hudTimeShowGuide = playerHUD + 0x18;//float
+addrs.playerHUD = read32(addrs.gameUi + 0xC);//PlayerHUDControl
+addrs.hudtimer = addrs.playerHUD + 0x1c;//float
+addrs.hudTimeShowGuide = addrs.playerHUD + 0x18;//float
 //-----------------------------------
-addrs.mainPanel = read32(gameUi+0x10);//MainPanelControl
-addrs.panelAgainGame = mainPanel + 0x30;//bool
-addrs.panelIsPlay = mainPanel + 0x3C;//bool
-addrs.panelIsControl = mainPanel + 0x3D;//bool
-addrs.panelStartTime = mainPanel + 0x40;//float
+addrs.mainPanel = read32(addrs.gameUi + 0x10);//MainPanelControl
+addrs.panelAgainGame = addrs.mainPanel + 0x30;//bool
+addrs.panelIsPlay = addrs.mainPanel + 0x3C;//bool
+addrs.panelIsControl = addrs.mainPanel + 0x3D;//bool
+addrs.panelStartTime = addrs.mainPanel + 0x40;//float
 //-----------------------------------
-addrs.leaderboardControl = read32(gameUi+0x14);//LeaderBoardControl
-addrs.leaderboardStartTime = leaderboardControl + 0x90;//float
-addrs.bestText = read32(leaderboardControl + 0x80);//Text
+addrs.leaderboardControl = read32(addrs.gameUi + 0x14);//LeaderBoardControl
+addrs.leaderboardStartTime = addrs.leaderboardControl + 0x90;//float
+addrs.bestText = read32(addrs.leaderboardControl + 0x80);//Text
 //-----------------------------------
 }
 var mag = 100;
