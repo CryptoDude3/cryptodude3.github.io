@@ -11,11 +11,20 @@
 .title {
     font-size: 1.2em;
     text-align: center;
-    margin-bottom: 0.7em;
+    margin-bottom: 1em;
 }
 .toggle {
 color: red;
 }
 .toggle[enabled] {
 color: #20b800;
+}
+.dropdown-arrow {
+display: inline;
+}
+.dropdown-arrow:before {
+content: "&#2b56; ";
+}
+.content {
+margin-left: 6px;
 }
