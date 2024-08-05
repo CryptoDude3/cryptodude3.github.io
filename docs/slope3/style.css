@@ -7,7 +7,7 @@
     font-size: 1.3em;
     font-family: monospace;
     font-weight: bold;
-    text-select: none;
+    user-select: none;
 }
 .title {
     font-size: 1.2em;
