@@ -7,6 +7,7 @@
     font-size: 1.3em;
     font-family: monospace;
     font-weight: bold;
+    text-select: none;
 }
 .title {
     font-size: 1.2em;
@@ -23,9 +24,8 @@ color: #20b800;
 display: inline;
 margin-right:0.6em;
 cursor:pointer;
-text-select: none;
 }
 .content {
 margin-left: 6px;
-display:none;
+display: none;
 }
