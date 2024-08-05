@@ -8,6 +8,7 @@
     font-family: monospace;
     font-weight: bold;
     user-select: none;
+    width: 16%;
 }
 .title {
     font-size: 1.2em;
