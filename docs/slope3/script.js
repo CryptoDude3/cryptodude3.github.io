@@ -82,28 +82,29 @@ cheat.id=key.toUpperCase();
 cheat.setValue = function(value){value?this.setAttribute("enabled",""):this.removeAttribute("enabled");}
 cheat.innerHTML = `[${key}] ${text}`;
 return cheat;}
+
+
+
 function makeDropdown(cheats,text){
 var ddcontainer = document.createElement("div");
 ddcontainer.className = "dropdown-container";
 var arrow = document.createElement("div");
 arrow.className = "dropdown-arrow";
+arrow.innerText = "\u25bc";
 ddcontainer.appendChild(arrow);
 ddcontainer.innerText+=text;
 var content = document.createElement("div");
 content.className = "content";
 cheats.forEach(cheat=>content.appendChild(cheat));
+ddcontainer.addEventListener("click",()=>{
+if(content.style.display=="none" || content.style.display==""){
+arrow.innerHTML = "\u25bc";
+content.style.display = "block";
+} else {
+arrow.innerHTML = "\u25ba";
+content.style.display = "none";
+}
+});
 ddcontainer.appendChild(content);
 return ddcontainer;
 }
-//dropdown handler code
-document.querySelectorAll(".dropdown-container").forEach(dropdown=>{
-dropdown.children[0].addEventListener("click",()=>{
-if(dropdown.children[1].style.display=="none" || dropdown.children[1].style.display==""){
-dropdown.children[0].innerHTML = "\u25bc";
-dropdown.children[1].style.display = "block";
-} else {
-dropdown.children[0].innerHTML = "\u25ba";
-dropdown.children[1].style.display = "none";
-}
-});
-});
