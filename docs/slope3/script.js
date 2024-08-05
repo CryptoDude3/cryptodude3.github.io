@@ -66,7 +66,7 @@ var mag = 100;
 
 
 
-let cheats = [{type:"bool",addrValue:"camAllowed",key:"F",text:"Freeze Camera"}];
+let cheats = [{type:"bool",addrValue:"camAllowed",key:"F",text:"Freeze Camera",invert:true}];
 const toggles = makeDropdown("Toggles");
 cheats.forEach(cheat=>{
 switch(cheat.type){
@@ -74,7 +74,7 @@ case "bool":
 var cheatElem = createCheat(cheat.key,cheat.text);
 toggles.addCheat(cheatElem);
 cheat.html = cheatElem;
-document.addEventListener("keydown",(e)=>{if(e.key!==cheat.key.toLowerCase()){return;}const value = read8(addrs[cheat.addrValue]);set8(value?0:1,addrs[cheat.addrValue]);cheatElem.setValue(!value);});
+document.addEventListener("keydown",(e)=>{if(e.key!==cheat.key.toLowerCase()){return;}console.log("called");const value = read8(addrs[cheat.addrValue]);set8(value?0:1,addrs[cheat.addrValue]);cheatElem.setValue(invert?!value:value);});
 break;
 }
 });
