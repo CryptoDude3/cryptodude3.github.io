@@ -69,7 +69,6 @@ document.addEventListener("keydown",(e)=>{if(e.key!=="f"){return;}set8(camAllowe
 
 //dropdown handler code
 document.querySelectorAll(".dropdown-container").forEach(dropdown=>{
-console.log(dropdown);
 dropdown.children[0].addEventListener("click",()=>{
 if(dropdown.children[1].style.display=="none" || dropdown.children[1].style.display==""){
 dropdown.children[0].innerHTML = "\u25bc";
