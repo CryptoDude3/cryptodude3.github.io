@@ -77,7 +77,7 @@ case "bool":
 var cheatElem = createCheat(cheat.key,cheat.text);
 toggles.addCheat(cheatElem);
 cheat.html = cheatElem;
-document.addEventListener("keydown",(e)=>{if(e.key!==cheat.key.toLowerCase()){return;}console.log("called");const value = read8(addrs[cheat.addrValue]);set8(addrs[cheat.addrValue],value?0:1);cheatElem.setValue(cheat.invert?!value:value);});
+document.addEventListener("keydown",(e)=>{if(e.key!==cheat.key.toLowerCase()){return;}console.log("called");const value = read8(addrs[cheat.addrValue]);set8(addrs[cheat.addrValue],value?0:1);cheatElem.setValue(cheat.invert?value:!value);});
 break;
 }
 });
