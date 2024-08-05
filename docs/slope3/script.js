@@ -66,19 +66,29 @@ document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowUp"){return;}setFloat
 document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowDown"){return;}setFloat32(zForce,readFloat32(zForce)-mag)});
 document.addEventListener("keydown",(e)=>{if(e.key!=="f"){return;}set8(camAllowed,!read8(camAllowed))});
 
+
+
+
+
+
+
+
+
+
+
 function createCheat(key,text){var cheat = document.createElement("div");
 cheat.className = "toggle";
 cheat.id=key.toUpperCase();
 cheat.setValue = function(value){value?this.setAttribute("enabled",""):this.removeAttribute("enabled");}
 cheat.innerHTML = `[${key}] ${text}`;
 return cheat;}
-function makeDropdown(cheats){
+function makeDropdown(cheats,text){
 var ddcontainer = document.createElement("div");
 ddcontainer.className = "dropdown-container";
 var arrow = document.createElement("div");
 arrow.className = "dropdown-arrow";
 ddcontainer.appendChild(arrow);
-ddcontainer.innerText+="Keybinds";
+ddcontainer.innerText+=text;
 var content = document.createElement("div");
 content.className = "content";
 cheats.forEach(cheat=>content.appendChild(cheat));
