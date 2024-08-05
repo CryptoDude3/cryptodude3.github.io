@@ -66,14 +66,25 @@ document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowUp"){return;}setFloat
 document.addEventListener("keydown",(e)=>{if(e.key!=="ArrowDown"){return;}setFloat32(zForce,readFloat32(zForce)-mag)});
 document.addEventListener("keydown",(e)=>{if(e.key!=="f"){return;}set8(camAllowed,!read8(camAllowed))});
 
-function addCheat(key,text){var cheat = document.createElement("div");
+function createCheat(key,text){var cheat = document.createElement("div");
 cheat.className = "toggle";
-cheat.id=key;
+cheat.id=key.toUpperCase();
 cheat.setValue = function(value){value?this.setAttribute("enabled",""):this.removeAttribute("enabled");}
 cheat.innerHTML = `[${key}] ${text}`;
-keybinds.appendChild(cheat);
 return cheat;}
-
+function makeDropdown(cheats){
+var ddcontainer = document.createElement("div");
+ddcontainer.className = "dropdown-container";
+var arrow = document.createElement("div");
+arrow.className = "dropdown-arrow";
+ddcontainer.appendChild(arrow);
+ddcontainer.innerText+="Keybinds";
+var content = document.createElement("div");
+content.className = "content";
+cheats.forEach(cheat=>content.appendChild(cheat));
+ddcontainer.appendChild(content);
+return ddcontainer;
+}
 //dropdown handler code
 document.querySelectorAll(".dropdown-container").forEach(dropdown=>{
 dropdown.children[0].addEventListener("click",()=>{
