@@ -20,7 +20,7 @@ function readQuat(ptr){return {x:readFloat32(ptr),y:readFloat32(ptr+0x4),z:readF
 function setQuat(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefined||vec.w==undefined){throw "Quaternion must have an x, y, z, and w!";}setFloat32(ptr,vec.x);setFloat32(ptr+0x4,vec.y);setFloat32(ptr+0x8,vec.z);setFloat32(ptr+0xC,vec.w);}
 window.addrs = {};
 window.hacksLoaded = false;
-window.hacksEnabled = true;
+window.hacksEnabled = window.location.search.includes("hack");
 function loadHacks(){
 addrs.gamemanager = 0x0114ae00;
 addrs.score = addrs.gamemanager + 0x30;//int
@@ -68,7 +68,7 @@ window.hacksLoaded=!0;
 }
 var mag = 100;
 
-
+if(hacksEnabled){document.querySelector(".cheat-container").style.display="block";}
 
 let cheats = [{type:"bool",addrValue:"camAllowed",key:"F",text:"Freeze Camera",invert:true}];
 const toggles = makeDropdown("Toggles");
