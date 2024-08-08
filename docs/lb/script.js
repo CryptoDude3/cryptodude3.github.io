@@ -53,4 +53,4 @@ tr.appendChild(createTd(e.createdAt));
 t.appendChild(tr);
 });
 document.querySelector("#scores").appendChild(t);}
-update(new Date(Date.now()-(3600000*24)).toISOString(),new Date().toISOString());
+update(new Date().toISOString(),new Date().toISOString());
