@@ -1,0 +1,2 @@
+//usermgr:
+stateNode.setState({loading:!1,user:{name:"someuser",hasPassword:!0,suspended:!0,suspendedAt:new Date(),email:"test@yourmom.com",plan:"Starter"}});
