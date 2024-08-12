@@ -4,6 +4,14 @@
   <script src="TemplateData/unityloader41.js"></script>
   <script>
 //helpers
+    function searchFor(str){let buffer = new Uint8Array(gameInstance.Module.wasmMemory.buffer);
+for(var i = 0;i<buffer.length;i+=2048){
+const buf = [...buffer.subarray(i,i+2048)].map(e=>String.fromCharCode(e)).join("");if(buf.includes(str)){console.log(i+buf.indexOf(str));}}}
+function read(loc,len){return [...new Uint8Array(gameInstance.Module.wasmMemory.buffer).subarray(loc,loc+len)].map(e=>String.fromCharCode(e)).join("");}
+function searchFor16(str){str=str.split("").map(e=>e+"\x00").join("");let buffer = new Uint8Array(gameInstance.Module.wasmMemory.buffer);
+for(var i = 0;i<buffer.length;i+=2048){
+const buf = [...buffer.subarray(i,i+2048)].map(e=>String.fromCharCode(e)).join("");if(buf.includes(str)){console.log(i+buf.indexOf(str)-11);}}}
+function read(loc,len){return [...new Uint8Array(gameInstance.Module.wasmMemory.buffer).subarray(loc,loc+len)].map(e=>String.fromCharCode(e)).join("");}
     function read32(loc){return new Uint32Array(gameInstance.Module.wasmMemory.buffer)[loc/4];}
 function read16(loc){return new Uint16Array(gameInstance.Module.wasmMemory.buffer)[loc/2];}
 function set16(loc,val){return new Uint16Array(gameInstance.Module.wasmMemory.buffer)[loc/2] = val;}
