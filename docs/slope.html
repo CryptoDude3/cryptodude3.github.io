@@ -3,13 +3,31 @@
   <script src="TemplateData/UnityProgress.js"></script>
   <script src="TemplateData/unityloader41.js"></script>
   <script>
+//helpers
+    function read32(loc){return new Uint32Array(gameInstance.Module.wasmMemory.buffer)[loc/4];}
+function read16(loc){return new Uint16Array(gameInstance.Module.wasmMemory.buffer)[loc/2];}
+function set16(loc,val){return new Uint16Array(gameInstance.Module.wasmMemory.buffer)[loc/2] = val;}
+function read8(loc){return new Uint8Array(gameInstance.Module.wasmMemory.buffer)[loc];}
+function set8(loc,val){new Uint8Array(gameInstance.Module.wasmMemory.buffer)[loc] = val;}
+function set32(loc,val){new Uint32Array(gameInstance.Module.wasmMemory.buffer)[loc/4] = val;}
+function setFloat32(loc,val){new Float32Array(gameInstance.Module.wasmMemory.buffer)[loc/4] = val;}
+function readFloat32(loc){return new Float32Array(gameInstance.Module.wasmMemory.buffer)[loc/4];}
+function readString(ptr){let str = "";const len = read32(ptr+0x8);if(len<0 || len>1e3){console.log("Not a string!");return;}for(var i = 0;i<len*2;i+=2){str+=String.fromCharCode(read16(ptr+0xC+i));}return str;}
+function writeString(ptr,str){set32(ptr+0x8,str.length);for(let i = 0;i<str.length*2;i+=2){set16(ptr+0xC+i,str.charCodeAt(i/2))}}
+function readVec3(ptr){return {x:readFloat32(ptr),y:readFloat32(ptr+0x4),z:readFloat32(ptr+0x8)};}
+function setVec3(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefined){throw "Vector3 must have an x, y, and z!";}}
+function readQuat(ptr){return {x:readFloat32(ptr),y:readFloat32(ptr+0x4),z:readFloat32(ptr+0x8),w:readFloat32(ptr+0xC)};}
+function setQuat(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefined||vec.w==undefined){throw "Quaternion must have an x, y, z, and w!";}setFloat32(ptr,vec.x);setFloat32(ptr+0x4,vec.y);setFloat32(ptr+0x8,vec.z);setFloat32(ptr+0xC,vec.w);}
+
     function progFunc(gameInstance,progress){if(progress == 1){enableHacks();alert("Hacks Loaded!");}UnityProgress(gameInstance,progress);}
+    var zForce = 0x01cd5c98;
+var yForce = 0x01cd5cb8;
+var mag = 25;
     var gameInstance = UnityLoader.instantiate("gameContainer", "Build/slope.json", {onProgress: progFunc, Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
-    /*var pass = "benismart", pass2 = "ccisfine", ind = 0, ind2 = 0, hacks = false;
+    /*var pass = "iamsmart", pass2 = "opensesame", ind = 0, ind2 = 0, hacks = false;
     document.addEventListener("keydown", function (e) {if (e.key === pass[ind]) {ind++;} else {ind = 0;} if (e.key === pass2[ind2]) {ind2++;} else {ind2 = 0;} if (ind === pass.length || ind2 === pass2.length) {if (!hacks) {alert("Hacks Enabled"); enableHacks(); hacks = true;} } });*/
-    //cc if you're reading this i want to know i rate you a 9/10 easy (cutie)
     function enableHacks() {kp=false;var view = new Uint32Array(gameInstance.Module.wasmMemory.buffer); document.addEventListener("keypress", function (e) {if(e.key==="i"){kp=true;view[7674510]=0;}if(e.key==="Enter" && kp){kp=false;}if(kp){if(parseInt(e.key)!=NaN){
-view[7674510] = parseInt(view[7674510].toString()+e.key);}}if(!kp){switch (e.key) {case "5": view[7674510]*=2;break;case ";":hacks=false;break;case "j": view[7674510]--; break; case "k": view[7674510]++; break; case "2": view[7674510] += 2; break; case "3": view[7674510] = 2147483620; break; case "0": view[7674510] = 0; break}}})}
+view[7674510] = parseInt(view[7674510].toString()+e.key);}}if(!kp){switch (e.key) {case "ArrowUp":setFloat32(yForce,readFloat32(yForce)+mag);break;case "ArrowDown":setFloat32(yForce,readFloat32(yForce)-mag);break;case "w":setFloat32(zForce,readFloat32(zForce)+mag);break;case "s":setFloat32(zForce,readFloat32(zForce)-mag);break;case "5": view[7674510]*=2;break;case ";":hacks=false;break;case "j": view[7674510]--; break; case "k": view[7674510]++; break; case "2": view[7674510] += 2; break; case "3": view[7674510] = 2147483620; break; case "0": view[7674510] = 0; break}}})}
   </script>
 </head>
 
