@@ -54,3 +54,13 @@ t.appendChild(tr);
 });
 document.querySelector("#scores").appendChild(t);}
 update(new Date().toISOString(),new Date().toISOString());
+function loadScores(){
+const stime = document.querySelector("#stime").value;
+const etime = document.querySelector("#etime").value;
+update(stime,etime);
+}
+function getString(d){
+const date = new Date(d);
+return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate()}T${date.getHours().toString().padStart(2,"0")}:${date.getMinutes().toString().padStart(2,"0")}`;}
+document.querySelector("#stime").value=getString(new Date().setDate(new Date().getDate()-1));
+document.querySelector("#etime").value=getString(new Date());
