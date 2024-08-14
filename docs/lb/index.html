@@ -1,5 +1,4 @@
 <script src="https://blueimp.github.io/JavaScript-MD5/js/md5.js"></script>
-<script src="script.js"></script>
 <style>
 table {
   font-family: arial, sans-serif;
@@ -12,6 +11,14 @@ td, th {
   text-align: left;
   padding: 8px;
 }
+.ipc {margin-top:5px;}
+.input {margin-bottom:3px;}
 </style>
+<body>
 <table id="scores">
 </table>
+<div class="ipc">
+<div class="input"><label for="stime">Enter Start Time:</label><input type="datetime-local" id="stime" name="stime"></div><div class="input"><label for="etime">Enter End Time:</label><input type="datetime-local" id="etime" name="etime"><br><button onclick="loadScores();">Load Scores</button></div>
+</div>
+<script src="script.js"></script>
+</body>
