@@ -3,7 +3,7 @@
 "productName": "Slope",
 "dataUrl": "slope_data.unityweb",
 "wasmCodeUrl": "slope_wasmcode.unityweb",
-"wasmFrameworkUrl": "slope_wasmframework.unityweb",
+"wasmFrameworkUrl": "slopeframework.js",
 "asmCodeUrl": "slope_code.unityweb",
 "asmMemoryUrl": "slope_memory.unityweb",
 "asmFrameworkUrl": "slope_framework.unityweb",
