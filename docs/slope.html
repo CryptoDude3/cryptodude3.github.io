@@ -27,7 +27,7 @@ function setVec3(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefine
 function readQuat(ptr){return {x:readFloat32(ptr),y:readFloat32(ptr+0x4),z:readFloat32(ptr+0x8),w:readFloat32(ptr+0xC)};}
 function setQuat(ptr,vec){if(vec.x==undefined||vec.y==undefined||vec.z==undefined||vec.w==undefined){throw "Quaternion must have an x, y, z, and w!";}setFloat32(ptr,vec.x);setFloat32(ptr+0x4,vec.y);setFloat32(ptr+0x8,vec.z);setFloat32(ptr+0xC,vec.w);}
 
-    function progFunc(gameInstance,progress){if(progress == 1){enableHacks();alert("Hacks Loaded!");}UnityProgress(gameInstance,progress);}
+    function progFunc(gameInstance,progress){if(progress == 1){enableHacks();alert("Hacks Loaded!");window.addEventListener("resize",e=>{gameInstance.Module.setCanvasSize(window.innerWidth,window.innerHeight)});}UnityProgress(gameInstance,progress);}
     var yForce = 0x01cd5c98;//actually zForce
 var zForce = 0x01cd5cb8;//actually yForce
 window.running = !0;
