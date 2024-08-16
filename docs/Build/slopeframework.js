@@ -8450,7 +8450,6 @@ function copyTempDouble(ptr) {
           Browser.mainLoop.scheduler = null;
           Browser.mainLoop.currentlyRunningMainloop++; // Incrementing this signals the previous main loop that it's now become old, and it must return.
         },resume:function () {
-		  if(!window.running){return;}
           Browser.mainLoop.currentlyRunningMainloop++;
           var timingMode = Browser.mainLoop.timingMode;
           var timingValue = Browser.mainLoop.timingValue;
@@ -9120,6 +9119,7 @@ function copyTempDouble(ptr) {
       var thisMainLoopId = Browser.mainLoop.currentlyRunningMainloop;
   
       Browser.mainLoop.runner = function Browser_mainLoop_runner() {
+		if(!window.running){return;}
         if (ABORT) return;
         if (Browser.mainLoop.queue.length > 0) {
           var start = Date.now();
