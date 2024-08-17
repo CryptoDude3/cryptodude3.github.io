@@ -5,7 +5,7 @@ gain.connect(context.destination);
 var AFSK_TIME = 0.00192;
 var SPACE_FREQ = 1562.5;
 var MARK_FREQ = 2083.3;
-var SAMPLE_RATE = 44100;
+var SAMPLE_RATE = 192000;
 var NRW_WAT_FREQ = 1050;
 var WAT_FREQ_1 = 853;
 var WAT_FREQ_2 = 960;
@@ -14,6 +14,10 @@ var HEADER = "ZCZC";
 var PREAMBLE = 0xD5;//0xab read from lsb to msb
 var samples = [];
 var afsklen = SAMPLE_RATE * 0.00192;
+function changeSampleRate(nr){
+SAMPLE_RATE = nr;
+afsklen = SAMPLE_RATE * 0.00192;
+}
 function generate_afsk(message) {
   message.forEach(e => { e ? generate_tone(MARK_FREQ, afsklen) : generate_tone(SPACE_FREQ, afsklen); });
 }
