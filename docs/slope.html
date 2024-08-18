@@ -45,6 +45,7 @@ return addrs;
     function progFunc(gameInstance,progress){if(progress == 1){enableHacks();alert("Hacks Loaded!");window.addEventListener("resize",e=>{gameInstance.Module.setCanvasSize(window.innerWidth,window.innerHeight)});}UnityProgress(gameInstance,progress);}
     var zForce = 0x01cd5c98;
 var yForce = 0x01cd5cb8;
+var maxRepeats = 30562168;//int32
 var SteerForceRight = 0x01d46af8;
 var SteerForceLeft = 0x01d46b18;
 window.running = !0;
