@@ -1,12 +1,9 @@
 {
-"companyName": "Slope Plus",
+"companyName": "CowEggs Inc.",
 "productName": "Slope Plus",
 "dataUrl": "slopeplus.data.unityweb",
 "wasmCodeUrl": "slopeplus.wasm.code.unityweb",
 "wasmFrameworkUrl": "slopeplus.wasm.framework.unityweb",
-"asmCodeUrl": "slopeplus.asm.code.unityweb",
-"asmMemoryUrl": "slopeplus.asm.memory.unityweb",
-"asmFrameworkUrl": "slopeplus.asm.framework.unityweb",
 "TOTAL_MEMORY": 268435456,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},
