@@ -4,6 +4,9 @@
   <script src="UnityLoader.js"></script>
   <script>
 function UnityProgress(gameInstance, progress) {
+  if(progress == 1){
+  window.addEventListener("resize",e=>{gameInstance.Module.setCanvasSize(window.innerWidth,window.innerHeight)});
+}
   if (!gameInstance.Module)
     return;
   if (!gameInstance.logo) {
