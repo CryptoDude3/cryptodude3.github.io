@@ -4,7 +4,6 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
 
 
 <url>
@@ -15,21 +14,21 @@
 <url>
   <loc>https://cryptodude3.github.io/slope.html</loc>
   <lastmod>2024-01-26T06:07:19+00:00</lastmod>
-  <priority>0.80</priority>
+  <priority>0.50</priority>
 </url>
 <url>
   <loc>https://cryptodude3.github.io/same/</loc>
   <lastmod>2024-01-26T06:07:19+00:00</lastmod>
-  <priority>1.00</priority>
+  <priority>0.50</priority>
 </url>
 <url>
   <loc>https://cryptodude3.github.io/slopeplus/</loc>
-  <priority>1.50</priority>
+  <priority>1.00</priority>
 </url>
 <url>
   <loc>https://cryptodude3.github.io/web/</loc>
   <lastmod>2024-01-26T06:07:19+00:00</lastmod>
-  <priority>0.80</priority>
+  <priority>0.50</priority>
 </url>
 
 
