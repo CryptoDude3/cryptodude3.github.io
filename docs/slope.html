@@ -6,6 +6,9 @@
   <script>
 //helpers
 let fsms = [29016368, 29016064, 29224512, 29224208, 29223904, 29223600, 29222384, 29222080, 30522336, 30522032];
+function readFsm(fsm){
+    return {name:readString(read32(fsm+0x18)),startState:readString(read32(fsm+0x1C)),dataVersion:read32(fsm+0xC),states:read32(fsm+0x20),globalTransitions:read32(fsm+0x28)}
+}
     function searchFor(str){let buffer = new Uint8Array(gameInstance.Module.wasmMemory.buffer);
 for(var i = 0;i<buffer.length;i+=2048){
 const buf = [...buffer.subarray(i,i+2048)].map(e=>String.fromCharCode(e)).join("");if(buf.includes(str)){console.log(i+buf.indexOf(str));}}}
