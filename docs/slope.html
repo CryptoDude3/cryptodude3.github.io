@@ -5,6 +5,7 @@
   <script src="TemplateData/unityloader41.js"></script>
   <script>
 //helpers
+let fsms = [29016368, 29016064, 29224512, 29224208, 29223904, 29223600, 29222384, 29222080, 30522336, 30522032];
     function searchFor(str){let buffer = new Uint8Array(gameInstance.Module.wasmMemory.buffer);
 for(var i = 0;i<buffer.length;i+=2048){
 const buf = [...buffer.subarray(i,i+2048)].map(e=>String.fromCharCode(e)).join("");if(buf.includes(str)){console.log(i+buf.indexOf(str));}}}
