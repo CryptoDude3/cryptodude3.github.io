@@ -22,6 +22,9 @@ function readFsm(fsm){
 function readFsmState(ptr){
     return {name:readPStr(ptr+0x18),desc:readPStr(ptr+0x1C),active:read8(ptr+0x8),finished:read8(ptr+0x9),actions:read32(ptr+0x3C),transitions:read32(ptr+0x38),ptr};
 }
+function readFsmStateAction(ptr){
+    return {name:readPStr(ptr+0x8),enabled:read8(ptr+0xC),isOpen:read8(ptr+0xD),active:read8(ptr+0xE),finished:read8(ptr+0xF),autoName:read8(ptr+0x10),ptr};
+}
     function searchFor(str){let buffer = new Uint8Array(gameInstance.Module.wasmMemory.buffer);
 for(var i = 0;i<buffer.length;i+=2048){
 const buf = [...buffer.subarray(i,i+2048)].map(e=>String.fromCharCode(e)).join("");if(buf.includes(str)){console.log(i+buf.indexOf(str));}}}
