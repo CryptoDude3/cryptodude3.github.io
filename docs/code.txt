@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+int g;
+int rn;
+int inp;
+int guess()
+{
+    printf("Enter a number (0-100): ");
+    scanf("%d", &inp);
+    if(inp > rn) {
+        printf("Lower!\n");
+        g++;
+        guess();
+    }
+    else if(inp < rn) {
+        printf("Higher!\n");
+        g++;
+        guess();
+    }
+    else {
+        printf("\nCorrect! You guessed the number %d in %d guesses!",rn,g);
+    }
+    return 0;
+}
+
+int main()
+{
+    srand((int)(clock()));
+    rn = rand() % 100;
+    guess();
+    return 0;
+}
