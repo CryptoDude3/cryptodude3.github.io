@@ -1,9 +1,37 @@
+<style>.chopts {margin-bottom:5px;} .chopts > * {margin-bottom:2px;}</style>
 <h1>APT Encoder</h1>
-Channel A: <input type="file" id="imga"><br>
-Channel B: <input type="file" id="imgb"><br>
-Resize Height (px): <input id="hrs" type="number"><br>
-<canvas id="img" width="2080" height="500" style="border:1px solid black;">No Canvas is supported!</canvas><br>
-<button onclick="encode()">Encode Image!</button>
+<b>Channel A Options:</b>
+<div class="chopts">
+<div>Select Image: <input type="file" id="imga"></div>
+<div>Select Channel Type: <select id="atype">
+  <option value="1" selected>1 (Visible)</option>
+  <option value="2">2 (Near-IR)</option>
+  <option value="3">3A (IR Snow and Ice)</option>
+  <option value="6">3B (IR Night cloud mapping)</option>
+  <option value="4">4 (IR Sea surface temp)</option>
+  <option value="5">5 (Sea surface temp)</option>
+</select></div>
+</div>
+<br>
+<b>Channel B Options:</b>
+<div class="chopts">
+<div>Select Image: <input type="file" id="imgb"></div>
+<div>Select Channel Type: <select id="btype">
+  <option value="1">1 (Visible)</option>
+  <option value="2">2 (Near-IR)</option>
+  <option value="3">3A (IR Snow and Ice)</option>
+  <option value="6">3B (IR Night cloud mapping)</option>
+  <option value="4" selected>4 (IR Sea surface temp)</option>
+  <option value="5">5 (Sea surface temp)</option>
+</select></div>
+</div><br>
+<b>Other Options:</b>
+<div class="chopts">
+<div>Resize Height (px): <input id="hrs" type="number"></div>
+</div>
+<br>
+<button onclick="encode()">Encode Image</button><button id="play">Play Samples</button>
+<canvas id="img" width="2080" height="500" style="border:1px solid black;margin-bottom:5px;margin-top:4px;">No Canvas is supported!</canvas><br>
 <script>
 let samples = [];
 const sample_rate = 8320;
@@ -15,20 +43,28 @@ const SYNCB = "000011100111001110011100111001110011100";
 const fileA = document.querySelector("#imga");
 const fileB = document.querySelector("#imgb");
 const imgCtx = document.querySelector("#img").getContext("2d");
-let drawToCanvas = false;
+const resizeElem = document.querySelector("#hrs");
+const playButton = document.querySelector("#play");
+let drawToCanvas = true;
 let channelA = 1;
 let channelB = 4;
-let wedgeB = [];
+let imgCtxPx = [];
 let imgAData;
 let imgBData;
 let bind;
-const channels = ["1 (Visible)","2 (Near-IR)","3A (IR Snow and Ice)","4 (IR Sea surface temp)","5 (Sea surface temp)","3B (IR Night cloud mapping)"];
+let playing = false;
+let currSamp;
+playButton.addEventListener("click",e=>{
+if(!playing){currSamp = playSamples();playing=true;playButton.innerHTML="Stop Playing";}else{
+currSamp.stop();playing=false;playButton.innerHTML="Play Samples";
+}
+});
 function write_value(v){
 if(!v){v=0;}
  for(let i = 0;i<baudrate;i++){
    samples.push(Math.sin(2 * Math.PI * samples.length/sample_rate * carrier) * v/255);
  }
-if(drawToCanvas){drawPixel((samples.length / baudrate) - 1,v);}
+if(drawToCanvas){imgCtxPx.push(v);}
 }
 
 function write_line(j){
@@ -66,7 +102,7 @@ write_value(255*enc[pos%16]/8);
 const context = new AudioContext();
 const gain = context.createGain();
 gain.connect(context.destination);
-function playSample() {
+function playSamples() {
   const audioBuffer = context.createBuffer(1, samples.length, sample_rate);
   const channelData = audioBuffer.getChannelData(0);
   for (let i = 0; i < samples.length; i++) {
@@ -76,6 +112,8 @@ function playSample() {
   source.buffer = audioBuffer;
   source.connect(gain);
   source.start();
+  source.onended = (()=>{playButton.innerText="Play Samples";});
+  return source;
 }
 
 function readFile(file){
@@ -85,7 +123,7 @@ function readFile(file){
     img.src = URL.createObjectURL(file);
     img.width=909;
     img.onload=(()=>{
-    const nH = 909*img.naturalHeight/img.naturalWidth;
+    const nH = parseInt(resizeElem.value) ? parseInt(resizeElem.value) : 909*img.naturalHeight/img.naturalWidth;
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     canvas.width=909;
@@ -108,8 +146,24 @@ function drawPixel(ind,v){
 imgCtx.fillStyle=`rgb(${v},${v},${v})`;
 imgCtx.fillRect(ind%2080,Math.floor(ind/2080),1,1);
 }
-
+function renderImg(){
+imgCtx.fillStyle="#ffffff";
+imgCtx.fillRect(0,0,2080,500);
+let srgb = new Array(imgCtxPx.length*4);
+for(let i = 0;i<imgCtxPx.length;i++){
+const px = imgCtxPx[i];
+    srgb[i*4] = px;
+    srgb[i*4 + 1] = px;
+    srgb[i*4 + 2] = px;
+    srgb[i*4 + 3] = 255;
+}
+const imgdata = new ImageData(new Uint8ClampedArray(srgb),2080);
+imgCtx.putImageData(imgdata,0,0);
+}
 async function encode(){
+channelA = parseInt(document.querySelector("#atype").value);
+channelB = parseInt(document.querySelector("#btype").value);
+imgCtxPx=[];
 samples=[];
 if(fileA.files.length==0&&fileB.files.length==0){alert("You must have at least one image!");return;}
 imgAData = await readGrayscale((fileA.files.length?fileA:fileB).files[0]);
@@ -122,5 +176,6 @@ imglen = imgBData.length/909;
 }
 //read channel
 for(let i = 0;i<imglen;i++){write_line(i);}
+if(drawToCanvas){renderImg();}
 }
 </script>
