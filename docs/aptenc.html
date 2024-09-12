@@ -1,0 +1,126 @@
+<h1>APT Encoder</h1>
+Channel A: <input type="file" id="imga"><br>
+Channel B: <input type="file" id="imgb"><br>
+Resize Height (px): <input id="hrs" type="number"><br>
+<canvas id="img" width="2080" height="500" style="border:1px solid black;">No Canvas is supported!</canvas><br>
+<button onclick="encode()">Encode Image!</button>
+<script>
+let samples = [];
+const sample_rate = 8320;
+const carrier = 2400;
+const baud = 4160;
+const baudrate = sample_rate/baud;
+const SYNCA = "000011001100110011001100110011000000000";
+const SYNCB = "000011100111001110011100111001110011100";
+const fileA = document.querySelector("#imga");
+const fileB = document.querySelector("#imgb");
+const imgCtx = document.querySelector("#img").getContext("2d");
+let drawToCanvas = false;
+let channelA = 1;
+let channelB = 4;
+let wedgeB = [];
+let imgAData;
+let imgBData;
+let bind;
+const channels = ["1 (Visible)","2 (Near-IR)","3A (IR Snow and Ice)","4 (IR Sea surface temp)","5 (Sea surface temp)","3B (IR Night cloud mapping)"];
+function write_value(v){
+if(!v){v=0;}
+ for(let i = 0;i<baudrate;i++){
+   samples.push(Math.sin(2 * Math.PI * samples.length/sample_rate * carrier) * v/255);
+ }
+if(drawToCanvas){drawPixel((samples.length / baudrate) - 1,v);}
+}
+
+function write_line(j){
+//sync a
+for(let i = 0;i<SYNCA.length;i++){write_value(SYNCA[i]=="1"?255:0);}
+//space a
+for(let i = 0;i<47;i++){write_value((j%120 < 2)?255:0);}
+//image a
+for(let i = 0;i<909;i++){write_value(imgAData[(909*j)+i]);}
+//telemetry a
+for(let i = 0;i<45;i++){
+const pos = Math.floor(j/8);
+encodeWedge(pos,channelA);
+}
+
+//sync b
+for(let i = 0;i<SYNCB.length;i++){write_value(SYNCB[i]=="1"?255:0);}
+//space b
+for(let i = 0;i<47;i++){write_value((j%120 < 2)?0:255);}
+//image b
+for(let i = 0;i<909;i++){write_value(imgBData[(909*j)+i]);}
+//telemetry b
+for(let i = 0;i<45;i++){
+const pos = Math.floor(j/8);
+encodeWedge(pos,channelB);
+}
+}
+
+
+function encodeWedge(pos,ch){
+let enc = [1,2,3,4,5,6,7,8,0,4,4,4,4,3,3,ch];
+write_value(255*enc[pos%16]/8);
+}
+
+const context = new AudioContext();
+const gain = context.createGain();
+gain.connect(context.destination);
+function playSample() {
+  const audioBuffer = context.createBuffer(1, samples.length, sample_rate);
+  const channelData = audioBuffer.getChannelData(0);
+  for (let i = 0; i < samples.length; i++) {
+    channelData[i] = samples[i];
+  }
+  const source = context.createBufferSource();
+  source.buffer = audioBuffer;
+  source.connect(gain);
+  source.start();
+}
+
+function readFile(file){
+    return new Promise((res,fail)=>{
+    if(!file.type.includes("image/")){alert("File must be an image!");fail();return;}
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+    img.width=909;
+    img.onload=(()=>{
+    const nH = 909*img.naturalHeight/img.naturalWidth;
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width=909;
+    canvas.height=nH;
+    ctx.drawImage(img,0,0,909,nH);
+    res(ctx.getImageData(0,0,909,nH).data);
+    });
+});
+}
+
+async function readGrayscale(file){
+const imgdata = await readFile(file);
+let output = new Array(imgdata.length/4);
+for(let i = 0;i<imgdata.length;i+=4){
+output[i/4] = 0.299*imgdata[i] + 0.587*imgdata[i+1] + 0.114*imgdata[i+2];
+}
+return output;
+}
+function drawPixel(ind,v){
+imgCtx.fillStyle=`rgb(${v},${v},${v})`;
+imgCtx.fillRect(ind%2080,Math.floor(ind/2080),1,1);
+}
+
+async function encode(){
+samples=[];
+if(fileA.files.length==0&&fileB.files.length==0){alert("You must have at least one image!");return;}
+imgAData = await readGrayscale((fileA.files.length?fileA:fileB).files[0]);
+imgBData = await readGrayscale((fileB.files.length?fileB:fileA).files[0]);
+let imglen;
+if(imgAData > imgBData){
+imglen = imgAData.length/909;
+} else {
+imglen = imgBData.length/909;
+}
+//read channel
+for(let i = 0;i<imglen;i++){write_line(i);}
+}
+</script>
