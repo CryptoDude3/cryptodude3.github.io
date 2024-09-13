@@ -1,5 +1,5 @@
 <style>.chopts {margin-bottom:5px;} .chopts > * {margin-bottom:2px;}</style>
-<h1>NOAA APT Encoder</h1>
+<h1>APT Encoder</h1>
 <b>Channel A Options:</b>
 <div class="chopts">
 <div>Select Image: <input type="file" id="imga"></div>
@@ -112,7 +112,7 @@ function playSamples() {
   source.buffer = audioBuffer;
   source.connect(gain);
   source.start();
-  source.onended = (()=>{playButton.innerText="Play Samples";});
+  source.onended = (()=>{playing=false;playButton.innerText="Play Samples";});
   return source;
 }
 
