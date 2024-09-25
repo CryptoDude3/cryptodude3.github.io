@@ -101,6 +101,8 @@ var SteerForceLeft = 0x01d46b18;
 var BlockLength = 30562360;
 var GameObjectBall = 32936032;
 var FsmOwnerBall = 29249256;//FsmOwnerDefault
+var BallRb = 41991744;//Rigidbody
+//derived from AddForce at 32002752
 window.running = !0;
 var mag = 25;
     var gameInstance = UnityLoader.instantiate("gameContainer", "Build/slope.json", {onProgress: progFunc, Module: {onRuntimeInitialized: function () {UnityProgress(gameInstance, "complete")}}});
