@@ -9,6 +9,16 @@ let fsms = [29016368, 29016064, 29224512, 29224208, 29223904, 29223600, 29222384
 function readFsm(fsm){
     return {name:readString(read32(fsm+0x18)),events:readFullArr(read32(fsm+0x24)).map(e=>readFsmEvent(e)),startState:readString(read32(fsm+0x1C)),dataVersion:read32(fsm+0xC),states:readFullArr(read32(fsm+0x20)).map(e=>readFsmState(e)),variables:readFsmVariables(read32(fsm+0x2C)),globalTransitions:read32(fsm+0x28),ptr:fsm}
 }
+function readChar(ptr){
+    let i = 0;
+    let out = "";
+    while(read8(ptr+i)!=0){
+    out+=String.fromCharCode(read8(ptr+i));
+    i++;
+    if(i>500){throw "Array is too large.";}
+    }
+    return out;
+}
 function readFsmTransitions(ptr){return {toState:readPStr(ptr+0xC),fsmEvent:readFsmEvent(read32(ptr+0x8)),ptr};}
     function readFullArr(ptr){
     let i = 0;
