@@ -20,6 +20,7 @@ function readChar(ptr){
     }
     return out;
 }
+function onPress(key,action){document.addEventListener("keydown",e=>{if(e.key==key){action();}});}
 function getPos(){
 let ptr = gameInstance.Module._malloc(12);
 gameInstance.Module.dynCall_viii(1927,41991744,ptr);
