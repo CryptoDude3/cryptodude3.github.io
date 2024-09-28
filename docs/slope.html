@@ -20,6 +20,11 @@ function readChar(ptr){
     }
     return out;
 }
+function writeChar(value){
+const ptr = gameInstance.Module._malloc(value.length+1);
+gameInstance.Module.writeAsciiToMemory(value,ptr);
+return ptr;
+}
 function onPress(key,action){document.addEventListener("keydown",e=>{if(e.key==key){action();}});}
 function getPos(){
 let ptr = gameInstance.Module._malloc(12);
