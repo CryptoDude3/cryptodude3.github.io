@@ -37,6 +37,11 @@ let str = createString(name);
 let GameObject = gameInstance.Module.dynCall_iiii(1532,0,str);
 free(str);
 return GameObject;}
+function get_PlayMakerFSM(gameObject,fsmName="FSM"){
+let ptr = createString("FSM");
+let ret = gameInstance.Module.dynCall_iiiii(3376,0,gameObject,ptr);
+free(ptr);
+return ret;}
 function getGameObjectName(ptr){
 const out = gameInstance.Module.dynCall_iii(2477,ptr)
 const res = readString(out);
@@ -147,6 +152,7 @@ var GameObjectBall = 32936032;
 var FsmOwnerBall = 29249256;//FsmOwnerDefault
 var BallRb = 41991744;//Rigidbody
 var sceneHandle = 4294967234;
+var SphereGameObject = 25273360;
 //derived from AddForce at 32002752
 window.running = !0;
 var mag = 25;
