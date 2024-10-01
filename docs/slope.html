@@ -28,7 +28,7 @@ return ptr;
 }
 function get_GameObject(name){
 let ptr = gameInstance.Module._malloc(0xC+name.length*2);
-writeString(ptr,"Sphere");
+writeString(ptr,name);
 let GameObject = gameInstance.Module.dynCall_iiii(1532,0,ptr);
 gameInstance.Module._free(ptr);
 return GameObject;}
