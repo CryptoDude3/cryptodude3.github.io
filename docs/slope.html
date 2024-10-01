@@ -34,8 +34,8 @@ return ptr;
 function free(ptr){gameInstance.Module._free(ptr);}
 function get_GameObject(name){
 let str = createString(name);
-let GameObject = gameInstance.Module.dynCall_iiii(1532,0,name);
-free(name);
+let GameObject = gameInstance.Module.dynCall_iiii(1532,0,str);
+free(str);
 return GameObject;}
 function getGameObjectName(ptr){
 const out = gameInstance.Module.dynCall_iii(2477,ptr)
