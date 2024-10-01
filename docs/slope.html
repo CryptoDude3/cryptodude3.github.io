@@ -7,7 +7,7 @@
 //helpers
 let fsms = [29016368, 29016064, 29224512, 29224208, 29223904, 29223600, 29222384, 29222080, 30522336, 30522032];
 function readFsm(fsm){
-    return {name:readString(read32(fsm+0x18)),events:readFullArr(read32(fsm+0x24)).map(e=>readFsmEvent(e)),startState:readString(read32(fsm+0x1C)),dataVersion:read32(fsm+0xC),states:readFullArr(read32(fsm+0x20)).map(e=>readFsmState(e)),variables:readFsmVariables(read32(fsm+0x2C)),globalTransitions:read32(fsm+0x28),ptr:fsm}
+    return {name:readString(read32(fsm+0x18)),GameObject:readGameObject(getFsmGameObject(fsm)),events:readFullArr(read32(fsm+0x24)).map(e=>readFsmEvent(e)),startState:readString(read32(fsm+0x1C)),dataVersion:read32(fsm+0xC),states:readFullArr(read32(fsm+0x20)).map(e=>readFsmState(e)),variables:readFsmVariables(read32(fsm+0x2C)),globalTransitions:read32(fsm+0x28),ptr:fsm}
 }
 function readClassName(il2cppobjectptr){return readChar(read32(read32(il2cppobjectptr)+0x8));}
 function readChar(ptr){
@@ -25,6 +25,15 @@ const ptr = gameInstance.Module._malloc(value.length+1);
 gameInstance.Module.writeAsciiToMemory(value,ptr);
 return ptr;
 }
+function getGameObjectName(ptr){
+const out = gameInstance.Module.dynCall_iii(2477,ptr)
+const res = readString(out);
+gameInstance.Module._free(out);
+return res;
+}
+function readGameObject(ptr){
+    return {name:getGameObjectName(ptr),ptr};
+}
 function onPress(key,action){document.addEventListener("keydown",e=>{if(e.key==key){action();}});}
 function getPos(){
 let ptr = gameInstance.Module._malloc(12);
@@ -41,6 +50,7 @@ setFloat32(ptr+0x8,z);
 gameInstance.Module.dynCall_viii(1928,41991744,ptr);
 gameInstance.Module._free(ptr);
 }
+function getFsmGameObject(ptr){return gameInstance.Module.dynCall_iii(3114,ptr);}
 function readFsmTransitions(ptr){return {toState:readPStr(ptr+0xC),fsmEvent:readFsmEvent(read32(ptr+0x8)),ptr};}
     function readFullArr(ptr){
     let i = 0;
