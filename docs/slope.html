@@ -26,6 +26,12 @@ const ptr = gameInstance.Module._malloc(value.length+1);
 gameInstance.Module.writeAsciiToMemory(value,ptr);
 return ptr;
 }
+function get_GameObject(name){
+let ptr = gameInstance.Module._malloc(0xC+name.length*2);
+writeString(ptr,"Sphere");
+let GameObject = gameInstance.Module.dynCall_iiii(1532,0,ptr);
+gameInstance.Module._free(ptr);
+return GameObject;}
 function getGameObjectName(ptr){
 const out = gameInstance.Module.dynCall_iii(2477,ptr)
 const res = readString(out);
