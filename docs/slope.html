@@ -33,6 +33,7 @@ function resetGame(){
         //coweggs put this together
         },10);
 }
+window.nowPatch = false;
 function writeChar(value){
 const ptr = gameInstance.Module._malloc(value.length+1);
 gameInstance.Module.writeAsciiToMemory(value,ptr);
