@@ -17470,7 +17470,7 @@ run();
 window._emscripten_set_main_loop_timing = _emscripten_set_main_loop_timing;
 // {{POST_RUN_ADDITIONS}}
 window.Browser = Browser;
-
+window.SDL = SDL;
 
 
 
