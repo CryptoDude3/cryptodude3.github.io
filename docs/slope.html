@@ -22,16 +22,13 @@ function readChar(ptr){
     return out;
 }
 function resetGame(){
-        setTimeout(()=>{
         gameInstance.Module['dynCall_viii'](2350, 29222080, 30725992); // deathcomplete
         gameInstance.Module['dynCall_viii'](2350, 29222080, 30632936); // destropool
         gameInstance.Module['dynCall_viii'](2350, 29222080, 30726232); // resetgame
-        //em
         gameInstance.Module['dynCall_viii'](2350, 29223600, 30726088); // collidedeath
         gameInstance.Module['dynCall_viii'](2350, 29223600, 30725992); // deathcomplt
         gameInstance.Module['dynCall_viii'](2350, 29223600, 30248008); // resetpressed
         //coweggs put this together
-        },10);
 }
 window.nowPatch = false;
 function writeChar(value){
