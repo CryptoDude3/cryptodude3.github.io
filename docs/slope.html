@@ -69,6 +69,15 @@ let ret = {x:readFloat32(ptr),y:readFloat32(ptr+4),z:readFloat32(ptr+8)};
 gameInstance.Module._free(ptr);
 return ret;
 }
+function getCurrentFsms(){
+let fsmss = [];
+let fsmptrs = gameInstance.Module.dynCall_iii(3073,0,0);
+let len = gameInstance.Module.dynCall_iii(4408,fsmptrs,0);
+for(var i = 0;i<len;i++){
+fsmss.push(gameInstance.Module.dynCall_iiii(2392,fsmptrs,i,0));
+}
+return fsmss;
+}
 function setPos(x,y,z){
 let ptr = gameInstance.Module._malloc(12);
 setFloat32(ptr,x);
