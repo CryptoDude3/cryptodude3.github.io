@@ -1,0 +1,97 @@
+<div id="keyboard"></div>
+<script src = "https://stuartmemo.com/qwerty-hancock/qwerty-hancock.js"></script>
+<script>   
+		var dt = 6.3;//saw detune
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+            var context = new AudioContext(),
+                settings = {
+                    id: 'keyboard',
+                    width: 600,
+                    height: 150,
+                    startNote: 'A3',
+                    whiteNotesColour: '#fff',
+                    blackNotesColour: '#000',
+                    borderColour: '#000',
+                    activeColour: 'yellow',
+                    octaves: 2
+                },
+                keyboard = new QwertyHancock(settings);
+
+            masterGain = context.createGain();
+            nodes = [];
+
+            masterGain.gain.value = 0.08;
+            masterGain.connect(context.destination); 
+
+            keyboard.keyDown = function (note) {
+			let saw = new JumpSaw(getMidiNote(note));
+            saw.start();
+            nodes.push(saw);
+            };
+
+            keyboard.keyUp = function (note, frequency) {
+                var new_nodes = [];
+				
+                for (var i = 0; i < nodes.length; i++) {
+                    if (getMidiNote(note) == nodes[i].note) {
+                        nodes[i].stop(0);
+                        nodes[i].disconnect();
+                    } else {
+                        new_nodes.push(nodes[i]);
+                    }
+                }
+
+                nodes = new_nodes;
+            };
+function createOsc(note,cents){              
+let oscillator = context.createOscillator();
+oscillator.type = 'sawtooth';
+oscillator.frequency.value = getNoteFreq(note,cents);
+oscillator.connect(masterGain);
+return oscillator;
+}
+function getFreq(note){
+return 440 * Math.pow(2,(note-49)/12);
+}
+function getMidiNoteFreq(note,cents){
+return getFreq(getMidiNote(note)+(cents/100));
+}
+function getNoteFreq(note,cents){
+return getFreq(note+(cents/100));
+}
+
+class JumpSaw {
+
+constructor(note){//midi note
+this.frequency = getFreq(note);
+this.note = note;
+this.oscs = [createOsc(note,dt),createOsc(note,-dt)];
+}
+
+start(){this.oscs.forEach(e=>e.start(0));}
+stop(){this.oscs.forEach(e=>e.stop(0));}
+disconnect(){this.oscs.forEach(e=>e.disconnect());}
+}
+
+function getMidiNote(note) {
+        var notes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'],
+            key_number,
+            octave;
+
+        if (note.length === 3) {
+            octave = note.charAt(2);
+        } else {
+            octave = note.charAt(1);
+        }
+
+        key_number = notes.indexOf(note.slice(0, -1));
+
+        if (key_number < 3) {
+            key_number = key_number + 12 + ((octave - 1) * 12) + 1;
+        } else {
+            key_number = key_number + ((octave - 1) * 12) + 1;
+        }
+        return key_number;
+    };
+</script>
