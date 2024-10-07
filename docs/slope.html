@@ -55,8 +55,7 @@ free(ptr);
 return ret;}
 function getGameObjectName(ptr){
 const out = gameInstance.Module.dynCall_iii(2477,ptr)
-const res = readString(out);
-return res;
+return readString(out);
 }
 function readGameObject(ptr){
     return {name:getGameObjectName(ptr),ptr};
