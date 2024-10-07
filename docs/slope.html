@@ -18,7 +18,7 @@ function readChar(ptr){
     while(read8(ptr+i)!=0){
     out+=String.fromCharCode(read8(ptr+i));
     i++;
-    if(i>500){throw "Array is too large.";}
+    if(i>100){return null;}
     }
     return out;
 }
@@ -104,7 +104,7 @@ function readFsmState(ptr){
 }
 function readNamedVariable(ptr){return {useVariable:read8(ptr+0x8),name:readPStr(ptr+0xC),tooltip:readPStr(ptr+0x10),showInInspector:read8(ptr+0x14),networkSync:read8(ptr+0x15),ptr};}
 function readFsmStateAction(ptr){
-    return {name:readPStr(ptr+0x8),enabled:read8(ptr+0xC),isOpen:read8(ptr+0xD),active:read8(ptr+0xE),finished:read8(ptr+0xF),autoName:read8(ptr+0x10),type:readClassName(ptr),ptr};
+    return {name:readPStr(ptr+0x8),enabled:read8(ptr+0xC),isOpen:read8(ptr+0xD),active:read8(ptr+0xE),finished:read8(ptr+0xF),autoName:read8(ptr+0x10),ptr};
 }
 function readFsmVariables(ptr){return {floatVars:readFullArr(read32(ptr+0x8)).map(e=>readNamedVariable(e)),intVars:readFullArr(read32(ptr+0xC)).map(e=>readNamedVariable(e)),boolVars:readFullArr(read32(ptr+0x10)).map(e=>readNamedVariable(e)),stringVars:readFullArr(read32(ptr+0x14)).map(e=>readNamedVariable(e))};}
 function readFsmEvent(ptr){return {name:readPStr(ptr+0x8),isSystemEvent:read8(ptr+0xC),isGlobal:read8(ptr+0xD),ptr};}
