@@ -100,7 +100,7 @@ function readFsmTransitions(ptr){return {toState:readPStr(ptr+0xC),fsmEvent:read
     return arr;
 }
 function readFsmState(ptr){
-    return {name:readPStr(ptr+0x18),activeActionIndex:read32(ptr+0x10),activeAction:readFsmStateAction(read32(ptr+0xC)),desc:readPStr(ptr+0x1C),active:read8(ptr+0x8),finished:read8(ptr+0x9),actions:read32(ptr+0x3C),transitions:readFullArr(read32(ptr+0x38)).map(e=>readFsmTransitions(e)),ptr};
+    return {name:readPStr(ptr+0x18),activeActionIndex:read32(ptr+0x10),activeAction:(read32(ptr+0xC)!==0)?readFsmStateAction(read32(ptr+0xC)):null,desc:readPStr(ptr+0x1C),active:read8(ptr+0x8),finished:read8(ptr+0x9),actions:readFullArr(read32(ptr+0x3C)).map(e=>readFsmStateAction(e)),transitions:readFullArr(read32(ptr+0x38)).map(e=>readFsmTransitions(e)),ptr};
 }
 function readNamedVariable(ptr){return {useVariable:read8(ptr+0x8),name:readPStr(ptr+0xC),tooltip:readPStr(ptr+0x10),showInInspector:read8(ptr+0x14),networkSync:read8(ptr+0x15),ptr};}
 function readFsmStateAction(ptr){
