@@ -32,7 +32,7 @@ function resetGame(){
         gameInstance.Module['dynCall_viii'](2350, 29223600, 30248008); // resetpressed
         //coweggs put this together
 }
-function BroadcastEvent(eventName)
+function BroadcastEvent(eventName){
 let str = createString(eventName);
 gameInstance.Module.dynCall_viiii(1154,0,str);
 gameInstance.Module._free(str);
