@@ -39,7 +39,7 @@ gameInstance.Module.writeAsciiToMemory(value,ptr);
 return ptr;
 }
 function createString(value){
-let ptr = gameInstance.Module._malloc(0xC+name.length*2);
+let ptr = gameInstance.Module._malloc(0xC+value.length*2);
 writeString(ptr,value);
 return ptr;
 }
