@@ -22,6 +22,14 @@ function readChar(ptr){
     }
     return out;
 }
+function readList(ptr){
+let list = [];
+let len = gameInstance.Module.dynCall_iii(4408,ptr);
+for(var i = 0;i<len;i++){
+list.push(gameInstance.Module.dynCall_iiii(2392,ptr,i));
+}
+return list;
+}
 function death(){gameInstance.Module.dynCall_viiii(1155,0,30726088);}
 function resetGame(){
         gameInstance.Module['dynCall_viii'](2350, 29222080, 30725992); // deathcomplete
@@ -74,14 +82,8 @@ let ret = {x:readFloat32(ptr),y:readFloat32(ptr+4),z:readFloat32(ptr+8)};
 gameInstance.Module._free(ptr);
 return ret;
 }
-function getCurrentFsms(){
-let fsmss = [];
-let fsmptrs = gameInstance.Module.dynCall_iii(3073,0,0);
-let len = gameInstance.Module.dynCall_iii(4408,fsmptrs,0);
-for(var i = 0;i<len;i++){
-fsmss.push(gameInstance.Module.dynCall_iiii(2392,fsmptrs,i,0));
-}
-return fsmss;
+function getFsms(){
+return readList(gameInstance.Module.dynCall_iii(3073));
 }
 function setPos(x,y,z){
 let ptr = gameInstance.Module._malloc(12);
