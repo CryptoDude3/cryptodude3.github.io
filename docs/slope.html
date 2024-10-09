@@ -9,7 +9,7 @@ let fsms = [29016368, 29016064, 29224512, 29224208, 29223904, 29223600, 29222384
 let morefsms = [33402432,33402128,33401824,33401520,33401216,33400912,33400608,33400304,33400000,33399696,33399392,33399088,33398784,33545792,33545488,33545184,33692640];
 window.readGameObjects = true;
 function readFsm(fsm){
-    return {name:readString(read32(fsm+0x18)),GameObject:readGameObjects?readGameObject(getFsmGameObject(fsm)):null,events:readFullArr(read32(fsm+0x24)).map(e=>readFsmEvent(e)),startState:readString(read32(fsm+0x1C)),dataVersion:read32(fsm+0xC),states:readFullArr(read32(fsm+0x20)).map(e=>readFsmState(e)),variables:readFsmVariables(read32(fsm+0x2C)),globalTransitions:readFullArr(read32(fsm+0x28)).map(e=>readFsmTransitions(e)),ptr:fsm}
+    return {name:readString(read32(fsm+0x18)),fullLabel:readString(gameInstance.Module.dynCall_iiii(1956,fsm)),GameObject:readGameObjects?readGameObject(getFsmGameObject(fsm)):null,events:readFullArr(read32(fsm+0x24)).map(e=>readFsmEvent(e)),startState:readString(read32(fsm+0x1C)),dataVersion:read32(fsm+0xC),states:readFullArr(read32(fsm+0x20)).map(e=>readFsmState(e)),variables:readFsmVariables(read32(fsm+0x2C)),globalTransitions:readFullArr(read32(fsm+0x28)).map(e=>readFsmTransitions(e)),ptr:fsm}
 }
 function readClassName(il2cppobjectptr){return readChar(read32(read32(il2cppobjectptr)+0x8));}
 function readChar(ptr){
