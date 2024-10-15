@@ -14,6 +14,7 @@ function readFsm(fsm){
 function readFsms(){return readList(gameInstance.Module.dynCall_iii(3073)).map(e=>readFsm(e));}
 function readFsmEvents(){return readList(30727264).map(e=>readFsmEvent(e));}
 function readClassName(il2cppobjectptr){return readChar(read32(read32(il2cppobjectptr)+0x8));}
+function readClassNamespace(il2cppobjectptr){return readChar(read32(read32(il2cppobjectptr)+0xc));}
 function readChar(ptr){
     let i = 0;
     let out = "";
