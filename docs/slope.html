@@ -27,7 +27,7 @@ setFloat32(rotp,rot.x);//x
 setFloat32(rotp+0x4,rot.y);//y
 setFloat32(rotp+0x8,rot.z);//z
 setFloat32(rotp+0xc,rot.w);//w
-gameInstance.Module.dynCall_iiiiii(345,0,prefabptr,posp,rotp);
+return gameInstance.Module.dynCall_iiiiii(345,0,prefabptr,posp,rotp);
 }
 function readChar(ptr){
     let i = 0;
