@@ -17,6 +17,18 @@ function readFsmEvents(){return readList(30727264).map(e=>readFsmEvent(e));}
 function readClassName(il2cppobjectptr){return readChar(read32(read32(il2cppobjectptr)+0x8));}
 function readClassNamespace(il2cppobjectptr){return readChar(read32(read32(il2cppobjectptr)+0xc));}
 function readVtableptr(ptr,slot){return read32(read32(ptr)+0xb8+(8*(slot-1))+0x4);}
+function instantiate(prefabptr,pos,rot){
+let posp = gameInstance.Module._malloc(12);
+setFloat32(posp,pos.x);//x
+setFloat32(posp+0x4,pos.y);//y
+setFloat32(posp+0x8,pos.z);//z
+let rotp = gameInstance.Module._malloc(16);
+setFloat32(rotp,rot.x);//x
+setFloat32(rotp+0x4,rot.y);//y
+setFloat32(rotp+0x8,rot.z);//z
+setFloat32(rotp+0xc,rot.w);//w
+gameInstance.Module.dynCall_iiiiii(345,0,prefabptr,posp,rotp);
+}
 function readChar(ptr){
     let i = 0;
     let out = "";
