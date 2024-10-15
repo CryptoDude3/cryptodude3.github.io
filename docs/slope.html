@@ -106,6 +106,7 @@ function readFsmTransitions(ptr){return {toState:readPStr(ptr+0xC),fsmEvent:read
     i++;
     if(i>500){throw "Array is too large.";}
     }
+    arr.ptr = ptr;
     return arr;
 }
 function readFsmState(ptr){
