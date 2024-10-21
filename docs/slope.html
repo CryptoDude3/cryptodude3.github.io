@@ -23,6 +23,10 @@ function noDeath(){
 gameInstance.Module.dynCall_vii(7174,37783424);
 alert("No Death Activated! Reload to undo!");
 }
+function addSpeedUp(){setFloat32(readFloat32(SteerForceRight)+100);
+setFloat32(readFloat32(SteerForceLeft)-100);
+setFloat32(readFloat32(yForce)-300);
+setFloat32(readFloat32(zForce)+30);}
 function instantiate(prefabptr,pos,rot){
 let posp = gameInstance.Module._malloc(12);
 setFloat32(posp,pos.x);//x
