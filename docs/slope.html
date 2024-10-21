@@ -46,7 +46,7 @@ setFloat32(rotp+0xc,rot.w);//w
 return gameInstance.Module.dynCall_iiiiii(345,0,prefabptr,posp,rotp);
 }
 window.keys=[];
-document.addEventListener("keydown",e=>{keys.push(e.keyCode);});
+document.addEventListener("keydown",e=>{if(keys.indexOf(e.keyCode)==-1){keys.push(e.keyCode);}});
 document.addEventListener("keyup",e=>{keys.splice(keys.indexOf(e.keyCode),1)});
 function addSpeedUp(){setFloat32(readFloat32(SteerForceRight)+100);
 setFloat32(readFloat32(SteerForceLeft)-100);
