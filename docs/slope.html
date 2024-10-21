@@ -19,7 +19,7 @@ function readClassNamespace(il2cppobjectptr){return readChar(read32(read32(il2cp
 function readVtableptr(ptr,slot){return read32(read32(ptr)+0xb8+(8*(slot-1))+0x4);}
 function get_component(gameobject,type){return gameInstance.Module.dynCall_iiii(1522,gameobject,type);}
 function noDeath(){
-[30247888,29188840,29220272,30703504,29163616,25392592].forEach(e=>set32(read32(e+0xC)+0x8,0));
+[30247888,29188840,29220272,30703504,29163616,25388496].forEach(e=>set32(read32(e+0xC)+0x8,0));
 gameInstance.Module.dynCall_vii(7174,37783424);
 alert("No Death Activated! Reload to undo!");
 }
