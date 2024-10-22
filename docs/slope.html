@@ -30,6 +30,12 @@ setFloat32(vec3,fvec.x);setFloat32(vec3+4,fvec.y);setFloat32(vec3+8,fvec.z);
 gameInstance.Module.dynCall_viiiii(391,0,BallRb,vec3,mode);
 gameInstance.Module._free(vec3);
 }
+function SetVelocity(fvec){
+let vec3 = gameInstance.Module._malloc(12);
+setFloat32(vec3,fvec.x);setFloat32(vec3+4,fvec.y);setFloat32(vec3+8,fvec.z);
+gameInstance.Module.dynCall_viii(1919,BallRb,vec3);
+gameInstance.Module._free(vec3);
+}
 function addSpeedUp(){setFloat32(readFloat32(SteerForceRight)+100);
 setFloat32(readFloat32(SteerForceLeft)-100);
 setFloat32(readFloat32(yForce)-300);
