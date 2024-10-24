@@ -22,7 +22,7 @@ function get_component(gameobject,type){return gameInstance.Module.dynCall_iiii(
 function noDeath(){
 [30247888,29188840,29220272,30703504,29163616,25388496].forEach(e=>set32(read32(e+0xC)+0x8,0));
 gameInstance.Module.dynCall_vii(7174,37783424);
-alert("No Death Activated! Reload to undo!");
+alert("No Death Activated! Reload to undo! (Score will be broken if not run on home screen!)");
 }
 function AddForce(fvec,mode){
 let vec3 = gameInstance.Module._malloc(12);
