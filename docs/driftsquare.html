@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
+<canvas id="game" width="1000" height="1000"></canvas>
+</body>
+<script>
+const gravity = 9.8;
+const friction = 0.01;
+//step: 10ms
+//100 steps in one second
+let canvas = document.querySelector("#game");
+function component(width, height, color, x, y, mass) {
+    this.width = width;
+    this.height = height;
+    this.x = x;
+    this.y = y;
+    this.vx = 0;//m/s
+    this.vy = 0;
+    this.fx = 0;
+    this.fy = 0;
+    this.mass = mass;//kg
+    this.render = function(ctx){ctx.fillStyle = "#ffffff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle = color;ctx.fillRect(this.x, this.y, this.width, this.height);}
+    this.tick = function(){
+    this.x+=this.vx;this.y+=this.vy;
+    this.vx -= this.vx*friction;
+    this.vy -= this.vy*friction;
+    }
+    this.addForce = function(xforce,yforce){this.vx += xforce / mass;this.vy += yforce / mass;}
+}
+
+let square = new component(30, 30, "red", 0, 0, 10);
+let ctx = canvas.getContext("2d");
+square.render(ctx);
+setInterval(()=>{square.tick();square.render(ctx);},10);
+document.addEventListener("keypress",e=>{
+console.log(e.key);
+if(e.key=="w"){square.addForce(0,-20);}
+if(e.key=="s"){square.addForce(0,20);}
+if(e.key=="a"){square.addForce(-20,0);}
+if(e.key=="d"){square.addForce(20,0);}
+});
+</script>
+
+<p>We have added a component to our game, a red square!</p>
+
+</body>
+</html>
