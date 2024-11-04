@@ -10,14 +10,15 @@ canvas {
 </style>
 </head>
 <body>
-<canvas id="game" width="1000" height="1000"></canvas>
+<canvas id="game"></canvas>
 </body>
 <script>
-const gravity = 9.8;
 const friction = 0.01;
 //step: 10ms
 //100 steps in one second
 let canvas = document.querySelector("#game");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 function component(width, height, color, x, y, mass) {
     this.width = width;
     this.height = height;
@@ -33,6 +34,10 @@ function component(width, height, color, x, y, mass) {
     this.x+=this.vx;this.y+=this.vy;
     this.vx -= this.vx*friction;
     this.vy -= this.vy*friction;
+    if(this.x>canvas.width){this.x=0;}
+    if(this.y>canvas.height){this.y=0;}
+    if(this.x<0){this.x=canvas.width;}
+    if(this.y<0){this.y=canvas.height;}
     }
     this.addForce = function(xforce,yforce){this.vx += xforce / mass;this.vy += yforce / mass;}
 }
