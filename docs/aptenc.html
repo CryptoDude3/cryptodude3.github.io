@@ -179,6 +179,6 @@ imglen = imgBData.length/909;
 for(let i = 0;i<imglen;i++){write_line(i);}
 if(drawToCanvas){renderImg();}
 const seconds = Math.floor(imglen/2);
-document.querySelector("#slen").innerText = `Audio Length: ${Math.floor(seconds/60).toString().padStart(2,0)}:${seconds%60}`;
+document.querySelector("#slen").innerText = `Audio Length: ${Math.floor(seconds/60).toString().padStart(2,0)}:${(seconds%60).toString().padStart(2,"0")}`;
 }
 </script>
