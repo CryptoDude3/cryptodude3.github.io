@@ -77,7 +77,7 @@ function generateEas() {
   if(usecustom){create_raw_alert(rawinput.value);}else{create_alert(originator, event, locations, l, time, par);}
   saveb.style.display = "inline-block";
   addStatus("EAS Generated! Samples: " + samples.length);
-  addStatus("Generated header: " + create_header_string(originator, event, locations, l, time, par));
+  addStatus("Generated header: " + usecustom ? rawinput.value : create_header_string(originator, event, locations, l, time, par));
 }
 function gen_header() {
   var par = parinput.value;
