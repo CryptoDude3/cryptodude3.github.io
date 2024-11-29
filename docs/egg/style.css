@@ -1,0 +1,9 @@
+html, body {
+  height: 500px;
+  width: 500px; 
+  user-select:none;
+  /*overflow: hidden;*/
+}
+canvas {
+  border:1px solid grey;
+}
