@@ -69,7 +69,7 @@ function generateEas() {
   var event = events.value;
   var min = parseInt(minselect.value);
   tlen = parseInt(tl.value);
-  var l = zero_pad_int(hr.toString() + min.toString(), 4);
+  var l = hr.toString().padStart(2,"0") + min.toString().padStart(2,"0");
   tone = parseInt(att.value);
   em = extram.checked;
   cl=clip.checked;
@@ -87,7 +87,7 @@ function gen_header() {
   var originator = originators.value;
   var event = events.value;
   var min = parseInt(minselect.value);
-  var l = zero_pad_int(hr.toString() + min.toString(), 4);
+  var l = hr.toString().padStart(2,"0") + min.toString().padStart(2,"0");
   return create_header_string(originator, event, locations, l, time, par);
 }
 function addStatus(stat, type = "LOG") {
