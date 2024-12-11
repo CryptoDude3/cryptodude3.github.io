@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         BlooketBot Enabler
-// @namespace    http://tampermonkey.net/
+// @namespace    http://cryptodude3.github.io/
 // @version      2024-12-10
 // @description  Runs blooketbot on blooket firebase.
 // @author       You
