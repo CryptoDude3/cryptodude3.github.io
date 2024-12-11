@@ -3,7 +3,7 @@
 // @namespace    http://cryptodude3.github.io/
 // @version      2024-12-10
 // @description  Runs blooketbot on blooket firebase.
-// @author       You
+// @author       Ducklife3141
 // @match        https://fb.blooket.com/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=blooketbot.glitch.me
 // @grant        none
