@@ -93,12 +93,19 @@ window.onload = function() {
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
     function(callback) { setTimeout(callback, 0); };
-
-  var prevTime = new Date().getTime();
+  let fps = 1000;
+  function updateFps(frameTime){
+	  document.querySelector("#counter").innerHTML="FPS: " + Math.floor(1000/fps);
+  }
+  updateFps();
+  setInterval(updateFps,500);
+  var prevTime = performance.now();
   function animate() {
-    var nextTime = new Date().getTime();
+    var nextTime = performance.now();
     if (!paused) {
-      update((nextTime - prevTime) / 1000);
+	  const frameTime = (nextTime - prevTime);
+	  fps = frameTime;
+      update(frameTime / 1000);
       draw();
     }
     prevTime = nextTime;
