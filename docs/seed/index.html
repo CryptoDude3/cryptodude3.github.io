@@ -1,0 +1,12 @@
+<body>Enter seed: <input id="seed" value="1739231200"><br>SpeedUps: <input type="number" id="sups" value="8"><button id="calc">Calculate</button><br><br><div id="output"></div>
+<script>
+const calcbutton = document.querySelector("#calc");
+const seedElem = document.querySelector("#seed");
+calc.addEventListener("click",()=>{
+const seed = parseInt(seedElem.value);
+if(!seed){seed=0;}
+const speedUps = parseInt(document.querySelector("#sups").value);
+document.querySelector("#output").innerHTML = "";
+Module.ccall("generateLevel","void",["number","number"],[seed,speedUps]);
+});</script>	
+<script src="bruteforce2.js"></script></body>
