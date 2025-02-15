@@ -1,7 +1,9 @@
-<body>Enter seed: <input id="seed" value="1739231200"><br>SpeedUps: <input type="number" id="sups" value="8"><button id="calc">Calculate</button><br><br><div id="output"></div>
+<body>Enter seed: <input id="seed" value="1739231200"><button id="now">Now</button><br>SpeedUps: <input type="number" id="sups" value="8"><button id="calc">Calculate</button><br><br><div id="output"></div>
 <script>
 const calcbutton = document.querySelector("#calc");
+const nowbutton = document.querySelector("#now");
 const seedElem = document.querySelector("#seed");
+nowbutton.addEventListener("click",()=>{seedElem.value=Math.floor(Date.now() / 1000);});
 calc.addEventListener("click",()=>{
 const seed = parseInt(seedElem.value);
 if(!seed){seed=0;}
