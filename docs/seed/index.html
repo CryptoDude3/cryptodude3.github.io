@@ -4,7 +4,7 @@ const calcbutton = document.querySelector("#calc");
 const nowbutton = document.querySelector("#now");
 const seedElem = document.querySelector("#seed");
 nowbutton.addEventListener("click",()=>{seedElem.value=Math.floor(Date.now() / 1000);});
-calc.addEventListener("click",()=>{
+calcbutton.addEventListener("click",()=>{
 const seed = parseInt(seedElem.value);
 if(!seed){seed=0;}
 const speedUps = parseInt(document.querySelector("#sups").value);
