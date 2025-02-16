@@ -1,2 +1,23 @@
-<script src="bruteforce.js"></script>
-<div id="output"></div>
+<body>Enter start seed: <input id="startseed" type="datetime-local"><button id="now1">Now</button><br>Enter end seed: <input id="endseed" type="datetime-local"><button id="now2">Now</button><br>SpeedUps: <input type="number" id="sups" value="8"><button id="calc">Calculate</button><br><br><div id="output"></div>
+<script>
+function convertToEpoch(t){return Math.floor(new Date(t).getTime()/1000);}
+function getString(d){
+const date = new Date(d);
+return `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2,"0")}-${date.getDate()}T${date.getHours().toString().padStart(2,"0")}:${date.getMinutes().toString().padStart(2,"0")}`;}
+document.querySelector("#startseed").value=getString(new Date());
+document.querySelector("#endseed").value=getString(new Date().setDate(new Date().getDate()+7));//one week ahead
+const calcbutton = document.querySelector("#calc");
+const seedstart = document.querySelector("#startseed");
+const seedend = document.querySelector("#endseed");
+document.querySelector("#now1").addEventListener("click",()=>{
+seedstart.value = getString(new Date());
+});
+document.querySelector("#now2").addEventListener("click",()=>{
+seedend.value = getString(new Date());
+});
+calc.addEventListener("click",()=>{
+const speedUps = parseInt(document.querySelector("#sups").value);
+document.querySelector("#output").innerHTML = "";
+Module.ccall("bruteforce","void",["number","number","number"],[convertToEpoch(seedstart.value),convertToEpoch(seedend.value),speedUps]);
+});</script>	
+<script src="bruteforce.js"></script></body>
