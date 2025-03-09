@@ -1,6 +1,6 @@
 var context = new AudioContext();
 var gain = context.createGain();
-gain.gain.value = 0.15;
+gain.gain.value = 0.25;
 gain.connect(context.destination);
 var AFSK_TIME = 0.00192;
 var SPACE_FREQ = 1562.5;
