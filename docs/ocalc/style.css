@@ -1,0 +1,12 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+#canvas {
+  border: 1px solid black;
+}
+
+.edit {
+  width: 7%;
+}
