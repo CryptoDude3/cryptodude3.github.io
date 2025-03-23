@@ -1,3 +1,6 @@
+window.game_id = "63be3a679932520bd5087abb";
+window.secret_key = "1102123";
+window.private_key = "Green@L!ne23";
 async function makeReq(body,endpoint){return await fetch("https://api.apileaderboards.com/point/"+endpoint, {
   "headers": {
     "content-type": "application/x-www-form-urlencoded",
@@ -12,10 +15,10 @@ async function makeReq(body,endpoint){return await fetch("https://api.apileaderb
 }
 
 function getSaveBody(player_id,player_name,key1,key2,key3,point1,point2,point3){
-return `game_id=63be3a679932520bd5087abb&player_id=${player_id}&player_name=${player_name}&key1=${key1}&key2=${key2}&key3=${key3}&point1=${point1}&point2=${point2}&point3=${point3}&signature=${md5("1102123Green@L!ne2363be3a679932520bd5087abb"+player_id+player_name+key1+key2+key3+point1+point2+point3)}`;}
+return `game_id=${game_id}&player_id=${player_id}&player_name=${player_name}&key1=${key1}&key2=${key2}&key3=${key3}&point1=${point1}&point2=${point2}&point3=${point3}&signature=${md5(`${secret_key}${private_key}${game_id}`+player_id+player_name+key1+key2+key3+point1+point2+point3)}`;}
 function getMainSaveReq(player_name,points){return getSaveBody(0,player_name,"","","",points,0,0);}
 function getReq(start_time,end_time){
-return `start_time=${start_time}&end_time=${end_time}&game_id=63be3a679932520bd5087abb&signature=${md5("1102123Green@L!ne2363be3a679932520bd5087abb"+start_time +end_time)}`;}
+return `start_time=${start_time}&end_time=${end_time}&game_id=${game_id}&signature=${md5(`${secret_key}${private_key}${game_id}`+start_time +end_time)}`;}
 async function saveScore(player_name,points){return await makeReq(getMainSaveReq(player_name,points),"save2");}
 async function getScore(start_time,end_time){return await makeReq(getReq(start_time,end_time),"get2");}
 
