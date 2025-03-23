@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Orienteering Calculator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <label for="scale">Grid Scale:</label>
+  <input type="number" id="scale" min="1" value="10" onchange="renderPoints();">
+  <label for="zoom">Zoom:</label>
+  <input type="range" id="zoom" min="1" max="500" value="100" onchange="renderPoints();">
+  <button onclick="renderPoints()">Render</button>
+  <br>
+  <canvas id="canvas" width="500" height="500"></canvas>
+  <br>
+  <label for="pscale">Point Scale:</label>
+  <input type="range" id="pscale" min="1" max="5" step="1" value="1" onchange="renderPoints();">(use lowest for real
+  scale)
+  <p id="result">You will have to go x feet facing x degrees to reach your destination</p>
+  <ul id="dynlist"></ul><br>
+  <button onclick="add();">Add to list</button>
+  <script src="script.js"></script>
+  <script src="list.js"></script>
+</body>
+
+</html>
