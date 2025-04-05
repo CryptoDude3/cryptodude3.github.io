@@ -1,1 +1,220 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+  <title>Tooth Collector</title>
+  <link rel="shortcut  icon" href="tooth.jpg">
+  <meta name="viewport" content="width=device-width,user-scalable=no" />
+</head>
+<style>
+  #cname {
+    cursor: pointer;
+    color: black;
+    user-select: none;
+  }
+
+  #cname:hover {
+    cursor: pointer;
+    color: #2a2a2a;
+  }
+
+  /*modal code from w3schools*/
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #888;
+    width: 80%;
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  @keyframes goldtooth {
+    from {
+      opacity: 0%
+    }
+
+    to {
+      opacity: 100%
+    }
+  }
+
+  .goldtooth {
+    animation-name: goldtooth;
+    animation-duration: 2s;
+  }
+
+  #teeth {
+    font-size: 300%;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  #teeth:hover {
+    color: #0e0e0e;
+  }
+
+  #modaltext {
+    text-align: center;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 500%
+  }
+
+  .upgrade {
+    font-size: 100%;
+    display: flex;
+    height: 60px;
+    width: 120px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .restart {
+    float: right;
+  }
+
+  #upgrades {
+    float: right;
+    position: relative;
+    margin-top: 0px;
+    border: 1px solid grey;
+    transform: translateY(-10px)
+  }
+
+  #debug {
+    border: 1px solid red;
+    background-color: grey;
+    position: absolute;
+    color: black;
+    cursor: pointer;
+  }
+
+  #debug:hover {
+    color: #303030;
+  }
+
+  #debugMenu {
+    position: absolute;
+    height: 400px;
+    width: 300px;
+    background-color: grey;
+    opacity: 80%;
+    border: 1px solid black;
+  }
+
+  .debug {
+    opacity: 100%;
+    text-align: center;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  .mtooth {
+    cursor: pointer;
+  }
+
+  body {
+    background: rgb(150, 255, 255);
+    /*background-image: url("dentist2.jpg");
+    background-size: cover;*/
+  }
+</style>
+
+<body>
+  <div id="debug" style="display:none;">Debug menu</div>
+  <div id="debugMenu" style="display:none;">
+    <p style="text-align:center;font-size:20px;margin:6px;color:#000000;font-weight:bold;">Dev tools</p><br>
+    <button onclick="setTeeth(Game.teeth*10);" class="debug">x10</button>
+    <button onclick="setTeeth(Game.teeth/10);" class="debug">/10</button>
+    <button onclick="setTeeth(Game.teeth*1000);" class="debug">x1k</button>
+    <button onclick="setTeeth(Game.teeth/1000);" class="debug">/1k</button>
+    <button onclick="addGoldTooth();" class="debug">Gold tooth</button>
+    <button onclick="addAllUpgrades(10);" class="debug">Get 10 of all</button>
+    <button onclick="addAllUpgrades(100);" class="debug">Get 100 of all</button>
+    <button onclick="addAllUpgrades(-10);" class="debug">Lose 10 of all</button>
+    <button onclick="addAllUpgrades(-100);" class="debug">Lose 100 of all</button>
+    <button onclick="ruinTheFun();" class="debug" style="color:red;">Ruin the fun!</button>
+    <br>
+    <button onclick="hardReset();" class="debug" style="color:green;">Hard reset</button>
+  </div>
+  <h1 class="title">Tooth Collector</h1><button class="restart" onclick="restartGame();">Restart from scratch</button>
+  <p style="text-align:center;" id="info">Click the tooth to start.</p>
+  <div id="devConsole"></div>
+  <div id="upgrades"></div>
+  <h2 id="cname">Loading...</h2>
+  <p id="teeth">Loading...</p>
+  <p id="ps">Loading...</p>
+  <p id="pc" style="display:none;">Loading...</p>
+  <!-- Will add tpc in future -->
+  <img src="tooth.jpg" class="mtooth" width="200" height="200" onclick="Game.teeth+=Game.goldClick;updateTeeth();"
+    onmouseover="updateInfo('Click on this tooth to get one step closer to losing your dental license.');">
+  <p id="goldinfo" style="display:none;"></p><br>
+  <button onclick="exportSave();">Export save</button><br>
+  <button onclick="importSave();">Import save</button>
+
+  <script src="script.js">
+  </script>
+  <!-- modal code from w3schools.net -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close" id="closem">&times;</span>
+      <textarea id="modaltext"></textarea><br><button
+        onclick="document.getElementById('modaltext').select();document.execCommand('copy');" id="copysave">Copy
+        save</button>
+      <p id="message" style="display:none;"></p>
+    </div>
+  </div>
+  <div class="modal" id="modal2">
+    <div class="modal-content">
+      <span class="close" id="closem2">&times;</span>
+      <h1>Change tooth collection name</h1>
+      <input id="collectname"><br><button onclick="updateName();">Update collection name</button>
+    </div>
+  </div>
+</body>
+
+</html>
