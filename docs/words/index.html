@@ -1,0 +1,8 @@
+<input id="encode"><button onclick="encode();">Encode</button>
+<div id="result"></div>
+<script>
+const encodeElem = document.querySelector("#encode");
+function encode(){
+document.querySelector("#result").innerText = encodeString(encodeElem.value);
+}
+</script>
