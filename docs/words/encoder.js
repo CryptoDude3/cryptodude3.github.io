@@ -13,11 +13,14 @@ const dchars = {
     31: "?"
 };
 
+
 function encodeString(str, key = 0) {
     let encWords = [];
+    let nonce = Math.floor(Math.random() * 32768);
+    encWords.push(words[nonce ^ 0x2FA]);
     const input = str.toLowerCase();
     for (let i = 0; i < input.length; i += 3) {
-        const ind = (encodeChar(input[i + 2]) << 10 | encodeChar(input[i + 1]) << 5 | encodeChar(input[i])) ^ key; //randomize a little bit
+        const ind = (encodeChar(input[i + 2]) << 10 | encodeChar(input[i + 1]) << 5 | encodeChar(input[i])) ^ key ^ (nonce++ & 0x7FFF); //randomize a little bit
         encWords.push(words[ind]);
     }
     return encWords.join(" ");
@@ -26,12 +29,13 @@ function encodeString(str, key = 0) {
 function decodeString(str, key = 0) {
     const encWords = str.split(" ");
     let output = "";
-    for (let i = 0; i < encWords.length; i++) {
+    let nonce = words.indexOf(encWords[0]) ^ 0x2FA;
+    for (let i = 1; i < encWords.length; i++) {//skip nonce
         const word = words.indexOf(encWords[i]);
         if (word == -1) {
             output += "|||";
         } else {
-            const ind = word ^ key;
+            const ind = word ^ key ^ (nonce++ & 0x7FFF);
             output += decodeChar(ind & 31) + decodeChar(ind >> 5 & 31) + decodeChar(ind >> 10 & 31);
         }
     }
