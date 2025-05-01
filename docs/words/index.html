@@ -8,15 +8,15 @@ function encode(){
 document.querySelector("#result").innerText = encodeString(encodeElem.value,parseInt(document.querySelector("#key").value));
 }
 function saveKey(key){
-localStorage["key"] = key.toString();
+localStorage["ekey"] = key.toString();
 }
 function decode(){
   const key = parseInt(document.querySelector("#key").value);
   saveKey(key);
   document.querySelector("#result").innerText = decodeString(encodeElem.value,key);
 }
-if(localStorage.key){
-  document.querySelector("#key").value = localStorage.key;
+if(localStorage.ekey){
+  document.querySelector("#key").value = localStorage.ekey;
 }
 </script>
 <script src="encoder.js"></script>
