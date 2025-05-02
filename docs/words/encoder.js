@@ -13,7 +13,6 @@ const dchars = {
     31: "?"
 };
 
-
 function encodeString(str, key = 0) {
     let encWords = [];
     let nonce = Math.floor(Math.random() * 32768);
@@ -29,10 +28,10 @@ function encodeString(str, key = 0) {
 function decodeString(str, key = 0) {
     const encWords = str.split(" ");
     let output = "";
-    let nonce = words.indexOf(encWords[0]) ^ 0x2FA;
+    let nonce = decodeWords[encWords[0]] ^ 0x2FA;
     for (let i = 1; i < encWords.length; i++) { //skip nonce
-        const word = words.indexOf(encWords[i]);
-        if (word == -1) {
+        const word = decodeWords[encWords[i]];
+        if (!word) {
             output += "|||";
         } else {
             const ind = word ^ key ^ (nonce++ & 0x7FFF);
@@ -77,8 +76,9 @@ function encodeRawBinary(data, key = 0) {
     return encWords.join(" ");
 }
 
-function decodeRawBinary(str, key = 0) {
-    const encData = str.split(" ").map(e => words.indexOf(e));
+function decodeRawBinary(str, key = 0) { // pass length
+    const encData = str.split(" ").map(e => decodeWords[e]);
+    console.log("Lookup complete!");
     let output = [];
     let nonce = encData[0] ^ 0x2FA;
     for (let i = 1; i < encData.length; i += 8) { //skip nonce again
@@ -89,15 +89,19 @@ function decodeRawBinary(str, key = 0) {
 }
 
 function wordDataToBytes(wordData) {
-    let bits = [];
     let bytes = [];
+    let currentByte = 0;
+    let bInd = 0;
     for (let i = 0; i < wordData.length; i++) {
         for (let j = 0; j < 15; j++) {
-            bits.push(wordData[i] >> j & 1);
+            currentByte |= (wordData[i] >> j & 1) << bInd;
+            bInd++;
+            if(bInd == 8){
+                bytes.push(currentByte);
+                currentByte = 0;
+                bInd = 0;
+            }
         }
-    }
-    for (let i = 0; i < bits.length; i += 8) {
-        bytes.push(bitsToInd(bits.slice(i,i+8)));
     }
     return bytes;
 }
