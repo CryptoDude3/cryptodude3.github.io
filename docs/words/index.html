@@ -1,5 +1,10 @@
+
 Enter text here: <input id="encode"><br>Key: <input id="key" type="number" min="0" max="32768"><br><button onclick="encode();">Encode</button><button onclick="decode();">Decode</button>
 <div id="result"></div>
+<br>
+<input id="encFile" type="file"><br>Key: <input id="binkey" type="number" min="0" max="32768"><br><button onclick="encodeBin();">Encode Binary</button><button onclick="decodeBin();">Decode Binary</button><br><br>
+<textarea id="binResult" rows="5" cols="15"></textarea>
+<a id="fileDown"></a>
 <script>
 const encodeElem = document.querySelector("#encode");
 function encode(){
@@ -10,13 +15,36 @@ document.querySelector("#result").innerText = encodeString(encodeElem.value,pars
 function saveKey(key){
 localStorage["ekey"] = key.toString();
 }
+function saveBinKey(key){
+localStorage["bkey"] = key.toString();
+}
 function decode(){
   const key = parseInt(document.querySelector("#key").value);
   saveKey(key);
   document.querySelector("#result").innerText = decodeString(encodeElem.value,key);
 }
+async function encodeBin(){
+    const key = parseInt(document.querySelector("#binkey").value);
+    saveBinKey(key);
+    const file = document.querySelector("#encFile").files[0];
+    const buffer = await file.arrayBuffer();
+    document.querySelector("#binResult").innerText = encodeBinary(buffer, key);
+}
+async function decodeBin(){
+    const key = parseInt(document.querySelector("#binkey").value);
+    saveBinKey(key);
+    const wordData = document.querySelector("#binResult").value;
+    const data = decodeBinary(wordData, key);
+    const url = URL.createObjectURL(new Blob([data.buffer],{type:"application/octet-stream"}));
+    document.querySelector("#fileDown").innerText = "Download File (" + (data.length/1024).toFixed(2) + "kB)";
+    document.querySelector("#fileDown").href = url;	
+    document.querySelector("#fileDown").download = "data.bin";
+}
 if(localStorage.ekey){
   document.querySelector("#key").value = localStorage.ekey;
+}
+if(localStorage.bkey){
+  document.querySelector("#binkey").value = localStorage.bkey;
 }
 </script>
 <script src="encoder.js"></script>
