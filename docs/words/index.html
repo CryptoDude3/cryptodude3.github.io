@@ -2,34 +2,43 @@
 
 <body style="font-family:monospace;">
 <h1>Basic Text Encoder/Decoder</h1>
-Enter text here: <input id="encode"><br>Key: <input id="key" type="number" min="0" max="32768"><br><button onclick="encode();">Encode</button><button onclick="decode();">Decode</button>
+Enter text here: <input id="encode"><br>Key: <input id="key" type="number" min="0" max="32767"><br><button onclick="encode();">Encode</button><button onclick="decode();">Decode</button>
 <div id="result"></div>
 <br>
 <h1>File Encoder/Decoder</h1>
-<input id="encFile" type="file"><br>Key: <input id="binkey" type="number" min="0" max="32768"><br><button onclick="encodeBin();">Encode Binary</button><button onclick="decodeBin();">Decode Binary</button><br><br>
+<input id="encFile" type="file"><br>Key: <input id="binkey" type="number" min="0" max="32767"><br><button onclick="encodeBin();">Encode Binary</button><button onclick="decodeBin();">Decode Binary</button><br><br>
 <textarea id="binResult" rows="5" cols="15"></textarea>
 <br>
 <br>
 <a id="fileDown" onclick="saveFile();" href="javascript:null"></a>
+<h1>UTF-8 Encoder/Decoder</h1>
+Enter UTF-8 here: <input id="utfEncode"><br>Key: <input id="utfkey" type="number" min="0" max="32767"><br><button onclick="encodeUtf();">Encode</button><button onclick="decodeUtf();">Decode</button>
+<div id="uresult"></div>
+<br>
 <script>
 let downloadBuffer = null;
 let fileName = "";
 const encodeElem = document.querySelector("#encode");
+const encodeUTFelem = document.querySelector("#utfEncode");
 function encode(){
   const key = parseInt(document.querySelector("#key").value);
-  saveKey(key);
+  localStorage.ekey = key.toString();
 document.querySelector("#result").innerText = encodeString(encodeElem.value,parseInt(document.querySelector("#key").value));
-}
-function saveKey(key){
-localStorage["ekey"] = key.toString();
-}
-function saveBinKey(key){
-localStorage["bkey"] = key.toString();
 }
 function decode(){
   const key = parseInt(document.querySelector("#key").value);
-  saveKey(key);
+  localStorage.ekey = key.toString();
   document.querySelector("#result").innerText = decodeString(encodeElem.value,key);
+}
+function encodeUtf(){
+  const key = parseInt(document.querySelector("#utfkey").value);
+  localStorage.ukey = key.toString();
+  document.querySelector("#uresult").innerText = encodeBinary(new TextEncoder().encode(encodeUTFelem.value),key);
+}
+function decodeUtf(){
+  const key = parseInt(document.querySelector("#utfkey").value);
+  localStorage.ukey = key.toString();
+  document.querySelector("#uresult").innerText = new TextDecoder().decode(decodeBinary(encodeUTFelem.value,key));
 }
 async function saveFile(){
   if(downloadBuffer && fileName){
@@ -41,7 +50,7 @@ async function saveFile(){
 }
 async function encodeBin(){
     const key = parseInt(document.querySelector("#binkey").value);
-    saveBinKey(key);
+    localStorage.bkey = key.toString();
     const file = document.querySelector("#encFile").files[0];
     const buffer = await file.arrayBuffer();
     const encodedFile = encodeBinary(buffer, key);
@@ -55,7 +64,7 @@ async function encodeBin(){
 }
 async function decodeBin(){
     const key = parseInt(document.querySelector("#binkey").value);
-    saveBinKey(key);
+    localStorage.bkey = key.toString();
     let wordData = document.querySelector("#binResult").value;
     if(!wordData){
       const file = document.querySelector("#encFile").files[0];
@@ -75,6 +84,9 @@ if(localStorage.ekey){
 }
 if(localStorage.bkey){
   document.querySelector("#binkey").value = localStorage.bkey;
+}
+if(localStorage.ukey){
+  document.querySelector("#utfkey").value = localStorage.ukey;
 }
 function darkMode(){
   const color = localStorage.skid?"#00FF00":"white";
