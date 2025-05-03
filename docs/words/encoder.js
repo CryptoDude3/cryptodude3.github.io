@@ -65,46 +65,69 @@ function encodeRawBinary(data, key = 0) {
     let encWords = [];
     let nonce = Math.floor(Math.random() * 32768);
     encWords.push(words[nonce ^ 0x2FA]);
-    const bytes = new Uint8Array(data);
-    for (let i = 0; i < bytes.length; i += 15) {
-        const bits = blobToBin(bytes.subarray(i, i + 15));
-        for (let j = 0; j < bits.length; j += 15) {
-            const ind = bitsToInd(bits.slice(j, j + 15));
-            encWords.push(words[ind ^ key ^ (nonce++ & 0x7FFF)]);
+    const byteData = new Uint8Array(data);
+    let buffer = 0;
+    let bitCount = 0;
+    for(let i = 0;i<byteData.length;i++){
+        buffer |= byteData[i] << bitCount;
+        bitCount += 8;
+        while(bitCount >= 15){
+            encWords.push(words[(buffer & 0x7FFF) ^ key ^ (nonce++ & 0x7FFF)]);
+            buffer >>= 15;
+            bitCount -= 15;
         }
+    }
+    if(bitCount > 0){
+        encWords.push(words[(buffer & 0x7FFF) ^ key ^ (nonce++ & 0x7FFF)]);
     }
     return encWords.join(" ");
 }
 
 function decodeRawBinary(str, key = 0) { // pass length
-    const encData = str.split(" ").map(e => decodeWords[e]);
-    console.log("Lookup complete!");
-    let output = [];
-    let nonce = encData[0] ^ 0x2FA;
-    for (let i = 1; i < encData.length; i += 8) { //skip nonce again
-        const arr = encData.slice(i, i + 8).map(e=>e ^ key ^ (nonce++ & 0x7FFF));
-        output = output.concat(wordDataToBytes(arr));
-    }
-    return output;
+    const data = str.split(" ");
+    let nonce = decodeWords[data[0]] ^ 0x2FA;
+    const encData = data.slice(1,data.length).map(e => decodeWords[e] ^ key ^ (nonce++ & 0x7FFF));
+    return wordDataToBytes(encData);
 }
 
 function wordDataToBytes(wordData) {
     let bytes = [];
-    let currentByte = 0;
-    let bInd = 0;
+    let buffer = 0;
+    let bitCount = 0;
     for (let i = 0; i < wordData.length; i++) {
-        for (let j = 0; j < 15; j++) {
-            currentByte |= (wordData[i] >> j & 1) << bInd;
-            bInd++;
-            if(bInd == 8){
-                bytes.push(currentByte);
-                currentByte = 0;
-                bInd = 0;
-            }
+        buffer |= wordData[i] << bitCount;
+        bitCount += 15;
+        while (bitCount >= 8) {
+            bytes.push(buffer & 0xFF);
+            buffer >>= 8;
+            bitCount -= 8;
         }
+    }
+    if(bitCount > 0){
+        words.push(buffer & 0x7FFF);
     }
     return bytes;
 }
+
+function bytesToWords(byteData){
+    let words = [];
+    let buffer = 0;
+    let bitCount = 0;
+    for(let i = 0;i<byteData.length;i++){
+        buffer |= byteData[i] << bitCount;
+        bitCount += 8;
+        while(bitCount >= 15){
+            words.push(buffer & 0x7FFF);
+            buffer >>= 15;
+            bitCount -= 15;
+        }
+    }
+    if(bitCount > 0){
+        words.push(buffer & 0x7FFF);
+    }
+    return words;
+}
+
 
 function bitsToInd(bits) {
     let ind = 0;
