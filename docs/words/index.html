@@ -1,6 +1,11 @@
+
+
+<body style="font-family:monospace;">
+<h1>Basic Text Encoder/Decoder</h1>
 Enter text here: <input id="encode"><br>Key: <input id="key" type="number" min="0" max="32768"><br><button onclick="encode();">Encode</button><button onclick="decode();">Decode</button>
 <div id="result"></div>
 <br>
+<h1>File Encoder/Decoder</h1>
 <input id="encFile" type="file"><br>Key: <input id="binkey" type="number" min="0" max="32768"><br><button onclick="encodeBin();">Encode Binary</button><button onclick="decodeBin();">Decode Binary</button><br><br>
 <textarea id="binResult" rows="5" cols="15"></textarea>
 <br>
@@ -72,8 +77,21 @@ if(localStorage.bkey){
   document.querySelector("#binkey").value = localStorage.bkey;
 }
 function darkMode(){
+  const color = localStorage.skid?"#00FF00":"white";
   document.body.style.backgroundColor = "black";
-  document.body.style.color = "white";
+  document.body.style.color = color;
+  document.querySelectorAll("input").forEach(e=>{
+    e.style.color = color;
+    e.style.backgroundColor = "black";
+  });
+  document.querySelectorAll("button").forEach(e=>{
+    e.style.color = color;
+    e.style.backgroundColor = "black";
+  });
+  document.querySelectorAll("textarea").forEach(e=>{
+    e.style.color = color;
+    e.style.backgroundColor = "black";
+  });
 }
 if(localStorage.dark){
   darkMode();
@@ -81,3 +99,4 @@ if(localStorage.dark){
 </script>
 <script src="encoder.js"></script>
 <script src="words.js"></script>
+</body>
