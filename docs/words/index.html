@@ -1,5 +1,3 @@
-
-
 Enter text here: <input id="encode"><br>Key: <input id="key" type="number" min="0" max="32768"><br><button onclick="encode();">Encode</button><button onclick="decode();">Decode</button>
 <div id="result"></div>
 <br>
@@ -72,6 +70,13 @@ if(localStorage.ekey){
 }
 if(localStorage.bkey){
   document.querySelector("#binkey").value = localStorage.bkey;
+}
+function darkMode(){
+  document.body.style.backgroundColor = "black";
+  document.body.style.color = "white";
+}
+if(localStorage.dark){
+  darkMode();
 }
 </script>
 <script src="encoder.js"></script>
