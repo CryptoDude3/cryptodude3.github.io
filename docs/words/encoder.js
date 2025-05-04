@@ -16,7 +16,7 @@ const dchars = {
 function encodeString(str, key = 0) {
     let encWords = [];
     let nonce = Math.floor(Math.random() * 32768);
-    encWords.push(words[nonce ^ 0x2FA]);
+    encWords.push(words[nonce ^ 0x4F6]);
     const input = str.toLowerCase();
     for (let i = 0; i < input.length; i += 3) {
         const ind = (encodeChar(input[i + 2]) << 10 | encodeChar(input[i + 1]) << 5 | encodeChar(input[i])) ^ key ^ (nonce++ & 0x7FFF); //randomize a little bit
@@ -28,7 +28,7 @@ function encodeString(str, key = 0) {
 function decodeString(str, key = 0) {
     const encWords = str.split(" ");
     let output = "";
-    let nonce = decodeWords[encWords[0]] ^ 0x2FA;
+    let nonce = decodeWords[encWords[0]] ^ 0x4F6;
     for (let i = 1; i < encWords.length; i++) { //skip nonce
         const word = decodeWords[encWords[i]];
         if (!word) {
