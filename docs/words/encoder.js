@@ -16,7 +16,7 @@ const dchars = {
 function encodeString(str, key = 0) {
     let encWords = [];
     let nonce = Math.floor(Math.random() * 32768);
-    encWords.push(words[nonce ^ 0x4F6]);
+    encWords.push(words[key ^ nonce ^ 0x4F6]);
     const input = str.toLowerCase();
     for (let i = 0; i < input.length; i += 3) {
         const ind = (encodeChar(input[i + 2]) << 10 | encodeChar(input[i + 1]) << 5 | encodeChar(input[i])) ^ key ^ (nonce++ & 0x7FFF); //randomize a little bit
@@ -28,7 +28,7 @@ function encodeString(str, key = 0) {
 function decodeString(str, key = 0) {
     const encWords = str.split(" ");
     let output = "";
-    let nonce = decodeWords[encWords[0]] ^ 0x4F6;
+    let nonce = decodeWords[encWords[0]] ^ 0x4F6 ^ key;
     for (let i = 1; i < encWords.length; i++) { //skip nonce
         const word = decodeWords[encWords[i]];
         if (!word) {
@@ -64,7 +64,7 @@ function decodeBinary(str, key = 0){
 function encodeRawBinary(data, key = 0) {
     let encWords = [];
     let nonce = Math.floor(Math.random() * 32768);
-    encWords.push(words[nonce ^ 0x2FA]);
+    encWords.push(words[nonce ^ 0x2FA ^ key]);
     const byteData = new Uint8Array(data);
     let buffer = 0;
     let bitCount = 0;
@@ -85,7 +85,7 @@ function encodeRawBinary(data, key = 0) {
 
 function decodeRawBinary(str, key = 0) { // pass length
     const data = str.split(" ");
-    let nonce = decodeWords[data[0]] ^ 0x2FA;
+    let nonce = decodeWords[data[0]] ^ 0x2FA ^ key;
     const encData = data.slice(1,data.length).map(e => decodeWords[e] ^ key ^ (nonce++ & 0x7FFF));
     return wordDataToBytes(encData);
 }
