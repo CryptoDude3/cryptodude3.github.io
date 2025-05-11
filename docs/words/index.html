@@ -19,7 +19,13 @@ Enter UTF-8 here: <input id="utfEncode"><br>Key: <input id="utfkey" type="number
 let downloadBuffer = null;
 let fileName = "";
 const encodeElem = document.querySelector("#encode");
+encodeElem.addEventListener("keydown",e=>{
+if(e.key=="Enter"){encode();}
+});
 const encodeUTFelem = document.querySelector("#utfEncode");
+encodeUTFElem.addEventListener("keydown",e=>{
+if(e.key=="Enter"){encodeUtf();}
+});
 function encode(){
   const key = parseInt(document.querySelector("#key").value);
   localStorage.ekey = key.toString();
