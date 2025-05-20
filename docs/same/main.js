@@ -38,6 +38,7 @@ var cl = false;
 var tone = NWR;
 var tlen = 10;
 var usecustom = false;
+let startTime = null;
 //updateLoc();
 function stime(){timeselect.value = getLocalDT(new Date());}
 stime();
@@ -60,7 +61,10 @@ splay.addEventListener("click", function() {
   } else { play.stop(); splay.innerHTML = "Play Samples"; } isPlaying = !isPlaying;
 });
 function generateEas() {
-  samples = [];
+  samples.length = 0;
+  startTime = performance.now();
+  cl=clip.checked;
+  calcAFSKArray();
   var par = parinput.value;
   if (par.length != 8) { addStatus("Sender ID must be 8 characters long!", "ERROR"); return; }
   if (locations.length < 1) { addStatus("There must be at least one location!", "ERROR"); return; }
@@ -72,11 +76,10 @@ function generateEas() {
   var l = hr.toString().padStart(2,"0") + min.toString().padStart(2,"0");
   tone = parseInt(att.value);
   em = extram.checked;
-  cl=clip.checked;
   es=spaces.checked;
   if(usecustom){create_raw_alert(rawinput.value);}else{create_alert(originator, event, locations, l, time, par);}
   saveb.style.display = "inline-block";
-  addStatus("EAS Generated! Samples: " + samples.length);
+  addStatus("EAS Generated! Samples: " + samples.length + " Time: " + (performance.now()-startTime));
   addStatus("Generated header: " + (usecustom ? rawinput.value : create_header_string(originator, event, locations, l, time, par)));
 }
 function gen_header() {
