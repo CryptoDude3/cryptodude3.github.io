@@ -39,6 +39,7 @@ var tone = NWR;
 var tlen = 10;
 var usecustom = false;
 let startTime = null;
+let showTime = localStorage["showTime"];//i use this for debugging
 //updateLoc();
 function stime(){timeselect.value = getLocalDT(new Date());}
 stime();
@@ -79,7 +80,7 @@ function generateEas() {
   es=spaces.checked;
   if(usecustom){create_raw_alert(rawinput.value);}else{create_alert(originator, event, locations, l, time, par);}
   saveb.style.display = "inline-block";
-  addStatus("EAS Generated! Samples: " + samples.length + " Time: " + (performance.now()-startTime));
+  addStatus("EAS Generated! Samples: " + samples.length + (showTime?(" Time: " + (performance.now()-startTime).toFixed(2) + "ms"):""));
   addStatus("Generated header: " + (usecustom ? rawinput.value : create_header_string(originator, event, locations, l, time, par)));
 }
 function gen_header() {
