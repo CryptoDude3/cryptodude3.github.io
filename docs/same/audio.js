@@ -5,7 +5,7 @@ gain.connect(context.destination);
 var AFSK_TIME = 0.00192;
 var SPACE_FREQ = 1562.5;
 var MARK_FREQ = 2083.3;
-var SAMPLE_RATE = 192000;
+var SAMPLE_RATE = 44100;
 var NRW_WAT_FREQ = 1050;
 var WAT_FREQ_1 = 853;
 var WAT_FREQ_2 = 960;
