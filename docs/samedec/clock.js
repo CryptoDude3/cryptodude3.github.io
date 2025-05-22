@@ -10,11 +10,17 @@ let samples = [];
 let decoding = false;
 let headerTimes = 0;
 let syncReg = 0;
-
+let tolerance = 0.5;
 function clockdemod(sample) {
     const bit = discriminator(sample);
     if (bit !== prevbit) {
+        if(decoding){
+            if(bitclock < (Math.round(bitPeriod*0.9)) || bitclock > (Math.round(bitPeriod*(1-tolerance)))){
+            bitclock = 0;
+            }
+        } else {
         bitclock = 0;
+        }
     }
     if (bitclock == Math.floor(bitPeriod / 2)) {
         currentByte |= (bit << bytePos);
