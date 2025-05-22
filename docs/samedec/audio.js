@@ -13,11 +13,10 @@ async function startDecoder() {
     filter.Q.value = 3;
     const decodeNode = new AudioWorkletNode(audioContext, "eas-processor");
     decodeNode.port.onmessage = function (event) {
-        buffer.push(event.data[0]);
-        runDecoder();
+        runDecoder(event.data[0]);
     }
     updateSampleRate(audioContext.sampleRate);
-    source.connect(audioContext.destination);
+    //source.connect(audioContext.destination);
     source.connect(filter);
     filter.connect(decodeNode);
 }
