@@ -3,7 +3,6 @@ let buffer = [];
 
 function runDecoder(buf) {
     afskdemod(buf, sampleRate);
-    console.log("Decoded");
 }
 
 let dcWindow = [];

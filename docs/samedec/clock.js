@@ -6,7 +6,6 @@ let bits = [];
 let bytes = [];
 let currentByte = 0;
 let bytePos = 0;
-const pllGain = 0.01;
 let samples = [];
 let decoding = false;
 let headerTimes = 0;
@@ -31,6 +30,7 @@ function clockdemod(sample) {
                 if(headerTimes > 6){
                     console.log("Starting");
                     decoding = true;
+                    updateSync(true);
                 }
             } else {
                 headerTimes = 0;
@@ -38,9 +38,12 @@ function clockdemod(sample) {
             if (decoding) {
                 if (currentByte == 0 || currentByte == 0xFF) {
                     decoding = false;
+                    updateSync(false);
+                    document.querySelector("#output").innerHTML+="<br>";
                     headerTimes = 0;
+                } else if(currentByte !== 0xAB) {
+                    document.querySelector("#output").innerText += String.fromCharCode(currentByte);
                 }
-                document.querySelector("#afsk").innerText += String.fromCharCode(currentByte);
             }
             bytePos = 0;
             currentByte = 0;
@@ -81,4 +84,10 @@ function saveToWav() {
     downloadLink.download = 'eas.wav';
     downloadLink.click();
     //addStatus("Download started...");
+}
+
+function updateSync(sync){
+    const elem = document.querySelector("#sync");
+    elem.style.color = (sync?"#00FF00":"#FF0000");
+    elem.innerText = "STATUS: " + (sync?"SYNC":"NO SYNC");
 }

@@ -10,7 +10,7 @@ async function startDecoder() {
     const filter = audioContext.createBiquadFilter(); //don't want any extra noise
     filter.type = "bandpass";
     filter.frequency.value = 1822.9;
-    filter.Q.value = 3;
+    filter.Q.value = 2.6;
     const decodeNode = new AudioWorkletNode(audioContext, "eas-processor");
     decodeNode.port.onmessage = function (event) {
         runDecoder(event.data[0]);
@@ -19,4 +19,5 @@ async function startDecoder() {
     //source.connect(audioContext.destination);
     source.connect(filter);
     filter.connect(decodeNode);
+    updateSync(false);
 }

@@ -1,7 +1,22 @@
-<button onclick="startDecoder();">Start Decoder</button><br>
-Enter threshold:<input type="number" onchange="thres = parseInt(this.value);">
-<p id="afsk"></p>
-<script src="audio.js"></script>
-<script src="afsk.js"></script>
-<script src="clock.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/wavefile/dist/wavefile.js"></script>
+<head>
+    <style>
+        #output {
+            font-family: Hack;
+        }
+        #sync {
+            font-family: monospace;
+            font-size: 1.5em;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css">
+</head>
+
+<body>
+    <button onclick="startDecoder();">Start Decoder</button><br>
+    Enter threshold:<input type="number" onchange="thres = parseInt(this.value);"><br>
+    <div id="sync">STATUS: WAITING...</div>
+    <p id="output"></p>
+    <script src="audio.js"></script>
+    <script src="afsk.js"></script>
+    <script src="clock.js"></script>
+</body>
