@@ -36,8 +36,9 @@ function clockdemod(sample) {
                 headerTimes = 0;
             }
             if (decoding) {
-                if (currentByte == 0) {
+                if (currentByte == 0 || currentByte == 0xFF) {
                     decoding = false;
+                    headerTimes = 0;
                 }
                 document.querySelector("#afsk").innerText += String.fromCharCode(currentByte);
             }
@@ -53,7 +54,7 @@ function clockdemod(sample) {
 }
 
 //implement discriminator based on positive and negative mabye
-const thres = 30;
+let thres = 15;
 
 let bitState = 0;
 
