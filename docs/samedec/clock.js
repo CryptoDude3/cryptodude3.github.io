@@ -27,7 +27,7 @@ function clockdemod(sample) {
         if (bytePos == 8) {
             if(currentByte == 0xAB){
                 headerTimes++;
-                if(headerTimes > 6){
+                if(headerTimes > 4){
                     console.log("Starting");
                     decoding = true;
                     updateSync(true);
