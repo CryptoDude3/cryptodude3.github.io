@@ -10,7 +10,7 @@ let samples = [];
 let decoding = false;
 let headerTimes = 0;
 let syncReg = 0;
-let tolerance = 0.2;
+let tolerance = 0.1;
 function clockdemod(sample) {
     const bit = discriminator(sample);
     if (bit !== prevbit) {
