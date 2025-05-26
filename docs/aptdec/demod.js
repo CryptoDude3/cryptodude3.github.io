@@ -47,7 +47,7 @@ function updateGain(val){
 
 function runDecoder(signal) {
     for (let i = 0; i < 128; i++) {
-        const samp = dcBlock(signal[i]);
+        const samp = signal[i];
         const demodres = Math.sqrt(samp*samp + prevSample*prevSample - 2*samp*prevSample * cosPhaseStep) / sinPhaseStep;
         ampInteg += demodres;
         pixelClock += 1;
