@@ -11,8 +11,7 @@ let pixelWindow = 0;
 let sinPhaseStep = 0;
 let cosPhaseStep = 0;
 
-let dcWindow = [];
-let dcInteg = 0;
+let gain = 5;
 
 function updateSampleRate(sr) {
     sampleRate = sr;
@@ -40,6 +39,10 @@ function dcBlock(input) {
     dcBlockerPrevInput = input;
     dcBlockerPrevOutput = output;
     return output;
+}
+
+function updateGain(val){
+    gain = val;
 }
 
 function runDecoder(signal) {

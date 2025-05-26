@@ -3,7 +3,7 @@ let pixelCache = [];
 let linePos = 0;
 let pixelPos = 0;
 function pixelProcess(amplitude) {
-    pixelCache[pixelPos++] = amplitude*255*4;
+    pixelCache[pixelPos++] = amplitude*255*gain;
     if (pixelPos == 2080) {
         writeLine();
         pixelPos = 0;

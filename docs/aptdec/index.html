@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <button onclick="startDecoder();">Start Decoder</button><br>
+    <button onclick="startDecoder();">Start Decoder</button><br>Enter gain: <input id="gain" onchange="updateGain(this.value);"><br>
     <canvas id="output" width="2080" height="1000"></canvas>
     <script src="audio.js"></script>
     <script src="demod.js"></script>
