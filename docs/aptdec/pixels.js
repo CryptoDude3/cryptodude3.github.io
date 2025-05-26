@@ -2,9 +2,14 @@ let pixels = 0;
 let pixelCache = [];
 let linePos = 0;
 let pixelPos = 0;
+
+let highestLineGain = 0;
 function pixelProcess(amplitude) {
+    if(amplitude > highestLineGain){highestLineGain = amplitude;}
     pixelCache[pixelPos++] = amplitude*255*gain;
     if (pixelPos == 2080) {
+        gain = highestLineGain / 2;
+        highestLineGain = 0;
         writeLine();
         pixelPos = 0;
     }
