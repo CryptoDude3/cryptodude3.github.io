@@ -25,7 +25,6 @@ function updateSampleRate(sr) {
     }
 }
 
-let windowClock = 0;
 let pixelClock = 0;
 
 let prevSample = 0;
