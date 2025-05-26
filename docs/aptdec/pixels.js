@@ -6,7 +6,7 @@ let pixelPos = 0;
 let highestLineGain = 0;
 function pixelProcess(amplitude) {
     if(amplitude > highestLineGain){highestLineGain = amplitude;}
-    pixelCache[pixelPos++] = amplitude*255*gain;
+    pixelCache[pixelPos++] = amplitude*255 / highestLineGain;
     if (pixelPos == 2080) {
         gain = highestLineGain / 2;
         highestLineGain = 0;
