@@ -9,6 +9,7 @@
         }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css">
+    <script src = "https://cdn.jsdelivr.net/npm/wavefile/dist/wavefile.js"></script>
     <title>APT Decoder</title>
 </head>
 
@@ -18,4 +19,21 @@
     <script src="audio.js"></script>
     <script src="demod.js"></script>
     <script src="pixels.js"></script>
+    <script>
+        function saveToWav() {
+    const wav = new wavefile.WaveFile();
+    wav.fromScratch(1, sampleRate, '32', samples.map(e => {
+        return e * (2147483647 / 2);
+    }));
+    const wavBuffer = wav.toBuffer().buffer;
+    const wavBlob = new Blob([new DataView(wavBuffer)], {
+        type: 'audio/wav'
+    });
+    const downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(wavBlob);
+    downloadLink.download = 'eas.wav';
+    downloadLink.click();
+    //addStatus("Download started...");
+}
+    </script>
 </body>

@@ -1,8 +1,6 @@
-let dataIwindow = [];
-let dataQwindow = [];
-let dataIInteg = 0;
-let dataQInteg = 0;
-
+let ampWindow = [];
+let ampInteg = 0;
+let samples = [];
 let dataBuffer = [];
 
 const freq = 2400;
@@ -10,59 +8,53 @@ const TWO_PI = 2 * Math.PI;
 let phaseStep = 0;
 let windowSize = 0;
 let pixelWindow = 0;
+let sinPhaseStep = 0;
+let cosPhaseStep = 0;
+
+let dcWindow = [];
+let dcInteg = 0;
 
 function updateSampleRate(sr) {
     sampleRate = sr;
     phaseStep = TWO_PI * freq / sr;
-    pixelWindow = sr / 4160;
     windowSize = Math.round(sr / 4160);
+    pixelWindow = sr / 4160;
+    sinPhaseStep = Math.sin(phaseStep);
+    cosPhaseStep = Math.cos(phaseStep);
     for (let i = 0; i < windowSize; i++) {
-        dataIwindow[i] = 0;
-        dataQwindow[i] = 0;
+        ampWindow[i] = 0;
     }
 }
 
-let signalPhase = 0;
 let windowClock = 0;
 let pixelClock = 0;
 
+let prevSample = 0;
+
+let dcBlockerPrevInput = 0;
+let dcBlockerPrevOutput = 0;
+const dcAlpha = 1;
+
+function dcBlock(input) {
+    const output = input - dcBlockerPrevInput + dcAlpha * dcBlockerPrevOutput;
+    dcBlockerPrevInput = input;
+    dcBlockerPrevOutput = output;
+    return output;
+}
+
 function runDecoder(signal) {
     for (let i = 0; i < 128; i++) {
-        const sig = signal[i];
-        const dataI = sig * Math.cos(signalPhase);
-        const dataQ = sig * Math.sin(signalPhase);
-        signalPhase += phaseStep;
-        if (signalPhase >= TWO_PI) {
-            signalPhase -= TWO_PI;
-        }
-        dataIInteg += dataI - dataIwindow[windowClock];
-        dataQInteg += dataQ - dataQwindow[windowClock];
-        dataIwindow[windowClock] = dataI;
-        dataQwindow[windowClock] = dataQ;
-        windowClock++;
-        if (windowClock >= windowSize) {
-            windowClock = 0;
-        }
+        const samp = dcBlock(signal[i]);
+        const demodres = Math.sqrt(samp*samp + prevSample*prevSample - 2*samp*prevSample * cosPhaseStep) / sinPhaseStep;
+        ampInteg += demodres;
         pixelClock += 1;
         if(pixelClock >= pixelWindow){
+            const out = ampInteg/pixelWindow;
             pixelClock -= pixelWindow;
-            const avgIval = dataIInteg/windowSize;
-            const avgQval = dataQInteg/windowSize;
-            pixelProcess(Math.sqrt(avgIval*avgIval + avgQval*avgQval));
+            pixelProcess(out);
+            ampInteg = 0;
         }
+        prevSample = samp;
     }
 }
 
-function runTest() {
-    updateSampleRate(44100);
-    dataIInteg = 0;
-    dataQInteg = 0;
-    let output = [];
-    for (let i = 0; i < samples.length; i += 128) {
-        const demod = runDecoder(samples.slice(i, i + 128));
-        for (let j = 0; j < 128; j++) {
-            output[i + j] = demod[j];
-        }
-    }
-    return output;
-}
