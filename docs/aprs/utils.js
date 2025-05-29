@@ -37,8 +37,6 @@ function encodeFrame() {
   const srcSSID = document.querySelector("#ax25-srcSSID").value;
   var dst = document.querySelector("#ax25-dst").value;
   const dstSSID = document.querySelector("#ax25-dstSSID").value;
-  const control = document.querySelector("#ax25-control").value;
-  const pid = document.querySelector("#ax25-pid").value;
   const payload = document.querySelector("#ax25-payload").value;
 
   //Add "space" padding to src field to match required length of 7
@@ -53,7 +51,7 @@ function encodeFrame() {
 
   //Check if command or response message
   var cmdMsg = msgType;
-  const ax25f = new AX25Frame(src, srcSSID, dst, dstSSID, control, pid, payload, cmdMsg);
+  const ax25f = new AX25Frame(src, srcSSID, dst, dstSSID, 0x03, 0xF0, payload, cmdMsg);
   const ax25e = ax25f.Encode();
   return HDLCEncode(ax25e);
 }

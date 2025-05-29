@@ -22,18 +22,18 @@ function generate_afsk(bitstream) {
   const samplingFreq = SAMPLE_RATE; // Replace with your actual sampling frequency
   bitstream = bitstream.map(bit => bit * 2 - 1); // Convert to NRZ
   const steps = samplingFreq / bitrate;
+  const center = (fCenter / samplingFreq);
+  const delta = (fDelta / samplingFreq);
   let m = 0;
 
   for (let i = 1; i < (bitstream.length * steps); i++) {
-    // Interpolate the bitstream to steps points per bit
+
     const index = Math.ceil(i / steps);
     const indexPrev = Math.ceil((i - 1) / steps);
 
-    if(Number.isNaN(m)){console.log(bitstream[index]);}else{
-    // "FM" Modulation
-    m += (bitstream[indexPrev] + bitstream[index]) / 2;
-    samples.push(Math.cos(2 * Math.PI * i * (fCenter / samplingFreq) - 2 * Math.PI * m * (fDelta / samplingFreq)));
-  }}
+    m += (bitstream[indexPrev] + bitstream[index]) / 2; //smooth out edges?
+    samples.push(Math.cos(2 * Math.PI * ( i * center - m * delta ) ));
+  }
   samples = emphasis(samples);
 }
 function emphasis(signal) {
