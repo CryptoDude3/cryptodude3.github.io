@@ -32,8 +32,8 @@ let sync = [];
 for(let i = 0;i<times;i++){
   sync = sync.concat(syncWord);
 }
-function generateEas() {
-  samples = [];
+function generateAPRS() {
+  samples.length = 0;
   generate_afsk(aprsEncode(sync.concat(bytetobits(encodeFrame()))));
   addStatus("APRS Generated! Samples: " + samples.length);
   drawSamples();
@@ -83,22 +83,6 @@ function resetStatus() {
   statuselem.innerHTML = "";
   clr.style.display = "none";
 }
-function nrzi(input) {
-  let output = [];
-  let currentState = 0;
-
-  for (let bit of input) {
-    if (bit === 1) {
-      // Toggle the state for each 1
-      currentState = 1 - currentState;
-    }
-    output.push(currentState);
-  }
-
-  return output;
-}
 function nrz(input){
-    var output = [];
-    input.forEach(e=>output.push(e?0:1));
-    return output;
+    return input.map(e=>e?0:1);
 }
