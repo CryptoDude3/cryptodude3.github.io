@@ -26,10 +26,15 @@ function toBit(t) {
   }
   return r;
 }
+const syncWord = [0, 1, 1, 1, 1, 1, 1, 0];
+const times = 20;
+let sync = [];
+for(let i = 0;i<times;i++){
+  sync = sync.concat(syncWord);
+}
 function generateEas() {
   samples = [];
-  //generate_afsk(bytetobits(encodeFrame()));
-  generate_afsk(aprsEncode(toBit("000000000000000000000000000000000000000000000000000").concat(bytetobits(encodeFrame()))));
+  generate_afsk(aprsEncode(sync.concat(bytetobits(encodeFrame()))));
   addStatus("APRS Generated! Samples: " + samples.length);
   drawSamples();
 }
