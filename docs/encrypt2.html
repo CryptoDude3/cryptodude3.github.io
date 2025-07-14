@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Encryptonator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #ccc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 48px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+
+        .error {
+            color: red;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="password"],
+        input#pass,
+        select,
+        textarea {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #333;
+            color: #ccc;
+            resize: none;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 150px;
+            overflow-y: auto;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        #emoji-container {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .ptoggle {
+            color: #aaa;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>The Encryptonator V2</h1>
+        <textarea id="text" placeholder="Enter your text here..."></textarea>
+        <label for="pass">Password(<a href="javascript:void(0)" onclick="togglePass();"
+                class="ptoggle">show</a>):</label>
+        <input type="password" id="pass" name="password" placeholder="Enter your password">
+        <label for="slvl">Security level:</label>
+        <select id="slvl" name="slvl">
+            <option value="0">Low</option>
+            <option value="1">Medium</option>
+            <option value="2">High</option>
+            <option value="3">MAXIMUM</option>
+        </select>
+        <p id="loading">Loading...</p>
+        <p id="error" class="error"></p>
+        <button onclick="encryptText();">Encrypt Text</button>
+        <button onclick="decryptText();">Decrypt Text</button>
+        <p>Made by Ducklife3141, CSS by generic</p>
+
+    </div>
+
+    <script>
+        const soptions = { "Low": 65536, "Medium": 262144, "High": 1048576, "MAXIMUM": 16777216 };
+        const svals = Object.values(soptions);
+        const textElem = document.querySelector("#text");
+        const passElem = document.querySelector("#pass");
+        const errorElem = document.querySelector("#error");
+        const secElem = document.querySelector("#slvl");
+        const loadingElem = document.querySelector("#loading");
+        function togglePass() {
+            const passinp = document.querySelector("#pass");
+            const toggle = document.querySelector(".ptoggle");
+            if (passinp.type === "password") { passinp.type = ""; toggle.innerText = "hide"; } else { passinp.type = "password"; toggle.innerText = "show"; }
+        }
+        async function deriveKey(pass, iterations, salt) {
+            setLoading("Deriving key...");
+            const baseKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+            return await crypto.subtle.deriveKey({ name: "PBKDF2", hash: "SHA-256", salt, iterations }, baseKey, { name: "AES-CBC", length: 256 }, true, ["encrypt", "decrypt"]);
+        }
+
+        async function encryptData(text, key) {
+            setLoading("Encrypting...");
+            const plaintext = new TextEncoder().encode(text);
+            const iv = crypto.getRandomValues(new Uint8Array(16));
+            const data = await crypto.subtle.encrypt({ name: "AES-CBC", iv }, key, plaintext);
+            return { data, iv };
+        }
+
+        async function encrypt(pass, text, sc = 0) {
+            const salt = crypto.getRandomValues(new Uint8Array(16));
+            const dvkey = await deriveKey(pass, svals[sc], salt);
+            const enc = await encryptData(text, dvkey);
+            return btoa(`${String.fromCharCode(sc)}${buftostr(enc.iv)}${buftostr(salt)}${buftostr(enc.data)}`);
+        }
+
+        async function decrypt(pass, text) {
+            const buf = b64tobuf(text);
+            const iv = buf.subarray(1, 17);
+            const salt = buf.subarray(17, 33);
+            const ciphertext = buf.subarray(33, buf.length);
+
+            const dvkey = await deriveKey(pass, svals[buf[0]], salt);
+            setLoading("Decrypting...");
+            const data = await crypto.subtle.decrypt({ name: "AES-CBC", iv }, dvkey, ciphertext);
+            return buftostr(data);
+        }
+
+        async function encryptText() {
+            try {
+                renderError("");
+                setLoading("Encrypting...");
+                textElem.value = await encrypt(passElem.value, textElem.value, secElem.value);
+                setLoading("");
+                setLoading("Encryption complete");
+            } catch (e) {
+                setLoading("");
+                renderError(`Error: ${e}`);
+            }
+        }
+
+        async function decryptText() {
+            try {
+                renderError("");
+                setLoading("Decrypting...");
+                if (textElem.value.length < 1) { throw "Data input cannot be empty!"; }
+                textElem.value = await decrypt(passElem.value, textElem.value);
+                setLoading("");
+                setLoading("Decryption complete");
+            } catch (e) {
+                setLoading("");
+                if (e == "OperationError") { e = "Invalid Password!"; }
+                renderError(`Error: ${e}`);
+            }
+        }
+
+        function renderError(message) {
+            setLoading("");
+            errorElem.textContent = message;
+        }
+
+        function setLoading(message = "") {
+            loadingElem.textContent = message;
+        }
+
+        function buftostr(buf) {
+            return new Uint8Array(buf).reduce((data, byte) => data + String.fromCharCode(byte), '');
+        }
+
+        function b64tobuf(input) {
+            return new Uint8Array(atob(input).split("").map(e => e.charCodeAt()));
+        }
+        setLoading("Ready");
+    </script><br><br>
+</body>
+
+</html>
