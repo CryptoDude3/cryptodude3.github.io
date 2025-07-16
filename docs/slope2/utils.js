@@ -420,6 +420,11 @@ function searchForVar(name) {
     }).map(e => e + 0x18);
 }
 
+function speedUp(){
+    const gameManager = getGameManager();
+    if(!gameManager){alert("GameManager is not initalized yet! Wait before trying this keybind!");return;}
+    gameInstance.Module.dynCall_vii(16123,gameManager);
+}
 function searchForFloat(val) {
     const arr = gameInstance.Module.HEAPF32;
     let addrs = [];
@@ -441,3 +446,10 @@ function searchForInt32(val) {
     }
     return addrs;
 }
+document.addEventListener("keydown",e=>{
+    switch(e.key){
+        case "y":
+        speedUp();
+        break;
+    }
+});
