@@ -1,0 +1,42 @@
+<body style="margin: 0; overflow: hidden;">
+    <div class="cheat-container" style="display:none;">
+        <div class="title">Hacks:</div>
+    </div>
+    <div class="webgl-content">
+        <div id="gameContainer" style="width: 100%; height: 100%; margin: 0;">
+            <canvas id="gameCanvas" style="width: 100%; height: 100%; margin: 0;"></canvas>
+        </div>
+    </div>
+    <script src="slope2.loader.js"></script>
+    <script src="utils.js"></script>
+    <script>
+        window.config = {
+            dataUrl: "slope2.data.unityweb",
+            frameworkUrl: "slope2.framework.js.unityweb",
+            codeUrl: "slope2.wasm.unityweb",
+            streamingAssetsUrl: "./StreamingAssets",
+            companyName: "azgames.io",
+            productName: "Slope 2",
+            productVersion: "25051901",
+            pubId: ""
+        };
+        window.GMSOFT_OPTIONS = config;
+        window.GMSOFT_OPTIONS = { "gameId": "slope-2", "eventLog": false, "enableMoreGame": "yes", "enablePromotion": true, "gdHost": false, "enableAds": false, "debug": false, "pub_id": "", "unlockTimer": 60, "timeShowInter": 60, "domainHost": "127.0.0.1", "sourceHtml": "RHhrUUVRZGJid2xHVUFnV0IwY01HeE1FQ2doS0NCdE9MRTlESGdJZUJ3WUxGUWNCRERJU1ZGb0xNdz09", "sdkversion": 5, "adsDebug": true, "game": null, "promotion": null, "allow_play": "yes", "referrer": "http://127.0.0.1/" };
+        const canvas = document.querySelector("#gameCanvas");
+        createUnityInstance(canvas, {
+            dataUrl: "slope2.data.unityweb",
+            frameworkUrl: "slope2.framework.js",
+            codeUrl: "slope2.wasm.unityweb",
+            streamingAssetsUrl: "./StreamingAssets",
+            companyName: "azgames.io",
+            productName: "Slope 2",
+            productVersion: "25051901",
+            pubId: ""
+        }, (progress) => {
+            console.log(progress);
+        }).then((instance) => (window.unityInstance = instance,window.gameInstance = instance));
+        function firebaseLogEvent() {
+
+        }
+    </script>
+</body>
