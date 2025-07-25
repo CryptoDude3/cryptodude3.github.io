@@ -165,3 +165,10 @@ stateselect.innerHTML = "";stateselect.addEventListener("change",function(){
     updateCounties(stateselect.value);
 });Object.keys(state).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = state[e];option.setAttribute("value",e);stateselect.appendChild(option);});function updateCounties(state){countyselect.innerHTML = "";if(state!=="00"){let entState = document.createElement("option");entState.value="000";entState.innerText="Entire State";countyselect.appendChild(entState);}Object.keys(county[state]).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = county[state][e];option.setAttribute("value",e);countyselect.appendChild(option);});}updateCounties("00");
 regionselect.innerHTML = "";Object.keys(rgn).sort().forEach(e=>{var option = document.createElement("option");option.innerHTML = rgn[e];option.setAttribute("value",e);regionselect.appendChild(option);});
+const params = new URLSearchParams(window.location.search);
+
+if(params.size>0 && params.get("header")){ //for decoder
+    document.querySelector("#useCustomHeader").checked = true;
+    updateCustom(true);
+    document.querySelector("#cheader").innerText = params.get("header");
+}
