@@ -44,6 +44,7 @@ async function runDecode(button) {
 
 async function populateMicrophones() { //populates the select for microphone device
     const mics = await getMicrophones();
+    sel.innerHTML = "";
     mics.forEach(mic => {
         const option = document.createElement("option");
         option.value = mic.deviceId;
@@ -69,5 +70,10 @@ async function stopDecode(){
     document.querySelector("#sync").innerText = "STATUS: WAITING...";
     document.querySelector("#sync").style.color = "";
 }
-
 populateMicrophones();
+
+document.addEventListener("click",()=>{
+    if(!sel.innerHTML){
+        populateMicrophones();
+    }
+});
