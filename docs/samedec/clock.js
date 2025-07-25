@@ -11,6 +11,9 @@ let decoding = false;
 let headerTimes = 0;
 let syncReg = 0;
 let tolerance = 0.05;
+
+let currentMsg = "";
+let container = null;
 function clockdemod(sample) {
     const bit = discriminator(sample);
     if (bit !== prevbit) {
@@ -39,10 +42,22 @@ function clockdemod(sample) {
                 if (currentByte == 0 || currentByte == 0xFF) {
                     decoding = false;
                     updateSync(false);
-                    document.querySelector("#output").innerHTML+="<br>";
+                    container.innerText += " "; //button needs room
+                    try{
+                        processHeader(currentMsg, container);
+                    }catch(e){console.log("Error:",e);}
+                    container = null;
+                    currentMsg = "";
                     headerTimes = 0;
                 } else if(currentByte !== 0xAB) {
-                    document.querySelector("#output").innerText += String.fromCharCode(currentByte);
+                    if(!container){
+                        container = document.createElement("div");
+                        container.className = "alert";
+                        document.querySelector("#output").appendChild(container);
+                    }
+                    const currentChar = String.fromCharCode(currentByte);
+                    container.innerText += currentChar;
+                    currentMsg += currentChar;
                 }
             }
             bytePos = 0;

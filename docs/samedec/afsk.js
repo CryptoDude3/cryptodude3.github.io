@@ -1,8 +1,7 @@
 let buffer = [];
-//const sampleRate = SAMPLE_RATE;
 
 function runDecoder(buf) {
-    afskdemod(buf, sampleRate);
+    afskdemod(buf);
 }
 
 let dcWindow = [];
@@ -59,7 +58,6 @@ function dcFilter(sample, i) {
 function afskdemod(signal) {
     for (var i = 0; i < 128; i++) {
         const sig = signal[i];
-        //samples.push(sig);
         const markI = sig * Math.sin(markIndex);
         const markQ = sig * Math.cos(markIndex);
         const spaceI = sig * Math.sin(spaceIndex);
@@ -86,7 +84,6 @@ function afskdemod(signal) {
         let s1 = markIInteg * markIInteg + markQInteg * markQInteg; //vector sum of in-phase and quadrature components
         let s2 = spaceIInteg * spaceIInteg + spaceQInteg * spaceQInteg;
         clockdemod(s1 - s2);
-        //document.querySelector("#afsk").innerText = s1 - s2;
         clock++;
         if (clock >= bitPeriod) {
             clock = 0;
