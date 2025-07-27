@@ -109,3 +109,4 @@ function runTest() {
     }
     return output;
 }
+updateSampleRate(48000);
