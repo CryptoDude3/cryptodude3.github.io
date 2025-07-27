@@ -1,1 +1,104 @@
+<head>
+    <style>
+        #output {
+            font-family: Hack;
+        }
 
+        #sync {
+            font-family: monospace;
+            font-size: 1.5em;
+        }
+
+        .modalContainer {
+            left: 0px;
+            top: 0px;
+            z-index: 999;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            /*background-color: #1a1a1a30;*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modalBox {
+            z-index: 1000;
+            font-family: monospace;
+            padding: 10px;
+            margin: 15px;
+            background-color: #0e0e0e;
+        }
+
+        .modalContent {
+            padding: 20px;
+            height: 50%;
+            position: relative;
+        }
+
+        .modalClose {
+            position: absolute;
+            font-size: 1.5em;
+            cursor: pointer;
+            z-index:1001;
+            margin:6px;
+        }
+
+        .modalTitle {
+            text-align: center;
+            margin: 15px;
+            font-size: 28px;
+            user-select: none;
+        }
+        .modalInfo {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .watch {
+            color:#ff7800;
+            display: inline;
+        }
+        .warning {
+            color: #ff0000;
+            display: inline;
+        }
+        .info {
+            font-size: 1.2em;
+        }
+        body {
+            background-color: black;
+            color: #FFFFFF;
+        }
+        .unknown-alert {
+            display: inline;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack.css">
+    <title>EAS Decoder</title>
+</head>
+
+<body>
+    Select Microphone: <select id="device"></select><br>
+    <button onclick="runDecode(this);">Start Decoder</button><br>
+    <!--Enter threshold:<input type="number" onchange="thres = parseInt(this.value);"><br>-->
+    <div id="sync">STATUS: WAITING...</div><br>
+    <div id="afsk"></div>
+    <p id="output"></p>
+    <div class="modalContainer" style="display: none;">
+        <div class="modalBox">
+            <div class="modalClose" id="close">X</div>
+            <div class="modalContent">
+                <div class="modalTitle">Alert Details</div>
+                <div class="modalInfo">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="audio.js"></script>
+    <script src="afsk.js"></script>
+    <script src="clock.js"></script>
+    <script src="header.js"></script>
+    <script src="same.js"></script>
+    <script src="alertinfo.js"></script>
+</body>
