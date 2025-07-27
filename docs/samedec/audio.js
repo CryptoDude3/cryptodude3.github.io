@@ -77,4 +77,3 @@ document.addEventListener("click",()=>{
         populateMicrophones();
     }
 });
-updateSampleRate(48000);
