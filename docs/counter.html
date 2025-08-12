@@ -1,0 +1,118 @@
+<style>
+    body {
+        font-family: monospace;
+        font-size: 1.1em;
+    }
+
+    #count {
+        font-size: 3.5em;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    #decimal {
+        font-size: 2.5em;
+        user-select: none;
+    }
+</style>
+<div id="count"></div><br>
+<div id="decimal">0</div>
+Run automatically: <input type="checkbox" id="auto"><br>
+Signed Integer: <input type="checkbox" id="sign" checked><br>
+<button id="shl">SHL</button><button id="shr">SHR</button><br><br>
+<button id="reset">RESET</button>
+<script>
+    const digitCount = 16;
+    const countElem = document.querySelector("#count");
+    const decimalCount = document.querySelector("#decimal");
+    let counter = 0;
+    let isSigned = true;
+    function updateCounter() {
+        counter &= ((1 << digitCount) - 1);
+        countElem.innerText = counter.toString(2).padStart(digitCount, "0");
+        decimalCount.innerText = isSigned ? (new Int16Array([counter]))[0] : counter;
+    }
+
+    let updateInterval;
+    countElem.innerText = "0".repeat(digitCount);
+
+    const box = document.querySelector("#auto");
+    box.addEventListener("change", () => {
+        if (box.checked) {
+            updateInterval = setInterval(() => {
+                counter++
+                updateCounter();
+            }, 250);
+        } else {
+            clearInterval(updateInterval);
+        }
+    });
+
+    const signedCheck = document.querySelector("#sign");
+    signedCheck.addEventListener("change", () => {
+        isSigned = signedCheck.checked;
+        updateCounter();
+    });
+
+    countElem.addEventListener("click", () => {
+        counter++
+        updateCounter();
+    });
+    countElem.addEventListener("contextmenu", (e) => {
+        counter--;
+        if (counter >= 0 || isSigned) { updateCounter(); } else {
+            counter = 0;
+        }
+        e.preventDefault();
+    });
+
+    const shr = document.querySelector("#shr");
+    shr.addEventListener("click", () => {
+        counter >>= 1;
+        updateCounter();
+    });
+
+    const shl = document.querySelector("#shl");
+    shl.addEventListener("click", () => {
+        counter <<= 1;
+        updateCounter();
+    });
+
+    const reset = document.querySelector("#reset");
+    reset.addEventListener("click", () => {
+        counter = 0;
+        updateCounter();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        switch (e.code) {
+            case "ArrowUp":
+                counter++;
+                updateCounter();
+                break;
+            case "ArrowDown":
+                counter--;
+                if (counter >= 0 || isSigned) { updateCounter(); } else {
+                    counter = 0;
+                }
+                break;
+            case "ArrowLeft":
+                counter <<= 1;
+                updateCounter();
+                break;
+            case "ArrowRight":
+                counter >>= 1;
+                updateCounter();
+                break;
+            case "Space":
+                counter++;
+                updateCounter();
+                break;
+            case "Digit0":
+            case "Numpad0":
+                counter = 0;
+                updateCounter();
+                break;
+        }
+    });
+</script>
