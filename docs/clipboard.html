@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>HTML Clipboard Writer</title>
+    <style>
+        :root {
+            --text-color: #00ff00;
+        }
+
+        .spacer {
+            margin-top: 15px;
+        }
+
+        .output>* {
+            margin: 5px;
+        }
+
+        textarea,
+        button {
+            background-color: black;
+            color: var(--text-color);
+        }
+
+        body {
+            background-color: #0e0e0e;
+            color: var(--text-color);
+        }
+
+        .output {
+            background-color: black;
+            display: inline-block;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Clipboard Reader/Writer</h1>
+    <textarea id="inp" rows="20" cols="80"></textarea><br>
+    <button id="html_copy">Write to clipboard as HTML</button><br>
+    <button id="text_copy">Write to clipboard as Text</button>
+    <div class="spacer"></div>
+    <button id="read">Read Clipboard Contents</button><br>
+    <div class="output" id="clip_out">
+
+    </div>
+    <script>
+        const inpElem = document.querySelector("#inp");
+        document.querySelector("#html_copy").addEventListener("click", async () => {
+            const val = inpElem.value;
+            await navigator.clipboard.write([new ClipboardItem({ "text/html": val })]);
+            alert("Write successful!");
+        });
+        document.querySelector("#text_copy").addEventListener("click", async () => {
+            const val = inpElem.value;
+            await navigator.clipboard.writeText(val);
+            alert("Write successful!");
+        });
+        const out_elem = document.querySelector("#clip_out");
+        document.querySelector("#read").addEventListener("click", async () => {
+            try {
+                const val = await navigator.clipboard.read();
+                const item = val[0];
+                window.cv = val;
+                out_elem.innerHTML = "";
+                item.types.forEach(async (type) => {
+                    const blob = await item.getType(type);
+                    const text = await blob.text();
+                    addClipboardEntry(type, text);
+                })
+            } catch (e) {
+                alert("Read failed: " + e);
+            }
+        });
+        function addClipboardEntry(type, value) {
+            const render = document.createElement("button");
+            render.innerText = "Read " + type;
+            render.addEventListener("click", () => {
+                inpElem.value = value;
+            });
+            out_elem.appendChild(render);
+        }
+    </script>
+</body>
+
+</html>
