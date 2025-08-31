@@ -1,0 +1,181 @@
+<html>
+
+<head>
+    <style>
+        #output {
+            font-family: monospace;
+            font-size: 1.2em;
+            margin-top:5px;
+        }
+        #odd_check, #even_check {
+            display: inline;
+        }
+        .invalid {
+            color: red;
+        }
+
+        .valid {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>HID Format Encoder</h1>
+    Enter facility ID: <input id="facility" type="number" min="0" max="255"><br>
+    Card Number: <input id="card" type="number" min="0" max="65535"><br>
+    <button id="enc">Encode Card</button><br>
+    <div id="output"></div>
+    <h1>HID Format Decoder</h1>
+    Enter encoded string: <input id="input"><br>
+    <button id="decode">Decode Card</button><br><br>
+    Even Parity Status: <div id="even_check" class="invalid">N/A</div><br>
+    Odd Parity Status: <div id="odd_check" class="invalid">N/A</div><br><br>
+    Facility ID: <input id="facility_res" type="number" min="0" max="255" readonly><br>
+    Card Number: <input id="card_res" type="number" min="0" max="65535" readonly><br>
+    <script>
+        //TODO: address 8th grade ID
+        const start = [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1];
+
+        document.querySelector("#enc").addEventListener("click", () => {
+            const fac = parseInt(document.querySelector("#facility").value);
+            const cardno = parseInt(document.querySelector("#card").value);
+            if (fac > 255 || cardno > 65535) {
+                alert("You must use a valid card number/facility number!");
+                return;
+            }
+
+            let bitArr = uint8_to_bits(fac);
+            bitArr = bitArr.concat(uint16_to_bits(cardno)); //24 bits
+
+            const even_parity = get_parity(bitArr.slice(0, 12), true); //first 12 bits are even parity
+            const odd_parity = get_parity(bitArr.slice(12), false); //last 12 bits are odd parity
+            bitArr.splice(0, 0, even_parity); //splice in even parity at the beginning
+            bitArr.push(odd_parity); //add odd parity to the end
+
+            bitArr = start.concat(bitArr); //add start bits
+
+            const output_arr = ([1, 1, 1].concat(manchester_encode(bitArr))).concat([0, 0, 0]);
+            document.querySelector("#output").innerText = bits_to_hexStr(output_arr);
+        });
+
+        const even_elem = document.querySelector("#even_check");
+        const odd_elem = document.querySelector("#odd_check");
+        document.querySelector("#decode").addEventListener("click",()=>{
+            const bits = hexStr_to_bits(document.querySelector("#input").value);
+            if(bits.length !== 96){
+                alert("You must enter a valid card!");
+                return;
+            }
+            //get rid of beginning 1s and ending 0s, manchester decode, and get rid of 19 filler bits
+            const decodedBits = manchester_decode(bits.slice(3,bits.length-3)).slice(19);
+            console.log(decodedBits);
+
+            if(decodedBits.length !== 26){
+                alert("Invalid manchester encoding!");
+                return;
+            }
+            const even_parity = decodedBits.shift(); //even parity from the start
+            const odd_parity = decodedBits.pop(); //odd parity from the end
+            
+            const facility = bits_to_number(decodedBits.slice(0, 8));
+            const cardno = bits_to_number(decodedBits.slice(8, 24)); //being redundant for safety
+
+            const even_status = (get_parity(decodedBits.slice(0, 12), true) == even_parity);
+            const odd_status = (get_parity(decodedBits.slice(12), false) == odd_parity);
+
+            document.querySelector("#facility_res").value = facility;
+            document.querySelector("#card_res").value = cardno;
+
+            even_elem.innerText = even_status?"VALID":"INVALID";
+            even_elem.className = even_status?"valid":"invalid";
+            
+            odd_elem.innerText = odd_status?"VALID":"INVALID";
+            odd_elem.className = odd_status?"valid":"invalid";
+        });
+
+        function get_parity(bits, even = true) {
+            let parity = even ? 0 : 1;
+            for (let i = 0; i < bits.length; i++) {
+                if (bits[i]) {
+                    parity ^= 1; //flip when theres a one
+                }
+            }
+            return parity;
+        }
+
+        function manchester_decode(bits) {
+            let output = [];
+            const bits_str = bits.join("");
+            for (let i = 0; i < bits.length; i += 2) {
+                const current_bit = bits_str.substring(i, i + 2);
+                if (current_bit == "10") {
+                    output.push(1);
+                } else if (current_bit == "01") {
+                    output.push(0);
+                } /*else {
+                throw "Invalid input!";
+            }*/
+            }
+            return output;
+        }
+
+        function manchester_encode(bits) {
+            let output = [];
+            for (let i = 0; i < bits.length; i++) {
+                output = output.concat(bits[i] ? [1, 0] : [0, 1]);
+            }
+            return output;
+        }
+
+        function uint16_to_bits(input) {
+            let output = [];
+            for (let i = 15; i >= 0; i--) {
+                output.push((input >> i) & 1);
+            }
+            return output;
+        }
+
+        function uint8_to_bits(input) {
+            let output = [];
+            for (let i = 7; i >= 0; i--) {
+                output.push((input >> i) & 1);
+            }
+            return output;
+        }
+
+        function bits_to_number(input){
+            const bits = input.join(""); //join into a string
+            return parseInt(bits, 2); //parse as binary and return
+        }
+
+        function hexStr_to_bits(input) {
+            let output = [];
+            for (let i = 0; i < input.length; i++) {
+                const val = parseInt(input[i], 16);
+                if(isNaN(val)){
+                    continue;
+                }
+                for (let i = 3; i >= 0; i--) {
+                    output.push((val >> i) & 1);
+                }
+            }
+            return output;
+        }
+        function bits_to_hexStr(input) {
+            let output = "";
+            const bits = input.join("");
+            for (let i = 0; i < bits.length; i += 4) {
+                const val = parseInt(bits.substring(i, i + 4), 2);
+                output += val.toString(16);
+            }
+            return output.toLocaleUpperCase();
+        }
+
+        function str_to_bits(input){
+            return input.split("").map(e=>e=='1'?1:0)
+        }
+    </script>
+</body>
+
+</html>
