@@ -5,11 +5,14 @@
         #output {
             font-family: monospace;
             font-size: 1.2em;
-            margin-top:5px;
+            margin-top: 5px;
         }
-        #odd_check, #even_check {
+
+        #odd_check,
+        #even_check {
             display: inline;
         }
+
         .invalid {
             color: red;
         }
@@ -34,7 +37,6 @@
     Facility ID: <input id="facility_res" type="number" min="0" max="255" readonly><br>
     Card Number: <input id="card_res" type="number" min="0" max="65535" readonly><br>
     <script>
-        //TODO: address 8th grade ID
         const start = [0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1];
 
         document.querySelector("#enc").addEventListener("click", () => {
@@ -61,23 +63,23 @@
 
         const even_elem = document.querySelector("#even_check");
         const odd_elem = document.querySelector("#odd_check");
-        document.querySelector("#decode").addEventListener("click",()=>{
+        document.querySelector("#decode").addEventListener("click", () => {
             const bits = hexStr_to_bits(document.querySelector("#input").value);
-            if(bits.length !== 96){
+            if (bits.length !== 96) {
                 alert("You must enter a valid card!");
                 return;
             }
             //get rid of beginning 1s and ending 0s, manchester decode, and get rid of 19 filler bits
-            const decodedBits = manchester_decode(bits.slice(3,bits.length-3)).slice(19);
+            const decodedBits = manchester_decode(bits.slice(3, bits.length - 3)).slice(19);
             console.log(decodedBits);
 
-            if(decodedBits.length !== 26){
+            if (decodedBits.length !== 26) {
                 alert("Invalid manchester encoding!");
                 return;
             }
             const even_parity = decodedBits.shift(); //even parity from the start
             const odd_parity = decodedBits.pop(); //odd parity from the end
-            
+
             const facility = bits_to_number(decodedBits.slice(0, 8));
             const cardno = bits_to_number(decodedBits.slice(8, 24)); //being redundant for safety
 
@@ -87,19 +89,17 @@
             document.querySelector("#facility_res").value = facility;
             document.querySelector("#card_res").value = cardno;
 
-            even_elem.innerText = even_status?"VALID":"INVALID";
-            even_elem.className = even_status?"valid":"invalid";
-            
-            odd_elem.innerText = odd_status?"VALID":"INVALID";
-            odd_elem.className = odd_status?"valid":"invalid";
+            even_elem.innerText = even_status ? "VALID" : "INVALID";
+            even_elem.className = even_status ? "valid" : "invalid";
+
+            odd_elem.innerText = odd_status ? "VALID" : "INVALID";
+            odd_elem.className = odd_status ? "valid" : "invalid";
         });
 
         function get_parity(bits, even = true) {
             let parity = even ? 0 : 1;
             for (let i = 0; i < bits.length; i++) {
-                if (bits[i]) {
-                    parity ^= 1; //flip when theres a one
-                }
+                parity ^= bits[i]; //flip when theres a one (xoring with 0 does nothing)
             }
             return parity;
         }
@@ -144,7 +144,7 @@
             return output;
         }
 
-        function bits_to_number(input){
+        function bits_to_number(input) {
             const bits = input.join(""); //join into a string
             return parseInt(bits, 2); //parse as binary and return
         }
@@ -153,7 +153,7 @@
             let output = [];
             for (let i = 0; i < input.length; i++) {
                 const val = parseInt(input[i], 16);
-                if(isNaN(val)){
+                if (isNaN(val)) {
                     continue;
                 }
                 for (let i = 3; i >= 0; i--) {
@@ -172,8 +172,8 @@
             return output.toLocaleUpperCase();
         }
 
-        function str_to_bits(input){
-            return input.split("").map(e=>e=='1'?1:0)
+        function str_to_bits(input) {
+            return input.split("").map(e => e == '1' ? 1 : 0)
         }
     </script>
 </body>
