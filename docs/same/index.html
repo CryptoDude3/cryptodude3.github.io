@@ -43,7 +43,7 @@
     <option value="SSA">Storm Surge Watch</option>
     <option value="SSW">Storm Surge Warning</option>
     <option value="TOA">Tornado Watch</option>
-    <option value="TOR" selected>Tornado Warning</option>
+    <option value="TOR">Tornado Warning</option>
     <option value="TRA">Tropical Storm Watch</option>
     <option value="TRW">Tropical Storm Warning</option>
     <option value="TSA">Tsunami Watch</option>
@@ -75,14 +75,14 @@
     <option value="EAN">Emergency Action Notification</option>
     <option value="DMO">Practice/Demo Warning</option>
     <option value="RMT">Required Monthly Test</option>
-    <option value="RWT">Required Weekly Test</option>
+    <option value="RWT" selected>Required Weekly Test</option>
   </optgroup>
   </select><br>
   <label for="originators">Select Originator:</label>
   <select id="originators">
-    <option value="EAS">Emergency Alert System</option>
+    <option value="EAS" selected>Emergency Alert System</option>
     <option value="CIV">Civil Authorities</option>
-    <option value="WXR" selected>National Weather Service</option>
+    <option value="WXR">National Weather Service</option>
     <option value="PEP">Primary Entry Point</option>
   </select>
   <br>Time the alert is effective for:<br>
@@ -134,4 +134,20 @@
   <script src="main.js"></script>
 </body>
 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="container">
+        <h1>Text to Speech Converter</h1>
+        <textarea id="textInput" placeholder="Enter text here"></textarea>
+        <button id="speakButton">Speak</button>
+    </div>
+    <script src="script.js"></script>
+</body>
 </html>
+
