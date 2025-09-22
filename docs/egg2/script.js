@@ -273,6 +273,7 @@ document.addEventListener("keydown", function (e) {
 
 function restartGame() {
   bgMusic.playbackRate = defaultMusicRate;
+  bgMusic.currentTime = 0;
   egg = false;
   eggPosition = 0;
   game = true;
