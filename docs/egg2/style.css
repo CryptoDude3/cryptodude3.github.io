@@ -7,3 +7,19 @@ html, body {
 canvas {
   border:1px solid grey;
 }
+@media (max-width: 768px) {
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
