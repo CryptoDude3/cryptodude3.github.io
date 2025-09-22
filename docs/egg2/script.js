@@ -273,7 +273,6 @@ document.addEventListener("keydown", function (e) {
 
 function restartGame() {
   bgMusic.playbackRate = defaultMusicRate;
-  bgMusic.currentTime = 0;
   egg = false;
   eggPosition = 0;
   game = true;
@@ -463,8 +462,9 @@ function eggClick(basket = false) {
     onEgg();
   }
 }
-canvas.addEventListener('click', function (evt) {
-  if (collidesMouse(evt, eggpos) && egg && game) {
+
+function clickEvent(evt){
+    if (collidesMouse(evt, eggpos) && egg && game) {
     eggClick();
   }
   if (gameOverr) {
@@ -480,8 +480,18 @@ canvas.addEventListener('click', function (evt) {
     collisionCheckC(upgrade, evt, "upgrade");
     collisionCheckU(upgrades, evt, "upgrades");
   }
-});
+}
+canvas.addEventListener('click', clickEvent);
 
+canvas.addEventListener("touchstart",(e)=>{
+  const rect = canvas.getBoundingClientRect();
+  const touch = e.touches[0];
+
+  const clientX = touch.clientX * (canvas.width / rect.width);
+  const clientY = touch.clientY * (canvas.height / rect.height);
+
+  clickEvent({clientX,clientY})
+});
 function playSound(url) {
   if (sounds[url] && sound) {
     sounds[url].play();
